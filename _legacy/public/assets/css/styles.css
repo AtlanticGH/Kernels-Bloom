@@ -1,0 +1,141 @@
+/* Base styles + component fallbacks.
+   - If Tailwind is not built yet, this file still provides a usable design.
+   - If Tailwind *is* loaded (CDN or build), these are lightweight and compatible.
+*/
+
+:root {
+  /* Eco-lux (light by default) */
+  --paper: 250 248 242;
+  --ink: 20 24 18;
+  --muted: 87 96 80;
+  --line: 20 24 18 / 0.1;
+  --brand: 46 110 78;
+  --accent: 164 124 60;
+  color-scheme: light;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans",
+    sans-serif;
+}
+
+html[data-theme="light"] { color-scheme: light; }
+
+html[data-theme="dark"] {
+  --paper: 10 13 10;
+  --ink: 240 240 235;
+  --muted: 174 184 168;
+  --line: 240 240 235 / 0.12;
+  --brand: 120 206 149;
+  --accent: 210 170 98;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--paper) / 1);
+  color: rgb(var(--ink) / 1);
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Component class fallbacks (used throughout pages). */
+.shadow-glow {
+  box-shadow: 0 0 0 1px rgb(var(--line) / 1), 0 16px 60px rgb(0 0 0 / 0.12);
+}
+
+.card {
+  border-radius: 1rem;
+  background: rgb(var(--ink) / 0.04);
+  border: 1px solid rgb(var(--line) / 1);
+  padding: 1.5rem;
+  box-shadow: 0 0 0 1px rgb(var(--line) / 1), 0 16px 60px rgb(0 0 0 / 0.10);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgb(var(--ink) / 1);
+  background: rgb(var(--ink) / 0.05);
+  border: 1px solid rgb(var(--line) / 1);
+}
+
+.badge-impact {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgb(var(--brand) / 1);
+  background: rgb(var(--brand) / 0.10);
+  border: 1px solid rgb(var(--brand) / 0.22);
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+.link:hover { opacity: 0.85; }
+.link[aria-current="page"] { opacity: 0.7; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: 1px solid rgb(var(--line) / 1);
+  background: rgb(var(--ink) / 0.05);
+  color: rgb(var(--ink) / 1);
+  cursor: pointer;
+  transition: transform 120ms ease, background 120ms ease, opacity 120ms ease;
+}
+.btn:hover { background: rgb(var(--ink) / 0.08); }
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: rgb(var(--brand) / 1);
+  color: rgb(var(--paper) / 1);
+  border-color: transparent;
+}
+.btn-primary:hover { opacity: 0.92; }
+
+.btn-ghost { background: rgb(var(--ink) / 0.05); }
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgb(var(--ink) / 1);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease, opacity 120ms ease;
+}
+.icon-btn:hover {
+  background: rgb(var(--ink) / 0.04);
+  border-color: rgb(var(--line) / 1);
+}
+.icon-btn:active { transform: translateY(1px); }
+
+.input {
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  background: rgb(var(--paper) / 1);
+  color: rgb(var(--ink) / 1);
+  border: 1px solid rgb(var(--line) / 1);
+  outline: none;
+}
+.input:focus { box-shadow: 0 0 0 3px rgb(var(--brand) / 0.18); }

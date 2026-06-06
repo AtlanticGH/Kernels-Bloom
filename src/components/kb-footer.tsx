@@ -1,0 +1,69 @@
+import Link from "next/link";
+import { FOOTER_NAV, SITE } from "@/lib/site";
+import { GrainOverlay } from "./grain-overlay";
+import { HairlineRule } from "./hairline-rule";
+import { NewsletterForm } from "./newsletter-form";
+
+export function KBFooter() {
+  return (
+    <footer className="relative overflow-hidden bg-kb-dusk text-kb-parchment">
+      <GrainOverlay opacity={0.03} />
+      <div className="relative mx-auto max-w-kb-max px-6 py-kb-12">
+        <Link
+          href="/"
+          className="font-display text-[20px] font-normal text-kb-parchment"
+        >
+          Kernels &amp; Bloom
+        </Link>
+        <HairlineRule width="100%" variant="gold" className="mt-6" />
+
+        <div className="mt-kb-8 grid gap-kb-8 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <p className="kb-accent max-w-sm text-[18px] text-kb-parchment/70">
+              {SITE.tagline} Science-backed botanicals, crafted in Ghana and
+              returned to the circle.
+            </p>
+            <div className="mt-6 flex gap-6">
+              <a href={SITE.social.instagram} className="kb-label text-[11px] text-kb-gold hover:text-kb-kola">
+                Instagram
+              </a>
+              <a href={SITE.social.tiktok} className="kb-label text-[11px] text-kb-gold hover:text-kb-kola">
+                TikTok
+              </a>
+              <a href={SITE.social.pinterest} className="kb-label text-[11px] text-kb-gold hover:text-kb-kola">
+                Pinterest
+              </a>
+            </div>
+            <div className="mt-8 max-w-sm">
+              <p className="kb-label text-[11px] text-kb-gold">The Journal, by post</p>
+              <NewsletterForm className="mt-3" />
+            </div>
+          </div>
+
+          {FOOTER_NAV.map((col) => (
+            <div key={col.heading} className="md:col-span-2">
+              <p className="kb-label text-[11px] text-kb-gold">{col.heading}</p>
+              <ul className="mt-4 space-y-3">
+                {col.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="font-body text-[13px] font-light text-kb-parchment/60 transition-colors hover:text-kb-parchment"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <HairlineRule width="100%" variant="gold" className="mt-kb-8" />
+        <p className="mt-6 font-body text-[11px] font-light text-kb-parchment/40">
+          © {new Date().getFullYear()} Kernels &amp; Bloom, Ghana · Made with purpose
+        </p>
+      </div>
+    </footer>
+  );
+}
