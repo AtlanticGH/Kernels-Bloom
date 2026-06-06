@@ -3,8 +3,14 @@ import Link from "next/link";
 import type { Product } from "@/lib/types";
 import { getIngredient, getCategory } from "@/lib/data";
 
-/** Borderless product card — Parchment, 3:4 image, image-only scale on hover. */
-export function ProductCard({ product }: { product: Product }) {
+/** Borderless product card — Parchment, 3:4 image (or square), image-only scale on hover. */
+export function ProductCard({
+  product,
+  square = false,
+}: {
+  product: Product;
+  square?: boolean;
+}) {
   const ingredient = getIngredient(product.keyIngredient);
   const category = getCategory(product.category);
 
@@ -13,7 +19,11 @@ export function ProductCard({ product }: { product: Product }) {
       href={`/shop/${product.category}/${product.slug}`}
       className="group block bg-kb-parchment"
     >
-      <div className="relative aspect-[3/4] overflow-hidden bg-kb-chalk">
+      <div
+        className={`relative overflow-hidden bg-kb-chalk ${
+          square ? "aspect-square" : "aspect-[3/4]"
+        }`}
+      >
         <Image
           src={product.image}
           alt={`${product.name} — ${product.volume}, ${ingredient?.commonName ?? "botanical"} on a warm stone surface`}

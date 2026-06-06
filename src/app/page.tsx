@@ -102,40 +102,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. Featured products */}
-      <section className="bg-kb-parchment py-kb-16">
-        <div className="mx-auto max-w-kb-max px-6">
-          <SectionHeader
-            label="The Collection"
-            headline="Rooted in nature. Refined by science."
-          />
-          <div className="mt-kb-8 grid grid-cols-1 gap-x-6 gap-y-kb-8 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((product, i) => (
-              <Reveal key={product.slug} delay={i * 0.08}>
-                <ProductCard product={product} />
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-kb-8">
-            <GoldCTA href="/shop/all">View all products →</GoldCTA>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Ingredient story feature */}
-      <section className="bg-kb-parchment pb-kb-16">
-        <div className="mx-auto grid max-w-kb-max grid-cols-1 items-stretch gap-px md:grid-cols-5">
-          <div className="relative min-h-[400px] bg-kb-chalk md:col-span-3 md:min-h-[500px]">
+      {/* 4. Ingredient story feature */}
+      <section className="overflow-hidden bg-kb-parchment pb-kb-16">
+        <div className="grid w-full grid-cols-1 items-stretch md:grid-cols-2">
+          <div className="relative min-h-[400px] bg-kb-chalk md:min-h-[600px]">
             <Image
               src="/images/DSC09553.jpg"
               alt="Absolute Shea moisturising bar soap, wrapped in kraft and linen, against a lush botanical backdrop"
               fill
-              sizes="(max-width: 768px) 100vw, 60vw"
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
             <GrainOverlay opacity={0.06} />
           </div>
-          <div className="relative flex flex-col justify-center px-6 py-kb-12 md:col-span-2 md:px-kb-8">
+          <div className="relative flex flex-col justify-center px-6 py-kb-12 md:px-kb-12">
             <BotanicalIllustration
               name="Shea"
               size={240}
@@ -164,6 +144,26 @@ export default function HomePage() {
                 </GoldCTA>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Featured products */}
+      <section className="bg-kb-parchment pb-kb-16">
+        <div className="mx-auto max-w-kb-max px-6">
+          <SectionHeader
+            label="The Collection"
+            headline="Rooted in nature. Refined by science."
+          />
+          <div className="mt-kb-8 grid grid-cols-1 gap-x-6 gap-y-kb-8 sm:grid-cols-2 lg:grid-cols-4">
+            {featured.map((product, i) => (
+              <Reveal key={product.slug} delay={i * 0.08}>
+                <ProductCard product={product} square />
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-kb-8">
+            <GoldCTA href="/shop/all">View all products →</GoldCTA>
           </div>
         </div>
       </section>

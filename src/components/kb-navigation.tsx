@@ -66,7 +66,7 @@ export function KBNavigation() {
       <div className="mx-auto flex max-w-kb-max items-center justify-between px-6 py-5">
         <Link
           href="/"
-          className={`font-display text-[18px] text-kb-cacao ${
+          className={`font-display text-[24px] text-kb-cacao ${
             atBottom ? "font-semibold" : "font-normal"
           }`}
           onClick={() => setOpen(false)}
@@ -81,7 +81,7 @@ export function KBNavigation() {
               key={link.href}
               href={link.href}
               aria-current={isActive(link.href) ? "page" : undefined}
-              className={`kb-label text-[11px] transition-opacity duration-200 hover:opacity-60 ${
+              className={`kb-label text-[13px] transition-opacity duration-200 hover:opacity-60 ${
                 atBottom ? "font-bold" : ""
               } ${
                 isActive(link.href) ? "text-kb-terracotta opacity-100" : "text-kb-dusk opacity-80"

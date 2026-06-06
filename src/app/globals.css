@@ -39,6 +39,14 @@ html {
   --font-playfair: var(--font-accent);
 }
 
+/* Prevent horizontal/side scrolling. `clip` (not `hidden`) avoids creating a
+   scroll container, so position: sticky descendants keep working. */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

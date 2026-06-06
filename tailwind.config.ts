@@ -44,11 +44,11 @@ const config: Config = {
         kb: "2px",
       },
       maxWidth: {
-        kb: "1280px",
-        "kb-content": "900px",
+        kb: "1536px",
+        "kb-content": "1040px",
         "kb-text": "640px",
         "kb-narrow": "480px",
-        "kb-max": "1280px",
+        "kb-max": "1536px",
       },
       spacing: {
         "kb-1": "8px",
