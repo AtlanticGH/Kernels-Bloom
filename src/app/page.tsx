@@ -12,6 +12,7 @@ import { KBButton } from "@/components/kb-button";
 import { Reveal } from "@/components/reveal";
 import { CurrencyToggle } from "@/components/currency-toggle";
 import { HeroHeadline } from "@/components/hero-headline";
+import { BrandMarquee } from "@/components/brand-marquee";
 import {
   getFeaturedProducts,
   getAllArticles,
@@ -146,7 +147,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Featured products */}
+      {/* 5. Brands worked with */}
+      <BrandMarquee />
+
+      {/* 6. Featured products */}
       <section className="bg-kb-parchment pb-kb-16">
         <div className="mx-auto max-w-kb-max px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -169,7 +173,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. The circular process */}
+      {/* 7. The circular process */}
       <section className="bg-kb-linen py-kb-16">
         <div className="mx-auto max-w-kb-max px-6">
           <SectionHeader
@@ -207,7 +211,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. Community sourcing */}
+      {/* 8. Community sourcing */}
       <section className="relative overflow-hidden bg-kb-dusk py-kb-16">
         <GrainOverlay opacity={0.05} />
         <div className="relative mx-auto grid max-w-kb-max grid-cols-1 gap-kb-12 px-6 md:grid-cols-5">
@@ -249,7 +253,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. Skin Ritual / quiz CTA */}
+      {/* 9. Skin Ritual / quiz CTA */}
       <section className="relative overflow-hidden bg-kb-parchment py-kb-16">
         <CornerBrackets arm={60} inset={32} />
         <div className="relative mx-auto max-w-2xl px-6 text-center">
@@ -270,7 +274,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. Journal preview */}
+      {/* 10. Journal preview */}
       <section className="bg-kb-parchment py-kb-16">
         <div className="mx-auto max-w-kb-max px-6">
           <SectionHeader label="The Journal" headline="Field notes and ingredient lives." />
@@ -291,7 +295,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 10. Trade / B2B banner */}
+      {/* 11. Trade / B2B banner */}
       <section className="bg-kb-cacao py-kb-12">
         <div className="mx-auto grid max-w-kb-max grid-cols-1 items-center gap-kb-8 px-6 md:grid-cols-2 md:divide-x md:divide-kb-gold/40">
           <h2 className="font-display text-[clamp(28px,4vw,36px)] font-light italic text-kb-parchment">

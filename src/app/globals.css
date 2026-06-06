@@ -304,7 +304,29 @@ body {
   background-color: var(--kb-linen);
 }
 
+/* Infinite logo marquee — duplicate strip scrolls by 50% for seamless loop */
+@keyframes kb-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.kb-marquee-track {
+  animation: kb-marquee 45s linear infinite;
+}
+
+.kb-marquee-track:hover {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .kb-marquee-track {
+    animation: none;
+  }
+
   .kb-reveal {
     opacity: 1;
     transform: none;
