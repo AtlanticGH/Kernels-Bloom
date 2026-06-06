@@ -22,10 +22,10 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <section
-      className={`relative overflow-hidden bg-kb-cacao py-kb-16 ${className}`}
+      className={`relative overflow-hidden bg-kb-cacao pb-kb-16 pt-[var(--header-height)] ${className}`}
     >
       <GrainOverlay opacity={0.05} />
-      <div className="relative mx-auto max-w-kb-max px-6">
+      <div className="relative mx-auto max-w-kb-max px-6 pt-kb-12">
         <Breadcrumbs tone="dark" items={breadcrumbs} />
         <p className="mt-6 kb-label text-kb-gold">{label}</p>
         <HeroHeadline className="mt-3" />
@@ -41,6 +41,7 @@ export function PageHero({
   );
 }
 
+/** Wraps inner pages; hero bands handle header offset so no top padding is needed. */
 export function PageShell({ children }: { children: React.ReactNode }) {
-  return <div className="pt-[88px]">{children}</div>;
+  return <>{children}</>;
 }

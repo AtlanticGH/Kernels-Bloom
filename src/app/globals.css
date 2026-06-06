@@ -29,6 +29,7 @@
   --content-width: 900px;
   --gutter: clamp(24px, 5vw, 80px);
   --radius: 2px;
+  --header-height: 72px;
 }
 
 /* Font-variable aliases — next/font sets --font-display/body/accent on <html>;
@@ -50,6 +51,7 @@ body {
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
   }
 
   body {
@@ -284,6 +286,13 @@ body {
 .kb-revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Fixed header + matching dropdown surface */
+.kb-header-surface {
+  background-color: rgba(250, 246, 240, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* Dark + linen section bases */

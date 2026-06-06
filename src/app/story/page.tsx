@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const CHAPTERS = [
-  { name: "Brand Story", href: "/story/brand", body: "A tribute to the beauty of Africa, told plainly." },
-  { name: "The Facility", href: "/story/facility", body: "Where the botanicals become formulations." },
-  { name: "Circular Process", href: "/story/circular-process", body: "Waste, transformed into luxury." },
-  { name: "Community Partners", href: "/story/communities", body: "The twenty-plus communities we source with." },
+  { name: "Discover the Bloom", href: "/story/brand", body: "A tribute to the beauty of Africa, told plainly." },
+  { name: "Heart of Operation", href: "/story/facility", body: "Where the botanicals become formulations." },
+  { name: "Transformation Zone", href: "/story/circular-process", body: "Waste, transformed into luxury." },
+  { name: "Sustainability Drivers", href: "/story/communities", body: "The twenty-plus communities we source with." },
   { name: "Founder", href: "/story/founder", body: "The vision, and the why." },
 ];
 

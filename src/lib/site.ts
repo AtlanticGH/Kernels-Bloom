@@ -15,6 +15,14 @@ export const SITE = {
 
 export type NavLink = { label: string; href: string };
 
+export const STORY_NAV: NavLink[] = [
+  { label: "Discover the Bloom", href: "/story/brand" },
+  { label: "Heart of Operation", href: "/story/facility" },
+  { label: "Transformation Zone", href: "/story/circular-process" },
+  { label: "Sustainability Drivers", href: "/story/communities" },
+  { label: "Founder", href: "/story/founder" },
+];
+
 export const PRIMARY_NAV: NavLink[] = [
   { label: "Shop", href: "/shop" },
   { label: "Botanicals", href: "/botanicals" },

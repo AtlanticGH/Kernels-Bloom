@@ -35,7 +35,6 @@ export default function TradePage() {
           { name: "Trade", href: "/trade" },
         ]}
         label="Trade & Wholesale"
-        className="pb-kb-8"
       />
 
       {/* why */}
