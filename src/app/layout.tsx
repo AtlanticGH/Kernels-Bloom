@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Cormorant_Garamond, Jost, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { CurrencyProvider } from "@/components/currency-provider";
 import { KBNavigation } from "@/components/kb-navigation";
 import { KBFooter } from "@/components/kb-footer";
 import { OrganizationJsonLd } from "@/components/json-ld";
@@ -76,9 +77,11 @@ export default function RootLayout({
           Skip to content
         </a>
         <OrganizationJsonLd />
-        <KBNavigation />
-        <main id="main">{children}</main>
-        <KBFooter />
+        <CurrencyProvider>
+          <KBNavigation />
+          <main id="main">{children}</main>
+          <KBFooter />
+        </CurrencyProvider>
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){

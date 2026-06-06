@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ProductPrice } from "@/components/product-price";
 import type { Product } from "@/lib/types";
 import { getIngredient, getCategory } from "@/lib/data";
 
@@ -49,7 +50,7 @@ export function ProductCard({
         </p>
       )}
       <p className="mt-2 font-body text-[13px] font-light text-kb-dusk/60">
-        £{product.price} · {product.volume}
+        <ProductPrice amount={product.price} volume={product.volume} />
       </p>
     </Link>
   );

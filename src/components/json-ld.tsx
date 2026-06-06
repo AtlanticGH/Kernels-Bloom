@@ -44,7 +44,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
         brand: { "@type": "Brand", name: SITE.name },
         offers: {
           "@type": "Offer",
-          priceCurrency: "GBP",
+          priceCurrency: "USD",
           price: product.price,
           availability: product.inStock
             ? "https://schema.org/InStock"

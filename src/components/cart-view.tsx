@@ -11,10 +11,14 @@ import {
   setQuantity,
   type CartItem,
 } from "@/lib/cart";
+import { useCurrency } from "@/components/currency-provider";
+import { CurrencyToggle } from "@/components/currency-toggle";
+import { ProductPrice } from "@/components/product-price";
 import { KBButton } from "./kb-button";
 import { HairlineRule } from "./hairline-rule";
 
 export function CartView({ products }: { products: Product[] }) {
+  const { formatAmount } = useCurrency();
   const [items, setItems] = useState<CartItem[] | null>(null);
   const bySlug = Object.fromEntries(products.map((p) => [p.slug, p]));
 
@@ -57,6 +61,9 @@ export function CartView({ products }: { products: Product[] }) {
 
   return (
     <div className="grid grid-cols-1 gap-kb-12 lg:grid-cols-[1fr_360px]">
+      <div className="flex justify-end lg:col-span-2">
+        <CurrencyToggle />
+      </div>
       <ul className="divide-y-[0.5px] divide-kb-chalk border-y-[0.5px] border-kb-chalk">
         {lines.map(({ item, product }) => (
           <li key={product.slug} className="flex gap-6 py-6">
@@ -77,7 +84,7 @@ export function CartView({ products }: { products: Product[] }) {
                 {product.name}
               </Link>
               <p className="mt-1 font-body text-[13px] font-light text-kb-dusk/60">
-                {product.volume} · £{product.price}
+                <ProductPrice amount={product.price} volume={product.volume} />
               </p>
               <div className="mt-auto flex items-center gap-4 pt-3">
                 <div className="flex items-center gap-3 border-[0.5px] border-kb-chalk px-3 py-1">
@@ -111,7 +118,7 @@ export function CartView({ products }: { products: Product[] }) {
               </div>
             </div>
             <p className="font-body text-[15px] font-light text-kb-dusk">
-              £{product.price * item.quantity}
+              {formatAmount(product.price * item.quantity)}
             </p>
           </li>
         ))}
@@ -122,7 +129,7 @@ export function CartView({ products }: { products: Product[] }) {
           <p className="kb-label text-[10px] text-kb-terracotta">Summary</p>
           <div className="mt-4 flex items-center justify-between font-body text-[15px] font-light text-kb-dusk">
             <span>Subtotal</span>
-            <span>£{subtotal}</span>
+            <span>{formatAmount(subtotal)}</span>
           </div>
           <p className="mt-2 font-body text-[13px] font-light text-kb-dusk/60">
             Shipping calculated at checkout. Refill and return options shown up

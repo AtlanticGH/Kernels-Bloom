@@ -10,6 +10,7 @@ import { ArticleCard } from "@/components/article-card";
 import { BotanicalIllustration } from "@/components/botanical-illustration";
 import { KBButton } from "@/components/kb-button";
 import { Reveal } from "@/components/reveal";
+import { CurrencyToggle } from "@/components/currency-toggle";
 import { HeroHeadline } from "@/components/hero-headline";
 import {
   getFeaturedProducts,
@@ -120,7 +121,7 @@ export default function HomePage() {
               className="pointer-events-none absolute -right-6 top-6"
             />
             <div className="relative">
-              <p className="kb-label text-kb-dusk">Ingredient Story</p>
+              <p className="kb-label text-[12px] text-kb-dusk/60">Ingredient Story</p>
               <h2 className="mt-3 font-display text-[clamp(40px,6vw,52px)] font-light italic text-kb-dusk">
                 {shea.commonName}
               </h2>
@@ -148,10 +149,13 @@ export default function HomePage() {
       {/* 5. Featured products */}
       <section className="bg-kb-parchment pb-kb-16">
         <div className="mx-auto max-w-kb-max px-6">
-          <SectionHeader
-            label="The Collection"
-            headline="Rooted in nature. Refined by science."
-          />
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionHeader
+              label="The Collection"
+              headline="Rooted in nature. Refined by science."
+            />
+            <CurrencyToggle />
+          </div>
           <div className="mt-kb-8 grid grid-cols-1 gap-x-6 gap-y-kb-8 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((product, i) => (
               <Reveal key={product.slug} delay={i * 0.08}>

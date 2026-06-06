@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { CurrencyToggle } from "@/components/currency-toggle";
 import { PRIMARY_NAV, SITE, STORY_NAV } from "@/lib/site";
 
 export function KBNavigation() {
@@ -66,6 +67,7 @@ export function KBNavigation() {
     } ${active ? "text-kb-terracotta opacity-100" : "text-kb-dusk opacity-80"}`;
 
   return (
+    <>
     <header
       ref={headerRef}
       className={`inset-x-0 z-50 transition-[background-color,box-shadow] duration-300 ${
@@ -112,11 +114,13 @@ export function KBNavigation() {
               </Link>
             )
           )}
+          <CurrencyToggle compact />
           <CartIcon />
         </nav>
 
         {/* mobile controls */}
-        <div className="flex items-center gap-4 lg:hidden">
+        <div className="flex items-center gap-3 lg:hidden">
+          <CurrencyToggle compact />
           <CartIcon />
           <button
             type="button"
@@ -136,39 +140,43 @@ export function KBNavigation() {
           </button>
         </div>
       </div>
-
-      {/* mobile overlay */}
-      {open && (
-        <div className="fixed inset-0 top-[var(--header-height)] z-40 overflow-y-auto bg-kb-parchment lg:hidden">
-          <nav aria-label="Mobile" className="flex flex-col gap-2 px-6 py-10">
-            {PRIMARY_NAV.map((link) =>
-              link.label === "Our Story" ? (
-                <StoryMobileLinks
-                  key={link.href}
-                  active={isStoryActive}
-                  onNavigate={() => setOpen(false)}
-                />
-              ) : (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  aria-current={isActive(link.href) ? "page" : undefined}
-                  className={`border-b-[0.5px] border-kb-chalk py-4 font-display text-[28px] font-light italic transition-opacity hover:opacity-60 ${
-                    isActive(link.href) ? "text-kb-terracotta" : "text-kb-cacao"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
-            <p className="mt-8 kb-label text-[10px] text-kb-dusk/50">
-              {SITE.origin} · Luxury circular beauty
-            </p>
-          </nav>
-        </div>
-      )}
     </header>
+
+    {/* Render outside header so backdrop-filter does not trap fixed positioning */}
+    {open && (
+      <div className="fixed inset-0 top-[var(--header-height)] z-40 overflow-y-auto bg-kb-parchment lg:hidden">
+        <nav aria-label="Mobile" className="flex flex-col gap-2 px-6 py-10">
+          <div className="mb-4 flex justify-end">
+            <CurrencyToggle />
+          </div>
+          {PRIMARY_NAV.map((link) =>
+            link.label === "Our Story" ? (
+              <StoryMobileLinks
+                key={link.href}
+                active={isStoryActive}
+                onNavigate={() => setOpen(false)}
+              />
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`border-b-[0.5px] border-kb-chalk py-4 font-display text-[28px] font-light italic transition-opacity hover:opacity-60 ${
+                  isActive(link.href) ? "text-kb-terracotta" : "text-kb-cacao"
+                }`}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
+          <p className="mt-8 kb-label text-[10px] text-kb-dusk/50">
+            {SITE.origin} · Luxury circular beauty
+          </p>
+        </nav>
+      </div>
+    )}
+    </>
   );
 }
 

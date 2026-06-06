@@ -1,16 +1,32 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useCurrency } from "@/components/currency-provider";
+import { CurrencyToggle } from "@/components/currency-toggle";
+import { formatPriceBand } from "@/lib/currency";
 import type { Product } from "@/lib/types";
 import { ProductCard } from "./product-card";
 
 type SortKey = "featured" | "price-asc" | "price-desc";
 
 const PRICE_BANDS = [
-  { label: "Under £40", min: 0, max: 40 },
-  { label: "£40–£70", min: 40, max: 70 },
-  { label: "£70+", min: 70, max: Infinity },
-];
+  { key: "under-40", min: 0, max: 40 },
+  { key: "40-70", min: 40, max: 70 },
+  { key: "70-plus", min: 70, max: Infinity },
+] as const;
+
+function priceBandLabel(
+  band: (typeof PRICE_BANDS)[number],
+  currency: "USD" | "GHS"
+): string {
+  if (band.max === Infinity) {
+    return `${formatPriceBand(band.min, currency)}+`;
+  }
+  if (band.min === 0) {
+    return `Under ${formatPriceBand(band.max, currency)}`;
+  }
+  return `${formatPriceBand(band.min, currency)}–${formatPriceBand(band.max, currency)}`;
+}
 
 export function CollectionView({
   products,
@@ -23,6 +39,16 @@ export function CollectionView({
   const [ingredient, setIngredient] = useState<string | null>(null);
   const [band, setBand] = useState<string | null>(null);
   const [sort, setSort] = useState<SortKey>("featured");
+  const { currency } = useCurrency();
+
+  const priceBands = useMemo(
+    () =>
+      PRICE_BANDS.map((band) => ({
+        ...band,
+        label: priceBandLabel(band, currency),
+      })),
+    [currency]
+  );
 
   const skinTypes = useMemo(
     () => Array.from(new Set(products.flatMap((p) => p.skinTypes))).sort(),
@@ -38,7 +64,7 @@ export function CollectionView({
       if (skinType && !p.skinTypes.includes(skinType)) return false;
       if (ingredient && p.keyIngredient !== ingredient) return false;
       if (band) {
-        const b = PRICE_BANDS.find((x) => x.label === band)!;
+        const b = PRICE_BANDS.find((x) => x.key === band)!;
         if (p.price < b.min || p.price >= b.max) return false;
       }
       return true;
@@ -57,7 +83,10 @@ export function CollectionView({
       label: ingredientNames[ingredient] ?? ingredient,
       clear: () => setIngredient(null),
     },
-    band && { label: band, clear: () => setBand(null) },
+    band && {
+      label: priceBands.find((b) => b.key === band)?.label ?? band,
+      clear: () => setBand(null),
+    },
   ].filter(Boolean) as { label: string; clear: () => void }[];
 
   return (
@@ -79,7 +108,8 @@ export function CollectionView({
         />
         <FilterGroup
           title="Price"
-          options={PRICE_BANDS.map((b) => b.label)}
+          options={priceBands.map((b) => b.key)}
+          labels={Object.fromEntries(priceBands.map((b) => [b.key, b.label]))}
           selected={band}
           onSelect={(v) => setBand((c) => (c === v ? null : v))}
         />
@@ -91,6 +121,8 @@ export function CollectionView({
           <p className="kb-label text-[10px] text-kb-dusk/50">
             {filtered.length} {filtered.length === 1 ? "product" : "products"}
           </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <CurrencyToggle />
           <label className="flex items-center gap-2 kb-label text-[10px] text-kb-dusk/60">
             Sort
             <select
@@ -103,6 +135,7 @@ export function CollectionView({
               <option value="price-desc">Price, high to low</option>
             </select>
           </label>
+          </div>
         </div>
 
         {activeChips.length > 0 && (

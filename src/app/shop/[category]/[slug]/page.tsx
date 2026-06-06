@@ -12,6 +12,7 @@ import { HairlineRule } from "@/components/hairline-rule";
 import { CornerBrackets } from "@/components/corner-brackets";
 import { Accordion } from "@/components/accordion";
 import { AddToCart } from "@/components/add-to-cart";
+import { ProductPriceSection } from "@/components/product-price-section";
 import { GoldCTA } from "@/components/gold-cta";
 import { ProductCard } from "@/components/product-card";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
@@ -94,12 +95,7 @@ export default function ProductPage({ params }: { params: Params }) {
                 {keyIngredient.commonName}
               </p>
             )}
-            <p className="mt-5 font-body text-[18px] font-light text-kb-dusk">
-              £{product.price}
-            </p>
-            <p className="font-body text-[13px] font-light text-kb-dusk/60">
-              {product.volume}
-            </p>
+            <ProductPriceSection price={product.price} volume={product.volume} />
 
             <HairlineRule width="100%" variant="chalk" className="my-6" />
 

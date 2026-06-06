@@ -54,7 +54,7 @@ export interface Product {
   usage: string;
   sustainability: string;
   inci: string;
-  price: number; // GBP
+  price: number; // USD
   volume: string;
   image: string;
   featured: boolean;
