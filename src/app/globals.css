@@ -27,8 +27,16 @@
 
   --max-width: 1280px;
   --content-width: 900px;
-  --gutter: 24px;
+  --gutter: clamp(24px, 5vw, 80px);
   --radius: 2px;
+}
+
+/* Font-variable aliases — next/font sets --font-display/body/accent on <html>;
+   expose the spec's --font-cormorant/jost/playfair names too. */
+html {
+  --font-cormorant: var(--font-display);
+  --font-jost: var(--font-body);
+  --font-playfair: var(--font-accent);
 }
 
 @layer base {
@@ -88,7 +96,8 @@
     top: 16px;
   }
 
-  /* UI label — Jost caps, the workhorse small-type style */
+  /* UI label — Jost caps, the workhorse small-type style.
+     Kept in @layer components so Tailwind colour/size utilities override it. */
   .kb-label {
     font-family: var(--font-body), sans-serif;
     font-weight: 400;
@@ -96,6 +105,13 @@
     letter-spacing: 0.12em;
     font-size: 11px;
     line-height: 1.4;
+    color: var(--kb-terracotta);
+  }
+  .kb-label-gold {
+    color: var(--kb-gold);
+  }
+  .kb-label-kola {
+    color: var(--kb-kola);
   }
 
   /* Body copy default */
@@ -149,7 +165,135 @@
   width: 100%;
 }
 
+/* ---------------------------------------------------------------------------
+   Design-system utilities (refinement pass). Class-based equivalents of the
+   primitive components, for places where a utility class is more ergonomic.
+   --------------------------------------------------------------------------- */
+
+/* Corner brackets — Gold L-shapes pinned to the corners of the element */
+.kb-brackets {
+  position: relative;
+}
+.kb-brackets::before,
+.kb-brackets::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--kb-gold);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 2;
+}
+.kb-brackets::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+.kb-brackets::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
+}
+.kb-brackets-lg::before,
+.kb-brackets-lg::after {
+  width: 40px;
+  height: 40px;
+}
+
+/* Hairline rule */
+.kb-rule {
+  display: block;
+  height: 0.5px;
+  background: var(--kb-gold);
+  border: none;
+  width: 80px;
+  margin: var(--space-3) 0;
+}
+.kb-rule-chalk {
+  background: var(--kb-chalk);
+}
+.kb-rule-terracotta {
+  background: var(--kb-terracotta);
+}
+.kb-rule-full {
+  width: 100%;
+}
+
+/* Gold CTA text link — static underline, opacity on hover */
+.kb-cta {
+  display: inline-block;
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kb-cacao);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--kb-gold);
+  padding-bottom: 3px;
+  transition: opacity 300ms ease;
+}
+.kb-cta:hover {
+  opacity: 0.65;
+}
+.kb-cta-light {
+  color: var(--kb-parchment);
+}
+.kb-cta-light:hover {
+  opacity: 0.7;
+}
+
+/* Pull quote — Playfair Display italic */
+.kb-quote {
+  font-family: var(--font-accent), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.2vw, 26px);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: var(--kb-cacao);
+  quotes: none;
+}
+
+/* Ingredient callout — Playfair Display italic, Terracotta */
+.kb-ingredient {
+  font-family: var(--font-accent), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--kb-terracotta);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+/* Scroll reveal — IntersectionObserver adds .kb-revealed */
+.kb-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 600ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 600ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.kb-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dark + linen section bases */
+.kb-dark {
+  background-color: var(--kb-dusk);
+  color: var(--kb-parchment);
+}
+.kb-linen-bg {
+  background-color: var(--kb-linen);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .kb-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   *,
   *::before,
   *::after {

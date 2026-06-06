@@ -11,75 +11,10 @@ type CornerBracketsProps = {
 };
 
 /**
- * Two open L-shapes framing an element. 1px gold lines per the brand guide.
- * Decorative — hidden from assistive tech.
+ * Corner angle-markings — intentionally disabled across the site.
+ * Kept as a no-op so existing call sites continue to type-check without edits.
  */
-export function CornerBrackets({
-  arm = 80,
-  color = "var(--kb-gold)",
-  inset = 24,
-  all = false,
-  className = "",
-}: CornerBracketsProps) {
-  const line: React.CSSProperties = {
-    position: "absolute",
-    borderColor: color,
-  };
-  return (
-    <div
-      aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 ${className}`}
-    >
-      {/* top-left */}
-      <span
-        style={{
-          ...line,
-          top: inset,
-          left: inset,
-          width: arm,
-          height: arm,
-          borderTop: "1px solid",
-          borderLeft: "1px solid",
-        }}
-      />
-      {/* bottom-right */}
-      <span
-        style={{
-          ...line,
-          bottom: inset,
-          right: inset,
-          width: arm,
-          height: arm,
-          borderBottom: "1px solid",
-          borderRight: "1px solid",
-        }}
-      />
-      {all && (
-        <>
-          <span
-            style={{
-              ...line,
-              top: inset,
-              right: inset,
-              width: arm,
-              height: arm,
-              borderTop: "1px solid",
-              borderRight: "1px solid",
-            }}
-          />
-          <span
-            style={{
-              ...line,
-              bottom: inset,
-              left: inset,
-              width: arm,
-              height: arm,
-              borderBottom: "1px solid",
-              borderLeft: "1px solid",
-            }}
-          />
-        </>
-      )}
-    </div>
-  );
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function CornerBrackets(_props: CornerBracketsProps) {
+  return null;
 }

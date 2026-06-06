@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CornerBrackets } from "@/components/corner-brackets";
 import { GrainOverlay } from "@/components/grain-overlay";
@@ -50,18 +51,21 @@ export default function HomePage() {
       {/* 1. Navigation is global (layout). */}
 
       {/* 2. Hero */}
-      <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-kb-kola">
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-kb-kola">
         <GrainOverlay opacity={0.08} />
         <CornerBrackets arm={80} inset={40} />
-        <div className="relative mx-auto w-full max-w-kb-max px-6 sm:px-kb-12">
-          <div className="max-w-[640px]">
+        <div className="relative z-10 mx-auto w-full max-w-kb-max px-6 sm:px-kb-12">
+          <div className="max-w-[820px]">
             <p className="kb-label text-kb-terracotta">
               Ghanaian Luxury Botanicals
             </p>
-            <h1 className="mt-5 font-display text-[clamp(48px,8vw,80px)] font-light italic leading-[1.05] text-kb-cacao">
-              From the kernel. To your bloom.
+            <h1 className="mt-5 font-display text-[clamp(40px,5vw,72px)] font-semibold not-italic leading-[1.1] tracking-tight text-kb-cacao">
+              From the kernel.
+              <br />
+              To your bloom.
             </h1>
-            <p className="mt-6 max-w-[440px] font-body text-[16px] font-light leading-relaxed text-kb-dusk/70">
+            <HairlineRule width="80px" variant="gold" className="mt-6" />
+            <p className="mt-6 max-w-[480px] font-body text-body-lg font-light text-kb-dusk/70">
               Science-backed formulations rooted in Africa&apos;s richest
               botanicals. Crafted in Ghana, for skin that remembers where it
               comes from.
@@ -74,24 +78,12 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-            className="animate-kb-chevron text-kb-chalk"
-          >
-            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-          </svg>
-        </div>
       </section>
 
       {/* 3. Brand statistics bar */}
-      <section className="relative overflow-hidden bg-kb-dusk py-kb-12">
+      <section className="relative overflow-hidden bg-kb-dusk py-kb-6">
         <GrainOverlay opacity={0.04} />
-        <div className="relative mx-auto grid max-w-kb-max grid-cols-2 gap-y-10 px-6 md:grid-cols-4">
+        <div className="relative mx-auto grid max-w-kb-max grid-cols-2 gap-y-6 px-6 md:grid-cols-4">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
@@ -134,10 +126,14 @@ export default function HomePage() {
       <section className="bg-kb-parchment pb-kb-16">
         <div className="mx-auto grid max-w-kb-max grid-cols-1 items-stretch gap-px md:grid-cols-5">
           <div className="relative min-h-[400px] bg-kb-chalk md:col-span-3 md:min-h-[500px]">
+            <Image
+              src="/images/DSC09553.jpg"
+              alt="Absolute Shea moisturising bar soap, wrapped in kraft and linen, against a lush botanical backdrop"
+              fill
+              sizes="(max-width: 768px) 100vw, 60vw"
+              className="object-cover"
+            />
             <GrainOverlay opacity={0.06} />
-            <div className="absolute inset-0 grid place-items-center">
-              <BotanicalIllustration name="Shea" size="48%" opacity={0.45} />
-            </div>
           </div>
           <div className="relative flex flex-col justify-center px-6 py-kb-12 md:col-span-2 md:px-kb-8">
             <BotanicalIllustration

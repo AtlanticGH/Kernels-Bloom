@@ -65,7 +65,7 @@ export default function ProductPage({ params }: { params: Params }) {
         <div className="mt-kb-8 grid grid-cols-1 gap-kb-12 lg:grid-cols-[55fr_45fr]">
           {/* images */}
           <div>
-            <div className="relative aspect-[4/5] overflow-hidden bg-kb-chalk">
+            <div className="relative aspect-[4/5] overflow-hidden bg-kb-linen">
               <Image
                 src={product.image}
                 alt={`${product.name} — ${keyIngredient?.commonName ?? "botanical"} formulation in glass on a warm stone surface`}
@@ -75,28 +75,10 @@ export default function ProductPage({ params }: { params: Params }) {
                 className="object-cover"
               />
             </div>
-            <div className="mt-3 grid grid-cols-4 gap-3">
-              {[0, 1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className={`relative aspect-square overflow-hidden bg-kb-chalk ring-[0.5px] ${
-                    i === 0 ? "ring-kb-gold" : "ring-kb-chalk"
-                  }`}
-                >
-                  <Image
-                    src={product.image}
-                    alt=""
-                    fill
-                    sizes="120px"
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* info */}
-          <div className="lg:py-4">
+          <div className="lg:sticky lg:top-32 lg:self-start lg:py-4">
             <p className="kb-label text-[10px] text-kb-terracotta">
               {category?.name}
             </p>

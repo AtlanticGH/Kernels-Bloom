@@ -1,7 +1,13 @@
 import type { Product } from "@/lib/types";
 
-const IMG_A = "/images/IMG_0141.jpg";
-const IMG_B = "/images/IMG_0144.jpg";
+// New product photography (Atlantic / K&B range) — square shots on a botanical
+// teal backdrop. Assigned per product by best visual fit.
+const TRIO = "/images/DSC09530.jpg"; // lotion · candle · cream/scrub trio
+const TRIO_TIGHT = "/images/DSC09536.jpg"; // tighter trio crop
+const CANDLE = "/images/DSC09548.jpg"; // amber candle-forward
+const SHEA_SOAP = "/images/DSC09553.jpg"; // shea moisturising bar soap
+const CARE_STACK = "/images/DSC09558.jpg"; // hand lotion · scrub · cream stack
+const KB_OILS = "/images/DSC09564.jpg"; // K&B-branded antiseptic / circular line
 
 export const products: Product[] = [
   {
@@ -22,7 +28,7 @@ export const products: Product[] = [
     inci: "Sclerocarya Birrea Seed Oil, Adansonia Digitata Seed Oil, Moringa Oleifera Seed Oil, Tocopherol",
     price: 68,
     volume: "30ml",
-    image: IMG_A,
+    image: TRIO_TIGHT,
     featured: true,
     inStock: true,
     skinTypes: ["Normal", "Dry", "Combination"],
@@ -46,7 +52,7 @@ export const products: Product[] = [
     inci: "Adansonia Digitata Seed Oil, Sclerocarya Birrea Seed Oil, Tocopherol",
     price: 72,
     volume: "30ml",
-    image: IMG_B,
+    image: CANDLE,
     featured: true,
     inStock: true,
     skinTypes: ["Dry", "Mature", "Normal"],
@@ -69,7 +75,7 @@ export const products: Product[] = [
     inci: "Hibiscus Sabdariffa Extract, Moringa Oleifera Leaf Extract, Glycerin, Aqua",
     price: 56,
     volume: "100ml",
-    image: IMG_A,
+    image: TRIO,
     featured: true,
     inStock: true,
     skinTypes: ["Combination", "Oily", "Normal"],
@@ -93,7 +99,7 @@ export const products: Product[] = [
     inci: "Butyrospermum Parkii Butter, Adansonia Digitata Seed Oil, Tocopherol",
     price: 44,
     volume: "200ml",
-    image: IMG_B,
+    image: CARE_STACK,
     featured: true,
     inStock: true,
     skinTypes: ["Dry", "Normal"],
@@ -116,7 +122,7 @@ export const products: Product[] = [
     inci: "Kaolin, Moringa Oleifera Leaf Extract, Azadirachta Indica Leaf Extract, Glycerin",
     price: 38,
     volume: "75ml",
-    image: IMG_A,
+    image: CARE_STACK,
     featured: false,
     inStock: true,
     skinTypes: ["Oily", "Combination"],
@@ -139,7 +145,7 @@ export const products: Product[] = [
     inci: "Adansonia Digitata Seed Oil, Cola Nitida Seed Extract, Tocopherol",
     price: 48,
     volume: "100ml",
-    image: IMG_B,
+    image: TRIO_TIGHT,
     featured: false,
     inStock: true,
     skinTypes: ["Coily", "Curly", "Wavy"],
@@ -162,7 +168,7 @@ export const products: Product[] = [
     inci: "Butyrospermum Parkii Butter, Hibiscus Sabdariffa Extract, Ricinus Communis Seed Oil",
     price: 26,
     volume: "4g",
-    image: IMG_A,
+    image: CANDLE,
     featured: false,
     inStock: true,
     skinTypes: ["All"],
@@ -185,7 +191,7 @@ export const products: Product[] = [
     inci: "Butyrospermum Parkii Butter",
     price: 22,
     volume: "60ml",
-    image: IMG_B,
+    image: SHEA_SOAP,
     featured: false,
     inStock: true,
     skinTypes: ["Sensitive", "All"],
@@ -209,7 +215,7 @@ export const products: Product[] = [
     inci: "Citrullus Lanatus Seed Oil, Sclerocarya Birrea Seed Oil, Tocopherol",
     price: 52,
     volume: "100ml",
-    image: IMG_A,
+    image: KB_OILS,
     featured: true,
     inStock: true,
     skinTypes: ["All", "Oily", "Combination"],
@@ -232,7 +238,7 @@ export const products: Product[] = [
     inci: "See individual products.",
     price: 96,
     volume: "4 × 15ml",
-    image: IMG_B,
+    image: TRIO,
     featured: true,
     inStock: true,
     skinTypes: ["All"],

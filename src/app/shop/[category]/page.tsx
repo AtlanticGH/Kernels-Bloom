@@ -67,10 +67,11 @@ export default function CategoryPage({ params }: { params: Params }) {
             { name: resolved.name, href: `/shop/${params.category}` },
           ]}
         />
-        <h1 className="mt-6 font-display text-[clamp(36px,5vw,56px)] font-light italic text-kb-cacao">
+        <p className="mt-6 kb-label text-kb-terracotta">The Collection</p>
+        <h1 className="mt-2 font-display text-headline font-light italic text-kb-cacao">
           {resolved.name}
         </h1>
-        <p className="mt-4 max-w-xl font-body text-[16px] font-light leading-relaxed text-kb-dusk/80">
+        <p className="mt-4 max-w-xl font-body text-body font-light text-kb-dusk/80">
           {resolved.description}
         </p>
 

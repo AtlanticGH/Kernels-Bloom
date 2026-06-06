@@ -24,8 +24,8 @@ export default function FounderPage() {
         <div className="mt-kb-8 grid grid-cols-1 gap-kb-12 lg:grid-cols-2">
           <div className="relative aspect-[4/5] overflow-hidden bg-kb-chalk">
             <Image
-              src="/images/IMG_0141.jpg"
-              alt="Portrait in warm light against a textured stone wall"
+              src="/images/DSC09530.jpg"
+              alt="K&B signature trio — barrier repair lotion, scented candle and nourishing cream against a lush botanical backdrop"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"

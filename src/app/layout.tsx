@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost, Playfair_Display } from "next/font/google";
+import { Poppins, Cormorant_Garamond, Jost, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { KBNavigation } from "@/components/kb-navigation";
 import { KBFooter } from "@/components/kb-footer";
@@ -27,6 +27,14 @@ const playfair = Playfair_Display({
   style: ["italic"],
   display: "swap",
   variable: "--font-accent",
+});
+
+// Poppins for landmark headlines (distinct from body Jost).
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  display: "swap",
+  variable: "--font-heading",
 });
 
 export const metadata: Metadata = {
@@ -61,7 +69,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${jost.variable} ${playfair.variable}`}
+      className={`${cormorant.variable} ${jost.variable} ${playfair.variable} ${poppins.variable}`}
     >
       <body className="min-h-dvh bg-kb-parchment text-kb-dusk antialiased">
         <a href="#main" className="kb-skip-link">
@@ -71,6 +79,28 @@ export default function RootLayout({
         <KBNavigation />
         <main id="main">{children}</main>
         <KBFooter />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+  if (typeof IntersectionObserver === 'undefined') return;
+  var run = function(){
+    var els = document.querySelectorAll('.kb-reveal:not(.kb-revealed)');
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e, i){
+        if (e.isIntersecting) {
+          setTimeout(function(){ e.target.classList.add('kb-revealed'); }, i * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el){ obs.observe(el); });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else { run(); }
+})();`,
+          }}
+        />
       </body>
     </html>
   );

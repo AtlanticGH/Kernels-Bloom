@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getAllIngredients } from "@/lib/data";
 import { CornerBrackets } from "@/components/corner-brackets";
 import { GrainOverlay } from "@/components/grain-overlay";
+import { HairlineRule } from "@/components/hairline-rule";
 import { BotanicalsGrid } from "@/components/botanicals-grid";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -28,10 +29,12 @@ export default function BotanicalsPage() {
               { name: "Botanicals", href: "/botanicals" },
             ]}
           />
-          <h1 className="mt-6 max-w-3xl font-display text-[clamp(40px,7vw,64px)] font-light italic leading-[1.05] text-kb-parchment">
+          <p className="mt-6 kb-label kb-label-kola">The Botanicals</p>
+          <h1 className="mt-3 max-w-3xl font-display text-[clamp(48px,6vw,80px)] font-light italic leading-[1.05] text-kb-parchment">
             Every ingredient has a home.
           </h1>
-          <p className="mt-6 max-w-xl font-body text-[16px] font-light leading-relaxed text-kb-parchment/70">
+          <HairlineRule width="80px" variant="gold" className="mt-6" />
+          <p className="mt-4 max-w-xl font-body text-body-lg font-light text-kb-parchment/70">
             Fifty-plus species, each tied to a place and a practice. This is the
             index — start with the plant, not the claim.
           </p>

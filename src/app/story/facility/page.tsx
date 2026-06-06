@@ -28,8 +28,8 @@ export default function FacilityPage() {
 
         <div className="relative mt-kb-8 aspect-[16/9] overflow-hidden bg-kb-chalk">
           <Image
-            src="/images/IMG_0144.jpg"
-            alt="Warm-lit workbench with botanical oils and glassware on aged stone"
+            src="/images/DSC09558.jpg"
+            alt="Finished K&B body care — hand lotion, scrub, cream and barrier lotion grouped on a dark surface"
             fill
             sizes="(max-width: 900px) 100vw, 900px"
             className="object-cover"

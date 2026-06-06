@@ -1,7 +1,7 @@
 import type { Article } from "@/lib/types";
 
-const IMG_A = "/images/IMG_0141.jpg";
-const IMG_B = "/images/IMG_0144.jpg";
+const IMG_A = "/images/DSC09553.jpg"; // shea bar soap, linen-wrapped
+const IMG_B = "/images/DSC09548.jpg"; // amber candle / trio
 
 export const articles: Article[] = [
   {
@@ -86,7 +86,7 @@ export const articles: Article[] = [
     pullQuote: "Waste is mostly a failure of imagination.",
     readTime: 5,
     publishedAt: "2026-03-05",
-    image: IMG_A,
+    image: "/images/DSC09564.jpg",
     relatedProducts: ["kalahari-circular-oil"],
   },
 ];

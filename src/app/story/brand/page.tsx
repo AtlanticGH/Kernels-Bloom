@@ -41,7 +41,8 @@ export default function BrandStoryPage() {
               { name: "Brand", href: "/story/brand" },
             ]}
           />
-          <h1 className="mt-6 font-display text-[clamp(40px,7vw,72px)] font-light italic leading-[1.05] text-kb-parchment">
+          <p className="mt-6 kb-label kb-label-kola">Our Story</p>
+          <h1 className="mt-3 font-display text-[clamp(40px,6vw,72px)] font-light italic leading-[1.05] text-kb-parchment">
             A heartfelt tribute to the timeless beauty of Africa.
           </h1>
         </div>
