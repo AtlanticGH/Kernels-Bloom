@@ -20,6 +20,7 @@ export default function ResultsPage() {
           { name: "Results", href: "/skin-ritual/results" },
         ]}
         label="Your Ritual"
+        headline="Your personalised ritual."
         intro="Your personalised K&B ritual, built from your quiz answers."
       />
 

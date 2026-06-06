@@ -53,7 +53,8 @@ export default function IngredientPage({ params }: { params: Params }) {
       <BreadcrumbJsonLd items={crumbs} />
       <PageHero
         breadcrumbs={crumbs}
-        label={ingredient.commonName}
+        label="The Botanicals"
+        headline={ingredient.commonName}
         intro={ingredient.latinName}
       />
 

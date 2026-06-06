@@ -124,6 +124,13 @@ body {
     color: var(--kb-kola);
   }
 
+  /* Hero headline on cacao — overrides base h1 colour; keeps semibold upright style */
+  .kb-hero-headline-dark {
+    color: var(--kb-parchment);
+    font-weight: 600;
+    font-style: normal;
+  }
+
   /* Body copy default */
   .kb-body {
     font-family: var(--font-body), sans-serif;

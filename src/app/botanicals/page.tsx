@@ -21,6 +21,7 @@ export default function BotanicalsPage() {
           { name: "Botanicals", href: "/botanicals" },
         ]}
         label="The Botanicals"
+        headline="Every ingredient has a home."
         intro="Fifty-plus species, each tied to a place and a practice. This is the index — start with the plant, not the claim."
       />
 

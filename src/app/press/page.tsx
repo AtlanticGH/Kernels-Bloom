@@ -31,6 +31,7 @@ export default function PressPage() {
           { name: "Press & Awards", href: "/press" },
         ]}
         label="Recognition"
+        headline="Press & Awards"
       />
 
       <section className="bg-kb-parchment py-kb-12">

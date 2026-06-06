@@ -18,6 +18,7 @@ export default function ContactPage() {
           { name: "Contact", href: "/contact" },
         ]}
         label="Get in touch"
+        headline="We'd love to hear from you."
       />
 
       <section className="bg-kb-parchment py-kb-12">

@@ -19,6 +19,7 @@ export default function ConsultationPage() {
           { name: "Consultation", href: "/skin-ritual/consultation" },
         ]}
         label="Consultation"
+        headline="One-to-one, with a formulator."
         intro="Tell us a little about your skin and hair. We'll arrange a private consultation and build a routine around them."
       />
 

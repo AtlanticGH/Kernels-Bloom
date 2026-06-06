@@ -62,6 +62,7 @@ export default function ProductPage({ params }: { params: Params }) {
       <PageHero
         breadcrumbs={crumbs}
         label={category?.name ?? "Products"}
+        headline={product.name}
         intro={product.tagline}
       />
 

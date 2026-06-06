@@ -16,6 +16,7 @@ export default function StudioPage() {
       <PageHero
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Studio", href: "/studio" }]}
         label="Content Studio"
+        headline="Content Studio"
         intro="The Sanity Studio mounts here."
       />
 

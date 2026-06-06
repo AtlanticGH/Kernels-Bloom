@@ -19,6 +19,7 @@ export default function CartPage() {
           { name: "Cart", href: "/cart" },
         ]}
         label="Your ritual"
+        headline="Your ritual"
       />
 
       <section className="bg-kb-parchment py-kb-12">

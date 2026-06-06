@@ -20,6 +20,7 @@ export default function FounderPage() {
           { name: "Founder", href: "/story/founder" },
         ]}
         label="Founder"
+        headline="The vision, and the why."
       />
 
       <section className="relative overflow-hidden bg-kb-parchment py-kb-16">

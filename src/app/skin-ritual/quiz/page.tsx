@@ -21,6 +21,7 @@ export default function QuizPage() {
           { name: "Quiz", href: "/skin-ritual/quiz" },
         ]}
         label="Skin Quiz"
+        headline="Read your skin in seven questions."
         intro="Seven questions to read your skin and hair, then a routine built from the botanicals that suit them."
       />
 

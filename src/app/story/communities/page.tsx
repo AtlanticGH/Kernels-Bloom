@@ -22,6 +22,7 @@ export default function CommunitiesPage() {
           { name: "Community Partners", href: "/story/communities" },
         ]}
         label="Community Partners"
+        headline="Twenty-plus communities, named."
         intro="We buy at the cooperative, in cash, at a price the partners set. Hover a pin to read who supplies what, and from where."
       />
 

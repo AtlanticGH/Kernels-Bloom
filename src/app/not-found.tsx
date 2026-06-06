@@ -8,6 +8,7 @@ export default function NotFound() {
       <PageHero
         breadcrumbs={[{ name: "Home", href: "/" }]}
         label="404"
+        headline="This path hasn't bloomed."
         intro="The page you're after isn't here. Let's find your way back to the botanicals."
       >
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">

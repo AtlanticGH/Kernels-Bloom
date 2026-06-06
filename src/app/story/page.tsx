@@ -26,6 +26,7 @@ export default function StoryPage() {
           { name: "Our Story", href: "/story" },
         ]}
         label="Our Story"
+        headline="Rooted in heritage. Powered by science."
       />
 
       <section className="bg-kb-parchment py-kb-12">

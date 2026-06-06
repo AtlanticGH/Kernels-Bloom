@@ -37,6 +37,7 @@ export default function SkinRitualPage() {
           { name: "Skin Ritual", href: "/skin-ritual" },
         ]}
         label="Personalised Ritual"
+        headline="Botanicals chosen for you, specifically."
         intro="No two skins are generic. Choose the path that suits you — a quick quiz, or a conversation."
       />
 

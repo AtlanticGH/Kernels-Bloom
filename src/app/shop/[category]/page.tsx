@@ -61,7 +61,8 @@ export default function CategoryPage({ params }: { params: Params }) {
       <BreadcrumbJsonLd items={crumbs} />
       <PageHero
         breadcrumbs={crumbs}
-        label={resolved.name}
+        label="The Collection"
+        headline={resolved.name}
         intro={resolved.description}
       />
 

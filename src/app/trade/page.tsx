@@ -35,6 +35,7 @@ export default function TradePage() {
           { name: "Trade", href: "/trade" },
         ]}
         label="Trade & Wholesale"
+        headline="A brand built for those who care about what's on the shelf."
       />
 
       {/* why */}

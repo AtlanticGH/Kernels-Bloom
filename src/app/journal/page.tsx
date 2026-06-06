@@ -21,6 +21,7 @@ export default function JournalPage() {
           { name: "Journal", href: "/journal" },
         ]}
         label="The Journal"
+        headline="Field notes and ingredient lives."
       />
 
       <section className="bg-kb-parchment py-kb-12">

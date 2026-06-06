@@ -36,6 +36,7 @@ export default function BrandStoryPage() {
           { name: "Brand", href: "/story/brand" },
         ]}
         label="Brand Story"
+        headline="A heartfelt tribute to the timeless beauty of Africa."
       />
 
       <section className="relative overflow-hidden bg-kb-parchment py-kb-16">

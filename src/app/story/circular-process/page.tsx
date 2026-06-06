@@ -20,6 +20,7 @@ export default function CircularProcessPage() {
           { name: "Circular Process", href: "/story/circular-process" },
         ]}
         label="Circular Process"
+        headline="Waste, transformed into luxury."
         intro="Circularity is not a marketing layer for us. Increasingly, it is where the formulations begin."
       />
 

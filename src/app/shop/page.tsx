@@ -23,6 +23,7 @@ export default function ShopLandingPage() {
           { name: "Shop", href: "/shop" },
         ]}
         label="The Collection"
+        headline="The Collection"
         intro="Six categories of botanical care, and one circular line. Begin with a ritual, or browse everything at once."
       >
         <div className="mt-8">

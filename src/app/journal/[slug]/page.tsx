@@ -54,7 +54,8 @@ export default function ArticlePage({ params }: { params: Params }) {
       <PageHero
         breadcrumbs={crumbs}
         label={`${CATEGORY_LABEL[article.category]} · ${article.readTime} min read`}
-        intro={article.title}
+        headline={article.title}
+        intro={article.excerpt}
       />
 
       <article className="bg-kb-parchment py-kb-12">

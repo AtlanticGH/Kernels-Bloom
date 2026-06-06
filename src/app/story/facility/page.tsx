@@ -19,6 +19,7 @@ export default function FacilityPage() {
           { name: "The Facility", href: "/story/facility" },
         ]}
         label="The Facility"
+        headline="Where the botanicals become formulations."
       />
 
       <section className="bg-kb-parchment py-kb-12">
