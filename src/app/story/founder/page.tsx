@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { FounderVideo } from "@/components/founder-video";
 import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
@@ -24,15 +24,7 @@ export default function FounderPage() {
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
           <div className="grid grid-cols-1 gap-kb-12 lg:grid-cols-2">
-            <div className="relative aspect-[4/5] overflow-hidden bg-kb-chalk">
-              <Image
-                src="/images/DSC09530.jpg"
-                alt="K&B signature trio — barrier repair lotion, scented candle and nourishing cream against a lush botanical backdrop"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </div>
+            <FounderVideo />
             <div className="lg:py-kb-8">
               <div className="space-y-5 font-body text-[16px] font-light leading-[1.85] text-kb-dusk/85">
                 <p>
