@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { CurrencyToggle } from "@/components/currency-toggle";
 import { PRIMARY_NAV, SITE, STORY_NAV } from "@/lib/site";
 
@@ -194,8 +195,7 @@ function StoryDropdown({
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [menuLeft, setMenuLeft] = useState(0);
-  const [menuTop, setMenuTop] = useState(72);
-  const [menuBottom, setMenuBottom] = useState<number | null>(null);
+  const [headerEl, setHeaderEl] = useState<HTMLElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -208,15 +208,8 @@ function StoryDropdown({
     const buttonRect = button.getBoundingClientRect();
     const headerRect = header.getBoundingClientRect();
 
-    setMenuLeft(buttonRect.left + buttonRect.width / 2);
-
-    if (atBottom) {
-      setMenuTop(0);
-      setMenuBottom(window.innerHeight - headerRect.top);
-    } else {
-      setMenuTop(headerRect.bottom);
-      setMenuBottom(null);
-    }
+    setHeaderEl(header);
+    setMenuLeft(buttonRect.left + buttonRect.width / 2 - headerRect.left);
   };
 
   const openMenu = () => {
@@ -264,15 +257,10 @@ function StoryDropdown({
 
   useEffect(() => {
     onOpenChange?.(open);
-  }, [open, onOpenChange]);
-
-  useEffect(
-    () => () => {
+    return () => {
       if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-      onOpenChange?.(false);
-    },
-    [onOpenChange]
-  );
+    };
+  }, [open, onOpenChange]);
 
   return (
     <>
@@ -305,45 +293,44 @@ function StoryDropdown({
         </svg>
       </button>
 
-      {open && (
-        <div
-          ref={menuRef}
-          className="fixed z-[60] min-w-[220px] -translate-x-1/2"
-          style={{
-            top: menuBottom == null ? menuTop : undefined,
-            bottom: menuBottom ?? undefined,
-            left: menuLeft,
-          }}
-          onMouseEnter={openMenu}
-          onMouseLeave={scheduleClose}
-        >
-          <ul
-            role="menu"
-            className={`kb-header-surface border-x-[0.5px] border-kb-chalk py-2 shadow-[0_1px_0_var(--kb-chalk)] ${
-              menuBottom == null ? "border-b-[0.5px]" : "border-t-[0.5px]"
+      {open &&
+        headerEl &&
+        createPortal(
+          <div
+            ref={menuRef}
+            className={`absolute z-[60] min-w-[220px] -translate-x-1/2 ${
+              atBottom ? "bottom-full" : "top-full"
             }`}
+            style={{ left: menuLeft }}
+            onMouseEnter={openMenu}
+            onMouseLeave={scheduleClose}
           >
-            {STORY_NAV.map((item) => {
-              const itemActive = pathname === item.href;
-              return (
-                <li key={item.href} role="none">
-                  <Link
-                    href={item.href}
-                    role="menuitem"
-                    aria-current={itemActive ? "page" : undefined}
-                    onClick={() => setOpen(false)}
-                    className={`block px-5 py-2.5 font-body text-[13px] font-light transition-colors hover:bg-kb-linen/80 ${
-                      itemActive ? "text-kb-terracotta" : "text-kb-dusk hover:text-kb-cacao"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
+            <ul
+              role="menu"
+              className="kb-header-surface border-x-[0.5px] border-b-[0.5px] border-kb-chalk py-2 shadow-[0_1px_0_var(--kb-chalk)]"
+            >
+              {STORY_NAV.map((item) => {
+                const itemActive = pathname === item.href;
+                return (
+                  <li key={item.href} role="none">
+                    <Link
+                      href={item.href}
+                      role="menuitem"
+                      aria-current={itemActive ? "page" : undefined}
+                      onClick={() => setOpen(false)}
+                      className={`block px-5 py-2.5 font-body text-[13px] font-light transition-colors hover:bg-kb-linen/80 ${
+                        itemActive ? "text-kb-terracotta" : "text-kb-dusk hover:text-kb-cacao"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>,
+          headerEl
+        )}
     </>
   );
 }

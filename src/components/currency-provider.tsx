@@ -26,16 +26,24 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "USD" || stored === "GHS") {
-      setCurrencyState(stored);
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === "USD" || stored === "GHS") {
+        setCurrencyState(stored);
+      }
+    } catch {
+      // Private mode or restricted storage — keep default GHS
     }
     setReady(true);
   }, []);
 
   const setCurrency = useCallback((next: Currency) => {
     setCurrencyState(next);
-    localStorage.setItem(STORAGE_KEY, next);
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      // Ignore storage write failures
+    }
   }, []);
 
   const formatAmount = useCallback(

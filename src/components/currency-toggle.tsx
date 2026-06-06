@@ -16,7 +16,18 @@ export function CurrencyToggle({
   /** Header use — currency signs only (¢ / $). */
   compact?: boolean;
 }) {
-  const { currency, setCurrency } = useCurrency();
+  const { currency, setCurrency, ready } = useCurrency();
+
+  if (!ready) {
+    return (
+      <div
+        className={`inline-flex items-center rounded-kb border-[0.5px] border-kb-chalk p-0.5 opacity-0 ${className}`}
+        aria-hidden="true"
+      >
+        <span className="px-3 py-1 kb-label text-[10px]">¢</span>
+      </div>
+    );
+  }
 
   return (
     <div
