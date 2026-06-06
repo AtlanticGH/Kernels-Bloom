@@ -80,7 +80,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. Brand statistics bar */}
-      <section className="relative overflow-hidden bg-kb-dusk py-kb-6">
+      <section className="kb-home-band relative overflow-hidden bg-kb-dusk">
         <GrainOverlay opacity={0.04} />
         <div className="relative mx-auto grid max-w-kb-max grid-cols-2 gap-y-6 px-6 md:grid-cols-4">
           {STATS.map((stat, i) => (

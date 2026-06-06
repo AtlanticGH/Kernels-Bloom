@@ -49,7 +49,7 @@ function MarqueeTrack({ fadeFrom }: { fadeFrom: string }) {
 
 function BrandsLabel() {
   return (
-    <p className="kb-label mb-0 text-center text-[10px] leading-none text-kb-dusk/50">
+    <p className="kb-label mb-0 text-center text-[12px] leading-none text-kb-dusk/50">
       Brands worked with
     </p>
   );
@@ -77,13 +77,13 @@ export function BrandMarquee({
 
   return (
     <section
-      className={`border-y-[0.5px] border-kb-chalk bg-kb-linen pt-kb-6 pb-kb-6 ${className}`}
+      className={`kb-home-band border-y-[0.5px] border-kb-chalk bg-kb-linen ${className}`}
       aria-label="Brands worked with"
     >
-      <div className="mx-auto max-w-kb-max px-6">
+      <div className="mx-auto w-full max-w-kb-max px-6">
         <BrandsLabel />
+        <MarqueeTrack fadeFrom={fadeFrom} />
       </div>
-      <MarqueeTrack fadeFrom={fadeFrom} />
     </section>
   );
 }
