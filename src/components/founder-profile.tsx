@@ -13,20 +13,20 @@ export function FounderProfile() {
         className="pointer-events-none absolute -right-8 top-0 hidden lg:block"
       />
 
-      <div className="relative grid grid-cols-1 items-center gap-kb-12 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-kb-16">
-        <div className="relative mx-auto w-full max-w-[320px] lg:mx-0 lg:max-w-none">
+      <div className="relative grid grid-cols-1 items-center gap-kb-12 lg:grid-cols-[minmax(0,320px)_1fr] lg:items-stretch lg:gap-kb-16">
+        <div className="relative mx-auto w-full max-w-[320px] lg:mx-0 lg:h-full lg:max-w-none">
           <div
             aria-hidden="true"
             className="absolute -bottom-4 -left-4 -right-4 -top-4 hidden bg-kb-linen lg:block"
           />
-          <div className="relative aspect-[4/5] overflow-hidden bg-kb-chalk">
+          <div className="relative aspect-[4/5] overflow-hidden bg-kb-chalk lg:aspect-auto lg:h-full">
             <Image
-              src="/images/founder-profile.jpg"
-              alt="Founder portrait — Kernels & Bloom"
+              src="/images/founder-portrait.png"
+              alt="Maud Lindsay-Gamrat — Founder, Kernels & Bloom"
               fill
               priority
               sizes="(max-width: 1024px) 320px, 320px"
-              className="object-cover"
+              className="object-cover object-top"
             />
           </div>
         </div>
@@ -34,7 +34,10 @@ export function FounderProfile() {
         <div className="lg:py-kb-4">
           <p className="kb-label text-kb-terracotta">Founder</p>
           <HairlineRule width="48px" variant="gold" className="mt-4" />
-          <p className="mt-3 font-body text-[13px] font-light text-kb-dusk/60">
+          <h2 className="mt-4 font-display text-[clamp(28px,3.5vw,36px)] font-semibold not-italic leading-tight text-kb-cacao">
+            {SITE.founder.name}
+          </h2>
+          <p className="mt-2 font-body text-[13px] font-light text-kb-dusk/60">
             {SITE.origin}
           </p>
 

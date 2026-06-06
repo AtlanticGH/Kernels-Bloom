@@ -6,6 +6,9 @@ export const SITE = {
     "Science-backed formulations rooted in Africa's richest botanicals. Crafted in Ghana, for skin that remembers where it comes from.",
   tagline: "From the kernel. To your bloom.",
   origin: "Ghana",
+  founder: {
+    name: "Maud Lindsay-Gamrat",
+  },
   social: {
     instagram: "https://instagram.com/kernelsandbloom",
     tiktok: "https://tiktok.com/@kernelsandbloom",

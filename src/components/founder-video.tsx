@@ -21,7 +21,7 @@ export function FounderVideo({ className = "" }: { className?: string }) {
           controls={playing}
           playsInline
           preload="metadata"
-          poster="/images/founder-profile.jpg"
+          poster="/images/founder-portrait.png"
           aria-label="Founder story — Kernels & Bloom"
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
