@@ -3,6 +3,8 @@ import { partnerBrands } from "@/lib/data/partner-brands";
 
 type BrandMarqueeProps = {
   className?: string;
+  /** band = full-width linen strip; inline = sits inside a parchment section */
+  variant?: "band" | "inline";
 };
 
 function LogoStrip() {
@@ -23,36 +25,65 @@ function LogoStrip() {
   );
 }
 
-/** Infinite horizontal logo scroll for partner / stockist proof. */
-export function BrandMarquee({ className = "" }: BrandMarqueeProps) {
+function MarqueeTrack({ fadeFrom }: { fadeFrom: string }) {
   return (
-    <section
-      className={`border-y-[0.5px] border-kb-chalk bg-kb-linen py-kb-8 ${className}`}
-      aria-label="Brands we've worked with"
-    >
-      <div className="mx-auto max-w-kb-max px-6">
-        <p className="kb-label text-center text-[10px] text-kb-dusk/50">
-          Brands we&apos;ve worked with
-        </p>
-      </div>
+    <div className="relative mt-4 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r ${fadeFrom} to-transparent md:w-20`}
+      />
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l ${fadeFrom} to-transparent md:w-20`}
+      />
 
-      <div className="relative mt-kb-6 overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-kb-linen to-transparent md:w-24"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-kb-linen to-transparent md:w-24"
-        />
-
-        <div className="kb-marquee-track flex w-max items-center">
+      <div className="kb-marquee-track flex w-max items-center">
+        <LogoStrip />
+        <div aria-hidden="true">
           <LogoStrip />
-          <div aria-hidden="true">
-            <LogoStrip />
-          </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function BrandsLabel() {
+  return (
+    <p className="kb-label mb-0 text-center text-[10px] leading-none text-kb-dusk/50">
+      Brands worked with
+    </p>
+  );
+}
+
+/** Infinite horizontal logo scroll for partner / stockist proof. */
+export function BrandMarquee({
+  className = "",
+  variant = "band",
+}: BrandMarqueeProps) {
+  const isInline = variant === "inline";
+  const fadeFrom = isInline ? "from-kb-parchment" : "from-kb-linen";
+
+  if (isInline) {
+    return (
+      <div
+        className={className}
+        aria-label="Brands worked with"
+      >
+        <BrandsLabel />
+        <MarqueeTrack fadeFrom={fadeFrom} />
+      </div>
+    );
+  }
+
+  return (
+    <section
+      className={`border-y-[0.5px] border-kb-chalk bg-kb-linen pt-kb-6 pb-kb-6 ${className}`}
+      aria-label="Brands worked with"
+    >
+      <div className="mx-auto max-w-kb-max px-6">
+        <BrandsLabel />
+      </div>
+      <MarqueeTrack fadeFrom={fadeFrom} />
     </section>
   );
 }

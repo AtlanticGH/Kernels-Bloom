@@ -102,7 +102,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. Ingredient story feature */}
-      <section className="overflow-hidden bg-kb-parchment pb-kb-16">
+      <section className="overflow-hidden bg-kb-parchment">
         <div className="grid w-full grid-cols-1 items-stretch md:grid-cols-2">
           <div className="relative min-h-[400px] bg-kb-chalk md:min-h-[600px]">
             <Image
@@ -151,7 +151,7 @@ export default function HomePage() {
       <BrandMarquee />
 
       {/* 6. Featured products */}
-      <section className="bg-kb-parchment pb-kb-16">
+      <section className="bg-kb-parchment pt-kb-16 pb-kb-16">
         <div className="mx-auto max-w-kb-max px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <SectionHeader
@@ -315,7 +315,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 11. Footer is global (layout). */}
+      {/* 12. Footer is global (layout). */}
       <noscript>
         <Link href="/shop/all">Browse the full collection</Link>
       </noscript>
