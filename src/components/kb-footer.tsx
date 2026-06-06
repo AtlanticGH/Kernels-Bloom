@@ -8,22 +8,22 @@ export function KBFooter() {
   return (
     <footer className="relative overflow-hidden bg-kb-dusk text-kb-parchment">
       <GrainOverlay opacity={0.03} />
-      <div className="relative mx-auto max-w-kb-max px-6 py-kb-12">
+      <div className="relative mx-auto max-w-kb-max px-6 py-10">
         <Link
           href="/"
           className="font-display text-[20px] font-normal text-kb-parchment"
         >
           Kernels &amp; Bloom
         </Link>
-        <HairlineRule width="100%" variant="gold" className="mt-6" />
+        <HairlineRule width="100%" variant="gold" className="mt-4" />
 
-        <div className="mt-kb-8 grid gap-kb-8 md:grid-cols-12">
+        <div className="mt-kb-4 grid gap-kb-6 md:grid-cols-12">
           <div className="md:col-span-5">
             <p className="kb-accent max-w-sm text-[18px] text-kb-parchment/70">
               {SITE.tagline} Science-backed botanicals, crafted in Ghana and
               returned to the circle.
             </p>
-            <div className="mt-6 flex gap-6">
+            <div className="mt-5 flex gap-6">
               <a href={SITE.social.instagram} className="kb-label text-[11px] text-kb-gold hover:text-kb-kola">
                 Instagram
               </a>
@@ -34,7 +34,7 @@ export function KBFooter() {
                 Pinterest
               </a>
             </div>
-            <div className="mt-8 max-w-sm">
+            <div className="mt-6 max-w-sm">
               <p className="kb-label text-[11px] text-kb-gold">The Journal, by post</p>
               <NewsletterForm className="mt-3" />
             </div>
@@ -43,12 +43,12 @@ export function KBFooter() {
           {FOOTER_NAV.map((col) => (
             <div key={col.heading} className="md:col-span-2">
               <p className="kb-label text-[11px] text-kb-gold">{col.heading}</p>
-              <ul className="mt-4 space-y-3">
+              <ul className="mt-3 space-y-1">
                 {col.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="font-body text-[13px] font-light text-kb-parchment/60 transition-colors hover:text-kb-parchment"
+                      className="font-body text-[13px] font-light leading-tight text-kb-parchment/60 transition-colors hover:text-kb-parchment"
                     >
                       {link.label}
                     </Link>
@@ -59,8 +59,8 @@ export function KBFooter() {
           ))}
         </div>
 
-        <HairlineRule width="100%" variant="gold" className="mt-kb-8" />
-        <p className="mt-6 font-body text-[11px] font-light text-kb-parchment/40">
+        <HairlineRule width="100%" variant="gold" className="mt-kb-4" />
+        <p className="mt-3 font-body text-[11px] font-light text-kb-parchment/40">
           © {new Date().getFullYear()} Kernels &amp; Bloom, Ghana · Made with purpose
         </p>
       </div>
