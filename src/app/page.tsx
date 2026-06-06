@@ -60,7 +60,7 @@ export default function HomePage() {
               Ghanaian Luxury Botanicals
             </p>
             <h1 className="mt-5 font-display text-[clamp(40px,5vw,72px)] font-semibold not-italic leading-[1.1] tracking-tight text-kb-cacao">
-              From the kernel.
+              From the kernel,
               <br />
               To your bloom.
             </h1>

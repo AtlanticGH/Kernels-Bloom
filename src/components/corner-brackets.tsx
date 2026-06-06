@@ -14,7 +14,6 @@ type CornerBracketsProps = {
  * Corner angle-markings — intentionally disabled across the site.
  * Kept as a no-op so existing call sites continue to type-check without edits.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function CornerBrackets(_props: CornerBracketsProps) {
   return null;
 }
