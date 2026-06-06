@@ -13,8 +13,8 @@ export function FounderProfile() {
         className="pointer-events-none absolute -right-8 top-0 hidden lg:block"
       />
 
-      <div className="relative grid grid-cols-1 items-center gap-kb-12 lg:grid-cols-[minmax(0,320px)_1fr] lg:items-stretch lg:gap-kb-16">
-        <div className="relative mx-auto w-full max-w-[320px] lg:mx-0 lg:h-full lg:max-w-none">
+      <div className="relative grid grid-cols-1 items-center gap-kb-12 lg:grid-cols-[minmax(0,380px)_1fr] lg:items-stretch lg:gap-kb-16">
+        <div className="relative mx-auto w-full max-w-[380px] lg:mx-0 lg:h-full lg:max-w-none">
           <div
             aria-hidden="true"
             className="absolute -bottom-4 -left-4 -right-4 -top-4 hidden bg-kb-linen lg:block"
@@ -25,7 +25,7 @@ export function FounderProfile() {
               alt="Maud Lindsay-Gamrat — Founder, Kernels & Bloom"
               fill
               priority
-              sizes="(max-width: 1024px) 320px, 320px"
+              sizes="(max-width: 1024px) 380px, 380px"
               className="object-cover object-top"
             />
           </div>
