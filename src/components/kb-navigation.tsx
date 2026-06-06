@@ -114,13 +114,13 @@ export function KBNavigation() {
               </Link>
             )
           )}
-          <CurrencyToggle variant="nav" atBottom={atBottom} />
+          <CurrencyToggle compact />
           <CartIcon />
         </nav>
 
         {/* mobile controls */}
-        <div className="flex items-center gap-4 lg:hidden">
-          <CurrencyToggle variant="nav" atBottom={atBottom} />
+        <div className="flex items-center gap-3 lg:hidden">
+          <CurrencyToggle compact />
           <CartIcon />
           <button
             type="button"
@@ -147,7 +147,7 @@ export function KBNavigation() {
       <div className="fixed inset-0 top-[var(--header-height)] z-40 overflow-y-auto bg-kb-parchment lg:hidden">
         <nav aria-label="Mobile" className="flex flex-col gap-2 px-6 py-10">
           <div className="mb-4 flex justify-end">
-            <CurrencyToggle variant="nav" atBottom={atBottom} />
+            <CurrencyToggle compact />
           </div>
           {PRIMARY_NAV.map((link) =>
             link.label === "Our Story" ? (
