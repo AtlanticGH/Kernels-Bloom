@@ -115,7 +115,7 @@ export default function HomePage() {
             />
             <GrainOverlay opacity={0.06} />
           </div>
-          <div className="relative flex flex-col justify-center px-6 py-kb-12 md:px-kb-12">
+          <div className="relative flex flex-col justify-center bg-kb-gold px-6 py-kb-12 md:pl-kb-12 md:pr-[max(1.5rem,calc(50vw_-_744px))]">
             <BotanicalIllustration
               name="Shea"
               size={240}
@@ -123,23 +123,23 @@ export default function HomePage() {
               className="pointer-events-none absolute -right-6 top-6"
             />
             <div className="relative">
-              <p className="kb-label text-kb-terracotta">Ingredient Story</p>
-              <h2 className="mt-3 font-display text-[clamp(40px,6vw,52px)] font-light italic text-kb-cacao">
+              <p className="kb-label text-kb-dusk">Ingredient Story</p>
+              <h2 className="mt-3 font-display text-[clamp(40px,6vw,52px)] font-light italic text-kb-dusk">
                 {shea.commonName}
               </h2>
-              <p className="mt-1 font-body text-[13px] font-light text-kb-dusk/60">
+              <p className="mt-1 font-body text-[13px] font-light text-kb-dusk/70">
                 {shea.latinName}
               </p>
-              <p className="mt-6 max-w-[400px] font-body text-[16px] font-light leading-[1.85] text-kb-dusk/85">
+              <p className="mt-6 max-w-[400px] font-body text-[16px] font-light leading-[1.85] text-kb-dusk">
                 Stone-ground by the women&apos;s cooperatives of Northern Ghana,
                 shea rebuilds the skin barrier and holds the day&apos;s warmth
                 in. A craft held across generations.
               </p>
-              <p className="mt-4 kb-accent text-[18px] text-kb-terracotta">
+              <p className="mt-4 kb-accent text-[18px] text-kb-cacao">
                 &ldquo;{shea.pullQuote}&rdquo;
               </p>
               <div className="mt-8">
-                <GoldCTA href="/botanicals">
+                <GoldCTA href="/botanicals" tone="dusk">
                   Explore the botanical index →
                 </GoldCTA>
               </div>

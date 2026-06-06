@@ -20,6 +20,10 @@ const config: Config = {
         accent: ["var(--font-accent)", "Georgia", "serif"],
         heading: ["var(--font-heading)", "system-ui", "sans-serif"],
       },
+      fontWeight: {
+        light: "400",
+        normal: "500",
+      },
       fontSize: {
         display: [
           "clamp(56px, 7vw, 96px)",
@@ -33,12 +37,12 @@ const config: Config = {
           "clamp(20px, 2.5vw, 28px)",
           { lineHeight: "1.3", letterSpacing: "0" },
         ],
-        "body-lg": ["17px", { lineHeight: "1.85", letterSpacing: "0.01em" }],
-        body: ["15px", { lineHeight: "1.8", letterSpacing: "0.01em" }],
-        "body-sm": ["14px", { lineHeight: "1.75", letterSpacing: "0.01em" }],
-        label: ["11px", { lineHeight: "1.4", letterSpacing: "0.12em" }],
-        caption: ["12px", { lineHeight: "1.5", letterSpacing: "0.02em" }],
-        fine: ["11px", { lineHeight: "1.5", letterSpacing: "0.01em" }],
+        "body-lg": ["18px", { lineHeight: "1.85", letterSpacing: "0.01em" }],
+        body: ["16px", { lineHeight: "1.8", letterSpacing: "0.01em" }],
+        "body-sm": ["15px", { lineHeight: "1.75", letterSpacing: "0.01em" }],
+        label: ["12px", { lineHeight: "1.4", letterSpacing: "0.12em" }],
+        caption: ["13px", { lineHeight: "1.5", letterSpacing: "0.02em" }],
+        fine: ["12px", { lineHeight: "1.5", letterSpacing: "0.01em" }],
       },
       borderRadius: {
         kb: "2px",
