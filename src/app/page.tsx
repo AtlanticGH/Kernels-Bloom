@@ -55,8 +55,20 @@ export default function HomePage() {
 
       {/* 2. Hero */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-kb-kola">
-        <GrainOverlay opacity={0.08} />
-        <CornerBrackets arm={80} inset={40} />
+        <Image
+          src="/images/beth-macdonald-QiGt-xFWkLU-unsplash.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-kb-kola/95"
+        />
+        <GrainOverlay opacity={0.08} className="z-[1]" />
+        <CornerBrackets arm={80} inset={40} className="z-[1]" />
         <div className="relative z-10 mx-auto w-full max-w-kb-max px-6 sm:px-kb-12">
           <div className="max-w-[820px]">
             <p className="kb-label text-kb-terracotta">
