@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getAllProducts } from "@/lib/data";
 import { CartView } from "@/components/cart-view";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Cart",
@@ -12,21 +12,20 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <div className="pt-[88px]">
-      <section className="mx-auto max-w-kb-max px-6 py-kb-12">
-        <Breadcrumbs
-          items={[
-            { name: "Home", href: "/" },
-            { name: "Cart", href: "/cart" },
-          ]}
-        />
-        <h1 className="mt-6 font-display text-[clamp(36px,5vw,52px)] font-light italic text-kb-cacao">
-          Your ritual
-        </h1>
-        <div className="mt-kb-12">
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Cart", href: "/cart" },
+        ]}
+        label="Your ritual"
+      />
+
+      <section className="bg-kb-parchment py-kb-12">
+        <div className="mx-auto max-w-kb-max px-6">
           <CartView products={getAllProducts()} />
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

@@ -6,14 +6,12 @@ import {
   getProductsByIngredient,
   getCommunity,
 } from "@/lib/data";
-import { CornerBrackets } from "@/components/corner-brackets";
-import { GrainOverlay } from "@/components/grain-overlay";
 import { HairlineRule } from "@/components/hairline-rule";
 import { BotanicalIllustration } from "@/components/botanical-illustration";
 import { ProductCard } from "@/components/product-card";
 import { GoldCTA } from "@/components/gold-cta";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 type Params = { slug: string };
 
@@ -51,21 +49,13 @@ export default function IngredientPage({ params }: { params: Params }) {
   ];
 
   return (
-    <div className="pt-[72px]">
+    <PageShell>
       <BreadcrumbJsonLd items={crumbs} />
-
-      {/* header image stand-in */}
-      <section className="relative h-[60vh] min-h-[360px] overflow-hidden bg-kb-kola">
-        <GrainOverlay opacity={0.08} />
-        <CornerBrackets arm={64} inset={32} />
-        <div className="absolute inset-0 grid place-items-center">
-          <BotanicalIllustration
-            name={ingredient.illustration}
-            size="40%"
-            opacity={0.4}
-          />
-        </div>
-      </section>
+      <PageHero
+        breadcrumbs={crumbs}
+        label={ingredient.commonName}
+        intro={ingredient.latinName}
+      />
 
       <section className="relative overflow-hidden bg-kb-parchment py-kb-12">
         <BotanicalIllustration
@@ -75,16 +65,17 @@ export default function IngredientPage({ params }: { params: Params }) {
           className="pointer-events-none absolute -right-16 top-16 hidden lg:block"
         />
         <div className="relative mx-auto max-w-kb-content px-6">
-          <Breadcrumbs items={crumbs} />
-          <h1 className="mt-6 font-display text-[clamp(44px,8vw,64px)] font-light italic text-kb-cacao">
-            {ingredient.commonName}
-          </h1>
-          <p className="mt-2 font-body text-[14px] font-light tracking-wide text-kb-dusk/60">
-            {ingredient.latinName}
-          </p>
-          <HairlineRule width="80px" variant="gold" className="mt-5" />
+          {ingredient.illustration && (
+            <div className="mb-kb-8 grid place-items-center py-kb-8">
+              <BotanicalIllustration
+                name={ingredient.illustration}
+                size={280}
+                opacity={0.5}
+              />
+            </div>
+          )}
 
-          <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2">
+          <div className="flex flex-wrap gap-x-8 gap-y-2">
             <span className="kb-label text-[10px] text-kb-terracotta">
               Origin · {ingredient.origin}
             </span>
@@ -150,6 +141,6 @@ export default function IngredientPage({ params }: { params: Params }) {
           </div>
         </section>
       )}
-    </div>
+    </PageShell>
   );
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { SectionHeader } from "@/components/section-header";
 import { GoldCTA } from "@/components/gold-cta";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,20 +11,18 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="pt-[88px]">
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Contact", href: "/contact" },
+        ]}
+        label="Get in touch"
+      />
+
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
-          <Breadcrumbs
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Contact", href: "/contact" },
-            ]}
-          />
-          <div className="mt-6">
-            <SectionHeader label="Get in touch" headline="We'd love to hear from you." />
-          </div>
-
-          <div className="mt-kb-12 grid grid-cols-1 gap-kb-12 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-kb-12 md:grid-cols-2">
             <div>
               <p className="kb-label text-[10px] text-kb-terracotta">Customer Care</p>
               <p className="mt-3 font-body text-[16px] font-light leading-[1.8] text-kb-dusk/80">
@@ -64,6 +61,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

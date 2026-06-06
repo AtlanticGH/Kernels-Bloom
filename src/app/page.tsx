@@ -10,6 +10,7 @@ import { ArticleCard } from "@/components/article-card";
 import { BotanicalIllustration } from "@/components/botanical-illustration";
 import { KBButton } from "@/components/kb-button";
 import { Reveal } from "@/components/reveal";
+import { HeroHeadline } from "@/components/hero-headline";
 import {
   getFeaturedProducts,
   getAllArticles,
@@ -59,11 +60,7 @@ export default function HomePage() {
             <p className="kb-label text-kb-terracotta">
               Ghanaian Luxury Botanicals
             </p>
-            <h1 className="mt-5 font-display text-[clamp(40px,5vw,72px)] font-semibold not-italic leading-[1.1] tracking-tight text-kb-cacao">
-              From the kernel,
-              <br />
-              To your bloom.
-            </h1>
+            <HeroHeadline tone="light" className="mt-5" />
             <HairlineRule width="80px" variant="gold" className="mt-6" />
             <p className="mt-6 max-w-[480px] font-body text-body-lg font-light text-kb-dusk/70">
               Science-backed formulations rooted in Africa&apos;s richest

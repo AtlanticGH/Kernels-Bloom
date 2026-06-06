@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getAllProducts } from "@/lib/data";
 import { QuizFlow } from "@/components/quiz-flow";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "The Ritual Quiz",
@@ -12,10 +13,20 @@ export const metadata: Metadata = {
 export default function QuizPage() {
   const products = getAllProducts();
   return (
-    <div className="bg-kb-parchment pt-[88px]">
-      <section className="py-kb-12">
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Skin Ritual", href: "/skin-ritual" },
+          { name: "Quiz", href: "/skin-ritual/quiz" },
+        ]}
+        label="Skin Quiz"
+        intro="Seven questions to read your skin and hair, then a routine built from the botanicals that suit them."
+      />
+
+      <section className="bg-kb-parchment py-kb-12">
         <QuizFlow products={products} />
       </section>
-    </div>
+    </PageShell>
   );
 }

@@ -8,7 +8,6 @@ import {
   getIngredient,
   resolveProducts,
 } from "@/lib/data";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { HairlineRule } from "@/components/hairline-rule";
 import { CornerBrackets } from "@/components/corner-brackets";
 import { Accordion } from "@/components/accordion";
@@ -16,6 +15,7 @@ import { AddToCart } from "@/components/add-to-cart";
 import { GoldCTA } from "@/components/gold-cta";
 import { ProductCard } from "@/components/product-card";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 type Params = { category: string; slug: string };
 
@@ -55,14 +55,18 @@ export default function ProductPage({ params }: { params: Params }) {
   ];
 
   return (
-    <div className="pt-[88px]">
+    <PageShell>
       <ProductJsonLd product={product} />
       <BreadcrumbJsonLd items={crumbs} />
+      <PageHero
+        breadcrumbs={crumbs}
+        label={category?.name ?? "Products"}
+        intro={product.tagline}
+      />
 
-      <section className="mx-auto max-w-kb-max px-6 py-kb-8">
-        <Breadcrumbs items={crumbs} />
-
-        <div className="mt-kb-8 grid grid-cols-1 gap-kb-12 lg:grid-cols-[55fr_45fr]">
+      <section className="bg-kb-parchment py-kb-12">
+        <div className="mx-auto max-w-kb-max px-6">
+        <div className="grid grid-cols-1 gap-kb-12 lg:grid-cols-[55fr_45fr]">
           {/* images */}
           <div>
             <div className="relative aspect-[4/5] overflow-hidden bg-kb-linen">
@@ -82,17 +86,14 @@ export default function ProductPage({ params }: { params: Params }) {
             <p className="kb-label text-[10px] text-kb-terracotta">
               {category?.name}
             </p>
-            <h1 className="mt-2 font-display text-[clamp(30px,4vw,36px)] font-normal text-kb-cacao">
+            <h2 className="mt-2 font-display text-[clamp(30px,4vw,36px)] font-semibold not-italic text-kb-cacao">
               {product.name}
-            </h1>
+            </h2>
             {keyIngredient && (
               <p className="mt-1 kb-accent text-[16px] text-kb-terracotta">
                 {keyIngredient.commonName}
               </p>
             )}
-            <p className="mt-3 font-body text-[15px] font-light text-kb-dusk/70">
-              {product.tagline}
-            </p>
             <p className="mt-5 font-body text-[18px] font-light text-kb-dusk">
               £{product.price}
             </p>
@@ -177,7 +178,8 @@ export default function ProductPage({ params }: { params: Params }) {
             </div>
           </div>
         )}
+        </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

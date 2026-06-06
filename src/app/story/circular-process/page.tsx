@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { SectionHeader } from "@/components/section-header";
 import { CircularDiagram } from "@/components/circular-diagram";
 import { Accordion } from "@/components/accordion";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "The Circular Process",
@@ -13,30 +12,20 @@ export const metadata: Metadata = {
 
 export default function CircularProcessPage() {
   return (
-    <div className="pt-[88px]">
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Our Story", href: "/story" },
+          { name: "Circular Process", href: "/story/circular-process" },
+        ]}
+        label="Circular Process"
+        intro="Circularity is not a marketing layer for us. Increasingly, it is where the formulations begin."
+      />
+
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
-          <Breadcrumbs
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Our Story", href: "/story" },
-              { name: "Circular Process", href: "/story/circular-process" },
-            ]}
-          />
-          <div className="mt-6">
-            <SectionHeader
-              label="Our Circular Commitment"
-              headline="Waste, transformed into luxury."
-            />
-          </div>
-          <p className="mt-6 max-w-xl font-body text-[16px] font-light leading-relaxed text-kb-dusk/80">
-            Circularity is not a marketing layer for us. Increasingly, it is
-            where the formulations begin.
-          </p>
-
-          <div className="mt-kb-16">
-            <CircularDiagram />
-          </div>
+          <CircularDiagram />
         </div>
       </section>
 
@@ -87,6 +76,6 @@ export default function CircularProcessPage() {
           />
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

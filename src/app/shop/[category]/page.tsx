@@ -8,9 +8,9 @@ import {
   getAllIngredients,
 } from "@/lib/data";
 import type { CategorySlug } from "@/lib/types";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CollectionView } from "@/components/collection-view";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 type Params = { category: string };
 
@@ -50,35 +50,26 @@ export default function CategoryPage({ params }: { params: Params }) {
     getAllIngredients().map((i) => [i.slug, i.commonName])
   );
 
-  return (
-    <div className="pt-[88px]">
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", href: "/" },
-          { name: "Shop", href: "/shop" },
-          { name: resolved.name, href: `/shop/${params.category}` },
-        ]}
-      />
-      <section className="mx-auto max-w-kb-max px-6 py-kb-12">
-        <Breadcrumbs
-          items={[
-            { name: "Home", href: "/" },
-            { name: "Shop", href: "/shop" },
-            { name: resolved.name, href: `/shop/${params.category}` },
-          ]}
-        />
-        <p className="mt-6 kb-label text-kb-terracotta">The Collection</p>
-        <h1 className="mt-2 font-display text-headline font-light italic text-kb-cacao">
-          {resolved.name}
-        </h1>
-        <p className="mt-4 max-w-xl font-body text-body font-light text-kb-dusk/80">
-          {resolved.description}
-        </p>
+  const crumbs = [
+    { name: "Home", href: "/" },
+    { name: "Shop", href: "/shop" },
+    { name: resolved.name, href: `/shop/${params.category}` },
+  ];
 
-        <div className="mt-kb-12">
+  return (
+    <PageShell>
+      <BreadcrumbJsonLd items={crumbs} />
+      <PageHero
+        breadcrumbs={crumbs}
+        label={resolved.name}
+        intro={resolved.description}
+      />
+
+      <section className="bg-kb-parchment py-kb-12">
+        <div className="mx-auto max-w-kb-max px-6">
           <CollectionView products={resolved.products} ingredientNames={ingredientNames} />
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

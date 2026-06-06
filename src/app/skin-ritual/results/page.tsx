@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getAllProducts } from "@/lib/data";
 import { ResultsView } from "@/components/results-view";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Your Ritual Results",
@@ -11,10 +12,20 @@ export const metadata: Metadata = {
 
 export default function ResultsPage() {
   return (
-    <div className="bg-kb-parchment pt-[88px]">
-      <section className="py-kb-16">
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Skin Ritual", href: "/skin-ritual" },
+          { name: "Results", href: "/skin-ritual/results" },
+        ]}
+        label="Your Ritual"
+        intro="Your personalised K&B ritual, built from your quiz answers."
+      />
+
+      <section className="bg-kb-parchment py-kb-16">
         <ResultsView products={getAllProducts()} />
       </section>
-    </div>
+    </PageShell>
   );
 }

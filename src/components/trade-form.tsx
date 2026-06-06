@@ -4,7 +4,7 @@ import { useState } from "react";
 import { KBInput, KBSelect, KBTextarea } from "./kb-input";
 import { KBButton } from "./kb-button";
 
-export function TradeForm() {
+export function TradeForm({ tone = "parchment" }: { tone?: "dusk" | "parchment" }) {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle"
   );
@@ -37,7 +37,11 @@ export function TradeForm() {
 
   if (status === "done") {
     return (
-      <p className="kb-accent text-[20px] text-kb-parchment">
+      <p
+        className={`kb-accent text-[20px] ${
+          tone === "dusk" ? "text-kb-cacao" : "text-kb-parchment"
+        }`}
+      >
         Thank you — our trade team will be in touch within two working days.
       </p>
     );
@@ -45,34 +49,42 @@ export function TradeForm() {
 
   return (
     <form onSubmit={onSubmit} className="grid grid-cols-1 gap-kb-6 sm:grid-cols-2">
-      <KBInput label="Business name" name="business-name" required tone="parchment" />
-      <KBInput label="Contact name" name="contact-name" required tone="parchment" />
-      <KBInput label="Email" name="email" type="email" required tone="parchment" />
-      <KBInput label="Phone" name="phone" type="tel" tone="parchment" />
+      <KBInput label="Business name" name="business-name" required tone={tone} />
+      <KBInput label="Contact name" name="contact-name" required tone={tone} />
+      <KBInput label="Email" name="email" type="email" required tone={tone} />
+      <KBInput label="Phone" name="phone" type="tel" tone={tone} />
       <KBSelect
         label="Business type"
         name="business-type"
-        tone="parchment"
+        tone={tone}
         options={["Boutique hotel", "Wellness spa", "Natural beauty retailer", "Other"]}
       />
-      <KBInput label="Country" name="country" tone="parchment" />
+      <KBInput label="Country" name="country" tone={tone} />
       <div className="sm:col-span-2">
         <KBSelect
           label="Estimated monthly volume"
           name="volume"
-          tone="parchment"
+          tone={tone}
           options={["Under £1,000", "£1,000–£5,000", "£5,000–£15,000", "£15,000+"]}
         />
       </div>
       <div className="sm:col-span-2">
-        <KBTextarea label="Message" name="message" tone="parchment" />
+        <KBTextarea label="Message" name="message" tone={tone} />
       </div>
       <div className="sm:col-span-2">
-        <KBButton type="submit" variant="on-dark" disabled={status === "sending"}>
+        <KBButton
+          type="submit"
+          variant={tone === "dusk" ? "primary" : "on-dark"}
+          disabled={status === "sending"}
+        >
           {status === "sending" ? "Sending…" : "Submit application"}
         </KBButton>
         {status === "error" && (
-          <p className="mt-3 font-body text-[13px] font-light text-kb-kola">
+          <p
+            className={`mt-3 font-body text-[13px] font-light ${
+              tone === "dusk" ? "text-kb-dusk/70" : "text-kb-kola"
+            }`}
+          >
             Something went wrong — please try again.
           </p>
         )}

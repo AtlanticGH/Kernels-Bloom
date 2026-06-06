@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { GrainOverlay } from "@/components/grain-overlay";
-import { CornerBrackets } from "@/components/corner-brackets";
 import { HairlineRule } from "@/components/hairline-rule";
 import { GoldCTA } from "@/components/gold-cta";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHero, PageShell } from "@/components/page-hero";
 import { TradeForm } from "@/components/trade-form";
 
 export const metadata: Metadata = {
@@ -29,26 +28,19 @@ const TIERS = [
 
 export default function TradePage() {
   return (
-    <div className="pt-[72px]">
-      {/* hero */}
-      <section className="relative overflow-hidden bg-kb-dusk py-kb-16">
-        <GrainOverlay opacity={0.05} />
-        <CornerBrackets arm={64} inset={32} color="var(--kb-chalk)" />
-        <div className="relative mx-auto max-w-kb-max px-6">
-          <Breadcrumbs
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Trade", href: "/trade" },
-            ]}
-          />
-          <h1 className="mt-6 max-w-3xl font-display text-[clamp(36px,6vw,52px)] font-light italic leading-[1.1] text-kb-parchment">
-            A brand built for those who care about what&apos;s on the shelf.
-          </h1>
-        </div>
-      </section>
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Trade", href: "/trade" },
+        ]}
+        label="Trade & Wholesale"
+        className="pb-kb-8"
+      />
 
       {/* why */}
-      <section className="relative overflow-hidden bg-kb-dusk pb-kb-16">
+      <section className="relative overflow-hidden bg-kb-dusk py-kb-16">
+        <GrainOverlay opacity={0.05} />
         <div className="relative mx-auto max-w-kb-max px-6">
           <p className="kb-label text-[11px] text-kb-gold">Why Kernels &amp; Bloom</p>
           <HairlineRule width="100%" variant="gold" className="mt-4" />
@@ -68,7 +60,7 @@ export default function TradePage() {
       </section>
 
       {/* pricing */}
-      <section className="bg-kb-parchment py-kb-16">
+      <section className="bg-kb-linen py-kb-16">
         <div className="mx-auto max-w-kb-content px-6">
           <h2 className="font-display text-[clamp(28px,4vw,40px)] font-light italic text-kb-cacao">
             Minimum order &amp; pricing
@@ -109,20 +101,22 @@ export default function TradePage() {
       </section>
 
       {/* application */}
-      <section className="relative overflow-hidden bg-kb-dusk py-kb-16">
-        <GrainOverlay opacity={0.04} />
+      <section className="relative overflow-hidden bg-kb-gold py-kb-16">
+        <GrainOverlay opacity={0.06} />
         <div className="relative mx-auto max-w-kb-content px-6">
-          <h2 className="font-display text-[clamp(28px,4vw,40px)] font-light italic text-kb-parchment">
+          <p className="kb-label text-kb-dusk">Partner Application</p>
+          <h2 className="mt-3 font-display text-[clamp(28px,4vw,40px)] font-semibold not-italic text-kb-dusk">
             Apply to stock K&amp;B
           </h2>
-          <p className="mt-3 max-w-lg font-body text-[15px] font-light text-kb-parchment/70">
+          <HairlineRule width="80px" variant="terracotta" className="mt-6" />
+          <p className="mt-6 max-w-lg font-body text-body font-light text-kb-dusk/80">
             Tell us about your business. We review every application personally.
           </p>
           <div className="mt-kb-8">
-            <TradeForm />
+            <TradeForm tone="dusk" />
           </div>
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

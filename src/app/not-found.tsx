@@ -1,23 +1,22 @@
 import { KBButton } from "@/components/kb-button";
 import { GoldCTA } from "@/components/gold-cta";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export default function NotFound() {
   return (
-    <div className="grid min-h-[70vh] place-items-center px-6 pt-[88px] text-center">
-      <div>
-        <p className="kb-label text-kb-terracotta">404</p>
-        <h1 className="mt-3 font-display text-[clamp(36px,6vw,64px)] font-light italic text-kb-cacao">
-          This path hasn&apos;t bloomed.
-        </h1>
-        <p className="mx-auto mt-4 max-w-md font-body text-[15px] font-light text-kb-dusk/70">
-          The page you&apos;re after isn&apos;t here. Let&apos;s find your way
-          back to the botanicals.
-        </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+    <PageShell>
+      <PageHero
+        breadcrumbs={[{ name: "Home", href: "/" }]}
+        label="404"
+        intro="The page you're after isn't here. Let's find your way back to the botanicals."
+      >
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <KBButton href="/">Return home</KBButton>
-          <GoldCTA href="/shop/all">Browse the collection →</GoldCTA>
+          <GoldCTA href="/shop/all" tone="parchment">
+            Browse the collection →
+          </GoldCTA>
         </div>
-      </div>
-    </div>
+      </PageHero>
+    </PageShell>
   );
 }

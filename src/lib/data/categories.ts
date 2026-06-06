@@ -27,6 +27,13 @@ export const categories: ProductCategory[] = [
     botanicalAnchor: "Shea",
   },
   {
+    slug: "mens-grooming",
+    name: "Mens Grooming",
+    description:
+      "Beard oils, balms and daily care built for coarser skin and hair.",
+    botanicalAnchor: "Marula",
+  },
+  {
     slug: "lip-colour",
     name: "Lip & Colour",
     description: "Tinted balms drawn from hibiscus and warm earth pigments.",

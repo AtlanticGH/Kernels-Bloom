@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GrainOverlay } from "@/components/grain-overlay";
-import { CornerBrackets } from "@/components/corner-brackets";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Our Story",
@@ -21,22 +19,14 @@ const CHAPTERS = [
 
 export default function StoryPage() {
   return (
-    <div className="pt-[72px]">
-      <section className="relative overflow-hidden bg-kb-dusk py-kb-16">
-        <GrainOverlay opacity={0.05} />
-        <CornerBrackets arm={64} inset={32} color="var(--kb-chalk)" />
-        <div className="relative mx-auto max-w-kb-max px-6">
-          <Breadcrumbs
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Our Story", href: "/story" },
-            ]}
-          />
-          <h1 className="mt-6 max-w-3xl font-display text-[clamp(40px,7vw,72px)] font-light italic leading-[1.05] text-kb-parchment">
-            Rooted in heritage. Powered by science.
-          </h1>
-        </div>
-      </section>
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Our Story", href: "/story" },
+        ]}
+        label="Our Story"
+      />
 
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
@@ -59,6 +49,6 @@ export default function StoryPage() {
           </ul>
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { CornerBrackets } from "@/components/corner-brackets";
 import { GoldCTA } from "@/components/gold-cta";
 import { KBButton } from "@/components/kb-button";
 import { SectionHeader } from "@/components/section-header";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Skin Ritual",
@@ -31,25 +30,15 @@ const PATHS = [
 
 export default function SkinRitualPage() {
   return (
-    <div className="pt-[88px]">
-      <section className="relative overflow-hidden bg-kb-parchment py-kb-12">
-        <CornerBrackets arm={60} inset={32} />
-        <div className="relative mx-auto max-w-kb-max px-6">
-          <Breadcrumbs
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Skin Ritual", href: "/skin-ritual" },
-            ]}
-          />
-          <h1 className="mt-6 max-w-2xl font-display text-[clamp(40px,6vw,64px)] font-light italic text-kb-cacao">
-            Botanicals chosen for you, specifically.
-          </h1>
-          <p className="mt-6 max-w-xl font-body text-[16px] font-light leading-relaxed text-kb-dusk/80">
-            No two skins are generic. Choose the path that suits you — a quick
-            quiz, or a conversation.
-          </p>
-        </div>
-      </section>
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Skin Ritual", href: "/skin-ritual" },
+        ]}
+        label="Personalised Ritual"
+        intro="No two skins are generic. Choose the path that suits you — a quick quiz, or a conversation."
+      />
 
       <section className="bg-kb-linen py-kb-16">
         <div className="mx-auto grid max-w-kb-max grid-cols-1 gap-px px-6 md:grid-cols-2">
@@ -70,6 +59,6 @@ export default function SkinRitualPage() {
           ))}
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

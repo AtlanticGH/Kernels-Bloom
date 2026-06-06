@@ -6,7 +6,7 @@ type SectionHeaderProps = {
   align?: "left" | "center";
   /** colour context — light (parchment/linen) or dark (dusk) backgrounds */
   tone?: "light" | "dark";
-  labelColor?: "terracotta" | "cacao";
+  labelColor?: "terracotta" | "cacao" | "gold";
   /** render the headline italic (Cormorant 300 italic) */
   italic?: boolean;
   className?: string;
@@ -24,7 +24,11 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   const isCenter = align === "center";
   const labelCls =
-    labelColor === "terracotta" ? "text-kb-terracotta" : "text-kb-cacao";
+    labelColor === "gold"
+      ? "text-kb-gold"
+      : labelColor === "terracotta"
+        ? "text-kb-terracotta"
+        : "text-kb-cacao";
   const headlineColor = tone === "dark" ? "text-kb-parchment" : "text-kb-cacao";
 
   return (

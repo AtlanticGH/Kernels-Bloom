@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { SectionHeader } from "@/components/section-header";
 import { HairlineRule } from "@/components/hairline-rule";
 import { GoldCTA } from "@/components/gold-cta";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Press & Awards",
@@ -25,20 +24,18 @@ const PRESS = [
 
 export default function PressPage() {
   return (
-    <div className="pt-[88px]">
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Press & Awards", href: "/press" },
+        ]}
+        label="Recognition"
+      />
+
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
-          <Breadcrumbs
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Press & Awards", href: "/press" },
-            ]}
-          />
-          <div className="mt-6">
-            <SectionHeader label="Recognition" headline="Press & Awards" />
-          </div>
-
-          <div className="mt-kb-12 grid grid-cols-1 gap-kb-16 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-kb-16 lg:grid-cols-2">
             <div>
               <p className="kb-label text-[10px] text-kb-terracotta">Awards</p>
               <ul className="mt-4 divide-y-[0.5px] divide-kb-chalk border-y-[0.5px] border-kb-chalk">
@@ -79,6 +76,6 @@ export default function PressPage() {
           </div>
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { GrainOverlay } from "@/components/grain-overlay";
-import { CornerBrackets } from "@/components/corner-brackets";
 import { HairlineRule } from "@/components/hairline-rule";
 import { BotanicalIllustration } from "@/components/botanical-illustration";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { CornerBrackets } from "@/components/corner-brackets";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Brand Story",
@@ -29,24 +28,15 @@ const PILLARS = [
 
 export default function BrandStoryPage() {
   return (
-    <div className="pt-[72px]">
-      <section className="relative overflow-hidden bg-kb-dusk py-kb-16">
-        <GrainOverlay opacity={0.05} />
-        <CornerBrackets arm={64} inset={32} color="var(--kb-chalk)" />
-        <div className="relative mx-auto max-w-kb-content px-6">
-          <Breadcrumbs
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Our Story", href: "/story" },
-              { name: "Brand", href: "/story/brand" },
-            ]}
-          />
-          <p className="mt-6 kb-label kb-label-kola">Our Story</p>
-          <h1 className="mt-3 font-display text-[clamp(40px,6vw,72px)] font-light italic leading-[1.05] text-kb-parchment">
-            A heartfelt tribute to the timeless beauty of Africa.
-          </h1>
-        </div>
-      </section>
+    <PageShell>
+      <PageHero
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Our Story", href: "/story" },
+          { name: "Brand", href: "/story/brand" },
+        ]}
+        label="Brand Story"
+      />
 
       <section className="relative overflow-hidden bg-kb-parchment py-kb-16">
         <BotanicalIllustration
@@ -104,6 +94,6 @@ export default function BrandStoryPage() {
           </div>
         </div>
       </section>
-    </div>
+    </PageShell>
   );
 }

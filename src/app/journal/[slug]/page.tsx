@@ -3,10 +3,9 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getAllArticles, getArticle, resolveProducts } from "@/lib/data";
 import { HairlineRule } from "@/components/hairline-rule";
-import { CornerBrackets } from "@/components/corner-brackets";
 import { ProductCard } from "@/components/product-card";
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
+import { PageHero, PageShell } from "@/components/page-hero";
 
 type Params = { slug: string };
 
@@ -49,34 +48,29 @@ export default function ArticlePage({ params }: { params: Params }) {
   ];
 
   return (
-    <div className="pt-[72px]">
+    <PageShell>
       <ArticleJsonLd article={article} />
       <BreadcrumbJsonLd items={crumbs} />
-
-      <section className="relative h-[60vh] min-h-[360px] overflow-hidden bg-kb-chalk">
-        <Image
-          src={article.image}
-          alt={article.title}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <CornerBrackets arm={64} inset={32} />
-      </section>
+      <PageHero
+        breadcrumbs={crumbs}
+        label={`${CATEGORY_LABEL[article.category]} · ${article.readTime} min read`}
+        intro={article.title}
+      />
 
       <article className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-[720px] px-6">
-          <Breadcrumbs items={crumbs} />
-          <p className="mt-6 kb-label text-[10px] text-kb-terracotta">
-            {CATEGORY_LABEL[article.category]} · {article.readTime} min read
-          </p>
-          <h1 className="mt-3 font-display text-[clamp(32px,5vw,52px)] font-light italic leading-[1.1] text-kb-cacao">
-            {article.title}
-          </h1>
-          <HairlineRule width="80px" variant="gold" className="mt-6" />
+          <div className="relative mb-kb-8 aspect-[16/9] overflow-hidden bg-kb-chalk">
+            <Image
+              src={article.image}
+              alt={article.title}
+              fill
+              priority
+              sizes="(max-width: 720px) 100vw, 720px"
+              className="object-cover"
+            />
+          </div>
 
-          <div className="mt-kb-8 space-y-5 font-body text-[17px] font-light leading-[1.9] text-kb-dusk/85">
+          <div className="space-y-5 font-body text-[17px] font-light leading-[1.9] text-kb-dusk/85">
             {article.body.map((para, i) => (
               <p key={i}>{para}</p>
             ))}
@@ -107,6 +101,6 @@ export default function ArticlePage({ params }: { params: Params }) {
           </div>
         </section>
       )}
-    </div>
+    </PageShell>
   );
 }

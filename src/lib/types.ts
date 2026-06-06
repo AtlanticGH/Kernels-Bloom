@@ -15,6 +15,7 @@ export type CategorySlug =
   | "hair-scalp"
   | "body-bath"
   | "kids-baby"
+  | "mens-grooming"
   | "lip-colour"
   | "household"
   | "bundles"
