@@ -1,0 +1,1 @@
+-- Grants applied on remote for site_content.
