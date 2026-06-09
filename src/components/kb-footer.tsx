@@ -3,6 +3,7 @@ import { FOOTER_NAV, SITE } from "@/lib/site";
 import { GrainOverlay } from "./grain-overlay";
 import { HairlineRule } from "./hairline-rule";
 import { NewsletterForm } from "./newsletter-form";
+import { SocialLinks } from "./social-links";
 
 export function KBFooter() {
   return (
@@ -23,17 +24,7 @@ export function KBFooter() {
               {SITE.tagline} Science-backed botanicals, crafted in Ghana and
               returned to the circle.
             </p>
-            <div className="mt-5 flex gap-6">
-              <a href={SITE.social.instagram} className="kb-label text-[11px] text-kb-gold hover:text-kb-kola">
-                Instagram
-              </a>
-              <a href={SITE.social.tiktok} className="kb-label text-[11px] text-kb-gold hover:text-kb-kola">
-                TikTok
-              </a>
-              <a href={SITE.social.pinterest} className="kb-label text-[11px] text-kb-gold hover:text-kb-kola">
-                Pinterest
-              </a>
-            </div>
+            <SocialLinks className="mt-5" />
             <div className="mt-6 max-w-sm">
               <p className="kb-label text-[11px] text-kb-gold">The Journal, by post</p>
               <NewsletterForm className="mt-3" />

@@ -23,9 +23,9 @@ export function OrganizationJsonLd() {
         slogan: SITE.tagline,
         foundingLocation: { "@type": "Place", name: "Ghana" },
         sameAs: [
+          SITE.social.facebook,
           SITE.social.instagram,
-          SITE.social.tiktok,
-          SITE.social.pinterest,
+          SITE.social.youtube,
         ],
       }}
     />

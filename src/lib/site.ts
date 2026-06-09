@@ -10,9 +10,9 @@ export const SITE = {
     name: "Maud Lindsay-Gamrat",
   },
   social: {
+    facebook: "https://facebook.com/kernelsandbloom",
     instagram: "https://instagram.com/kernelsandbloom",
-    tiktok: "https://tiktok.com/@kernelsandbloom",
-    pinterest: "https://pinterest.com/kernelsandbloom",
+    youtube: "https://youtube.com/@kernelsandbloom",
   },
 } as const;
 
