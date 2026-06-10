@@ -13,10 +13,10 @@ import { Reveal } from "@/components/reveal";
 import { CurrencyToggle } from "@/components/currency-toggle";
 import { HeroHeadline } from "@/components/hero-headline";
 import { BrandMarquee } from "@/components/brand-marquee";
+import { getCmsBlock } from "@/lib/cms/content";
 import {
   getFeaturedProducts,
   getAllArticles,
-  getIngredient,
 } from "@/lib/data";
 
 const STATS = [
@@ -44,10 +44,13 @@ const PROCESS = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
   const featured = getFeaturedProducts(4);
   const articles = getAllArticles().slice(0, 3);
-  const palm = getIngredient("palm")!;
+  const [hero, spotlight] = await Promise.all([
+    getCmsBlock("home.hero"),
+    getCmsBlock("home.ingredient-spotlight"),
+  ]);
 
   return (
     <>
@@ -71,20 +74,16 @@ export default function HomePage() {
         <CornerBrackets arm={80} inset={40} className="z-[1]" />
         <div className="relative z-10 mx-auto w-full max-w-kb-max px-6 sm:px-kb-12">
           <div className="max-w-[820px]">
-            <p className="kb-label text-kb-terracotta">
-              Ghanaian Luxury Botanicals
-            </p>
+            <p className="kb-label text-kb-terracotta">{hero.eyebrow}</p>
             <HeroHeadline tone="light" className="mt-5" />
             <HairlineRule width="80px" variant="gold" className="mt-6" />
             <p className="mt-6 max-w-[480px] font-body text-body-lg font-light text-kb-dusk/70">
-              Science-backed formulations rooted in Africa&apos;s richest
-              botanicals. Crafted in Ghana, for skin that remembers where it
-              comes from.
+              {hero.subcopy}
             </p>
             <div className="mt-10 flex flex-col gap-4">
-              <GoldCTA href="/shop/all">Explore the collection →</GoldCTA>
-              <GoldCTA href="/botanicals" tone="dusk">
-                Discover our botanicals
+              <GoldCTA href={hero.ctaPrimaryHref}>{hero.ctaPrimary}</GoldCTA>
+              <GoldCTA href={hero.ctaSecondaryHref} tone="dusk">
+                {hero.ctaSecondary}
               </GoldCTA>
             </div>
           </div>
@@ -118,8 +117,8 @@ export default function HomePage() {
         <div className="grid w-full grid-cols-1 items-stretch md:grid-cols-2">
           <div className="relative min-h-[400px] bg-kb-chalk md:min-h-[600px]">
             <Image
-              src="/images/beth-macdonald-QiGt-xFWkLU-unsplash.jpg"
-              alt="Palm grove — lush tropical fronds in dappled light"
+              src={spotlight.image}
+              alt={`${spotlight.commonName} — botanical ingredient story`}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -139,22 +138,24 @@ export default function HomePage() {
               className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2"
             />
             <div className="relative">
-              <p className="kb-label text-[12px] text-kb-dusk/60">Ingredient Story</p>
+              <p className="kb-label text-[12px] text-kb-dusk/60">
+                {spotlight.sectionLabel}
+              </p>
               <h2 className="mt-3 font-display text-[clamp(40px,6vw,52px)] font-light italic text-kb-dusk">
-                {palm.commonName}
+                {spotlight.commonName}
               </h2>
               <p className="mt-1 font-body text-[13px] font-light text-kb-dusk/70">
-                {palm.latinName}
+                {spotlight.latinName}
               </p>
               <p className="mt-6 max-w-[400px] font-body text-[16px] font-light leading-[1.85] text-kb-dusk">
-                {palm.bodyText[1]} {palm.bodyText[2]}
+                {spotlight.body}
               </p>
               <p className="mt-4 kb-accent text-[18px] text-kb-cacao">
-                &ldquo;{palm.pullQuote}&rdquo;
+                &ldquo;{spotlight.pullQuote}&rdquo;
               </p>
               <div className="mt-8">
-                <GoldCTA href="/botanicals/palm" tone="dusk">
-                  Read the full palm story →
+                <GoldCTA href={spotlight.ctaHref} tone="dusk">
+                  {spotlight.ctaLabel}
                 </GoldCTA>
               </div>
             </div>

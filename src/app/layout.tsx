@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Poppins, Cormorant_Garamond, Jost, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { CurrencyProvider } from "@/components/currency-provider";
@@ -67,20 +68,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = headers().get("x-pathname") ?? "";
+  const isAdmin = pathname.startsWith("/admin");
+
   return (
     <html
       lang="en"
       className={`${cormorant.variable} ${jost.variable} ${playfair.variable} ${poppins.variable}`}
     >
       <body className="min-h-dvh bg-kb-parchment text-kb-dusk antialiased">
-        <a href="#main" className="kb-skip-link">
-          Skip to content
-        </a>
+        {!isAdmin && (
+          <a href="#main" className="kb-skip-link">
+            Skip to content
+          </a>
+        )}
         <OrganizationJsonLd />
         <CurrencyProvider>
-          <KBNavigation />
+          {!isAdmin && <KBNavigation />}
           <main id="main">{children}</main>
-          <KBFooter />
+          {!isAdmin && <KBFooter />}
         </CurrencyProvider>
         <script
           dangerouslySetInnerHTML={{

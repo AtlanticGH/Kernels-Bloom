@@ -1,22 +1,25 @@
 import type { ReactNode } from "react";
 import { SITE } from "@/lib/site";
+import type { SiteSocialContent } from "@/lib/cms/blocks";
 
 type SocialLinksProps = {
   className?: string;
+  links?: SiteSocialContent;
 };
 
 const ICON_SIZE = 20;
 
-const LINKS = [
-  { href: SITE.social.facebook, label: "Facebook", Icon: FacebookIcon },
-  { href: SITE.social.instagram, label: "Instagram", Icon: InstagramIcon },
-  { href: SITE.social.youtube, label: "YouTube", Icon: YouTubeIcon },
-] as const;
+export function SocialLinks({ className = "", links }: SocialLinksProps) {
+  const social = links ?? SITE.social;
+  const items = [
+    { href: social.facebook, label: "Facebook", Icon: FacebookIcon },
+    { href: social.instagram, label: "Instagram", Icon: InstagramIcon },
+    { href: social.youtube, label: "YouTube", Icon: YouTubeIcon },
+  ] as const;
 
-export function SocialLinks({ className = "" }: SocialLinksProps) {
   return (
     <div className={`flex items-center gap-1 ${className}`}>
-      {LINKS.map(({ href, label, Icon }) => (
+      {items.map(({ href, label, Icon }) => (
         <a
           key={href}
           href={href}

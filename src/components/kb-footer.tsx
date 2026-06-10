@@ -1,11 +1,13 @@
 import Link from "next/link";
+import { getCmsBlock } from "@/lib/cms/content";
 import { FOOTER_NAV, SITE } from "@/lib/site";
 import { GrainOverlay } from "./grain-overlay";
 import { HairlineRule } from "./hairline-rule";
 import { NewsletterForm } from "./newsletter-form";
 import { SocialLinks } from "./social-links";
 
-export function KBFooter() {
+export async function KBFooter() {
+  const social = await getCmsBlock("site.social");
   return (
     <footer className="relative overflow-hidden bg-kb-dusk text-kb-parchment">
       <GrainOverlay opacity={0.03} />
@@ -24,7 +26,7 @@ export function KBFooter() {
               {SITE.tagline} Science-backed botanicals, crafted in Ghana and
               returned to the circle.
             </p>
-            <SocialLinks className="mt-5" />
+            <SocialLinks className="mt-5" links={social} />
             <div className="mt-6 max-w-sm">
               <p className="kb-label text-[11px] text-kb-gold">The Journal, by post</p>
               <NewsletterForm className="mt-3" />
