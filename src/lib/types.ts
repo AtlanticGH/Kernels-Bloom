@@ -8,7 +8,8 @@ export type BotanicalName =
   | "Moringa"
   | "Hibiscus"
   | "Marula"
-  | "Kalahari melon";
+  | "Kalahari melon"
+  | "Palm";
 
 export type CategorySlug =
   | "skin-facial"

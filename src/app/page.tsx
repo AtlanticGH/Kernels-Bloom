@@ -47,7 +47,7 @@ const PROCESS = [
 export default function HomePage() {
   const featured = getFeaturedProducts(4);
   const articles = getAllArticles().slice(0, 3);
-  const shea = getIngredient("shea")!;
+  const palm = getIngredient("palm")!;
 
   return (
     <>
@@ -118,40 +118,43 @@ export default function HomePage() {
         <div className="grid w-full grid-cols-1 items-stretch md:grid-cols-2">
           <div className="relative min-h-[400px] bg-kb-chalk md:min-h-[600px]">
             <Image
-              src="/images/DSC09553.jpg"
-              alt="Absolute Shea moisturising bar soap, wrapped in kraft and linen, against a lush botanical backdrop"
+              src="/images/beth-macdonald-QiGt-xFWkLU-unsplash.jpg"
+              alt="Palm grove — lush tropical fronds in dappled light"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-kb-cacao/20"
             />
             <GrainOverlay opacity={0.06} />
           </div>
           <div className="relative flex flex-col justify-center bg-kb-gold px-6 py-kb-12 md:pl-kb-12 md:pr-[max(1.5rem,calc(50vw_-_744px))]">
             <BotanicalIllustration
-              name="Shea"
-              size={240}
-              opacity={0.12}
-              className="pointer-events-none absolute -right-6 top-6"
+              name="Palm"
+              size={280}
+              opacity={0.4}
+              color="var(--kb-cacao)"
+              className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2"
             />
             <div className="relative">
               <p className="kb-label text-[12px] text-kb-dusk/60">Ingredient Story</p>
               <h2 className="mt-3 font-display text-[clamp(40px,6vw,52px)] font-light italic text-kb-dusk">
-                {shea.commonName}
+                {palm.commonName}
               </h2>
               <p className="mt-1 font-body text-[13px] font-light text-kb-dusk/70">
-                {shea.latinName}
+                {palm.latinName}
               </p>
               <p className="mt-6 max-w-[400px] font-body text-[16px] font-light leading-[1.85] text-kb-dusk">
-                Stone-ground by the women&apos;s cooperatives of Northern Ghana,
-                shea rebuilds the skin barrier and holds the day&apos;s warmth
-                in. A craft held across generations.
+                {palm.bodyText[1]} {palm.bodyText[2]}
               </p>
               <p className="mt-4 kb-accent text-[18px] text-kb-cacao">
-                &ldquo;{shea.pullQuote}&rdquo;
+                &ldquo;{palm.pullQuote}&rdquo;
               </p>
               <div className="mt-8">
-                <GoldCTA href="/botanicals" tone="dusk">
-                  Explore the botanical index →
+                <GoldCTA href="/botanicals/palm" tone="dusk">
+                  Read the full palm story →
                 </GoldCTA>
               </div>
             </div>

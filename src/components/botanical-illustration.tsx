@@ -102,6 +102,21 @@ const PATHS: Record<BotanicalName, React.ReactNode> = {
       <ellipse cx="50" cy="82" rx="6" ry="8" />
     </>
   ),
+  // Palm — slender trunk with arching fronds
+  Palm: (
+    <>
+      <path d="M50 92 C49 72 48 52 50 34 C51 22 50 14 50 12" />
+      <path d="M50 14 C50 4 28 2 14 10" />
+      <path d="M50 14 C50 4 72 2 86 10" />
+      <path d="M50 13 C38 4 24 6 16 14" />
+      <path d="M50 13 C62 4 76 6 84 14" />
+      <path d="M50 12 C50 2 50 0 50 0" />
+      <path d="M50 14 C42 6 32 8 24 16" />
+      <path d="M50 14 C58 6 68 8 76 16" />
+      <path d="M14 10 C10 16 8 22 8 28" />
+      <path d="M86 10 C90 16 92 22 92 28" />
+    </>
+  ),
   // Kalahari melon — round melon on a trailing vine with a leaf
   "Kalahari melon": (
     <>
