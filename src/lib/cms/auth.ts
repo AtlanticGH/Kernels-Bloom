@@ -30,10 +30,11 @@ export function verifySessionToken(token: string | undefined): boolean {
 }
 
 export function verifyAdminPassword(password: string): boolean {
-  const expected = process.env.CMS_ADMIN_PASSWORD;
-  if (!expected) return password === "kernels-bloom";
+  const input = password.trim();
+  const expected = process.env.CMS_ADMIN_PASSWORD?.trim();
+  if (!expected) return input === "kernels-bloom";
   try {
-    const a = Buffer.from(password);
+    const a = Buffer.from(input);
     const b = Buffer.from(expected);
     return a.length === b.length && timingSafeEqual(a, b);
   } catch {
