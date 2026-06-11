@@ -129,8 +129,9 @@ export const CMS_BLOCK_META: Record<
     description: "Not-found page copy and CTAs.",
   },
   "catalog.products": {
-    label: "Product tile images",
-    description: "Photos for each product card across the shop and homepage grids.",
+    label: "Product images",
+    description:
+      "Tile image and detail-page gallery for each product — upload, reorder, or remove photos.",
   },
   "catalog.ingredients": {
     label: "Botanical tile images",

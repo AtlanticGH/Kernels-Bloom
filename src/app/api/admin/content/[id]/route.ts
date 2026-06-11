@@ -3,8 +3,27 @@ import { isAdminAuthenticated } from "@/lib/cms/auth";
 import {
   CMS_BLOCK_DEFAULTS,
   type CmsBlockId,
+  type CmsBlockMap,
 } from "@/lib/cms/blocks";
 import { getCmsBlock, upsertCmsBlock } from "@/lib/cms/content";
+import type { Product } from "@/lib/types";
+
+function slimProductCatalogForSave(
+  data: CmsBlockMap["catalog.products"]
+): CmsBlockMap["catalog.products"] {
+  return {
+    items: data.items.map((product) => {
+      const images = (
+        product.images ?? (product.image ? [product.image] : [])
+      ).filter(Boolean);
+      return {
+        slug: product.slug,
+        image: images[0] ?? product.image,
+        images,
+      } as Product;
+    }),
+  };
+}
 
 type RouteContext = { params: { id: string } };
 
@@ -36,10 +55,12 @@ export async function PUT(request: Request, { params }: RouteContext) {
 
   try {
     const body = await request.json();
-    const result = await upsertCmsBlock(params.id, {
-      ...CMS_BLOCK_DEFAULTS[params.id],
-      ...body,
-    });
+    const payload =
+      params.id === "catalog.products"
+        ? slimProductCatalogForSave(body as CmsBlockMap["catalog.products"])
+        : { ...CMS_BLOCK_DEFAULTS[params.id], ...body };
+
+    const result = await upsertCmsBlock(params.id, payload);
 
     if (!result.ok) {
       return NextResponse.json({ error: result.error }, { status: 502 });

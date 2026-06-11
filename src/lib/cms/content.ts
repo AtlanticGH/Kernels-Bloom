@@ -3,7 +3,30 @@ import {
   type CmsBlockId,
   type CmsBlockMap,
 } from "./blocks";
+import { mergeProductCatalogItems } from "@/lib/data/merge-product-catalog";
 import { createServiceClient } from "@/lib/integrations/supabase-server";
+import type { Product } from "@/lib/types";
+
+function resolveBlockData<K extends CmsBlockId>(
+  id: K,
+  rowData: object | undefined
+): CmsBlockMap[K] {
+  const defaults = CMS_BLOCK_DEFAULTS[id];
+  if (!rowData) return defaults;
+
+  const merged = { ...defaults, ...rowData } as CmsBlockMap[K];
+
+  if (id === "catalog.products") {
+    const block = merged as CmsBlockMap["catalog.products"];
+    if (block.items?.length) {
+      return {
+        items: mergeProductCatalogItems(block.items as Product[]),
+      } as CmsBlockMap[K];
+    }
+  }
+
+  return merged;
+}
 
 export async function getCmsBlock<K extends CmsBlockId>(
   id: K
@@ -22,7 +45,7 @@ export async function getCmsBlock<K extends CmsBlockId>(
     return defaults;
   }
 
-  return { ...defaults, ...(data.data as Partial<CmsBlockMap[K]>) };
+  return resolveBlockData(id, data.data as object);
 }
 
 export async function listCmsBlocks(): Promise<
@@ -52,9 +75,7 @@ export async function listCmsBlocks(): Promise<
     const row = byId.get(id);
     return {
       id,
-      data: row?.data
-        ? { ...CMS_BLOCK_DEFAULTS[id], ...(row.data as object) }
-        : CMS_BLOCK_DEFAULTS[id],
+      data: resolveBlockData(id, row?.data as object | undefined),
       updated_at: row?.updated_at ?? null,
     };
   });

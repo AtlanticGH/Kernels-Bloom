@@ -62,6 +62,8 @@ export interface Product {
   price: number; // USD
   volume: string;
   image: string;
+  /** Additional product photos for the detail page gallery (first should match `image`). */
+  images?: string[];
   featured: boolean;
   inStock: boolean;
   skinTypes: string[];

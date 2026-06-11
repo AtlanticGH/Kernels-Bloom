@@ -15,13 +15,9 @@ import type {
   ProductCategory,
 } from "@/lib/types";
 
-function mergeProducts(cmsItems: Product[]): Product[] {
-  const localBySlug = new Map(localProducts.map((p) => [p.slug, p]));
-  return cmsItems.map((item) => {
-    const base = localBySlug.get(item.slug);
-    return base ? { ...base, ...item } : item;
-  });
-}
+import { mergeProductCatalogItems } from "./merge-product-catalog";
+
+export { mergeProductCatalogItems } from "./merge-product-catalog";
 
 function mergeCategories(cmsItems: ProductCategory[]): ProductCategory[] {
   const localBySlug = new Map(localCategories.map((c) => [c.slug, c]));
@@ -34,7 +30,7 @@ function mergeCategories(cmsItems: ProductCategory[]): ProductCategory[] {
 export async function getAllProducts(): Promise<Product[]> {
   const { items } = await getCmsBlock("catalog.products");
   if (items.length === 0) return localProducts;
-  return mergeProducts(items);
+  return mergeProductCatalogItems(items);
 }
 
 export async function getProductsByCategory(
@@ -139,4 +135,13 @@ export async function resolveProducts(slugs: string[]): Promise<Product[]> {
   return slugs
     .map((s) => products.find((p) => p.slug === s))
     .filter((p): p is Product => Boolean(p));
+}
+
+export async function resolveIngredients(
+  slugs: string[]
+): Promise<Ingredient[]> {
+  const ingredients = await getAllIngredients();
+  return slugs
+    .map((s) => ingredients.find((i) => i.slug === s))
+    .filter((i): i is Ingredient => Boolean(i));
 }
