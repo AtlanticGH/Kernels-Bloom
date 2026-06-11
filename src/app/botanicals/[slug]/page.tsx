@@ -118,7 +118,7 @@ export default async function IngredientPage({ params }: { params: Params }) {
             </h2>
             <div className="mt-kb-8 grid grid-cols-1 gap-x-6 gap-y-kb-8 sm:grid-cols-2 lg:grid-cols-4">
               {products.map((p) => (
-                <ProductCard key={p.slug} product={p} />
+                <ProductCard key={p.slug} product={p} square bare />
               ))}
             </div>
           </div>

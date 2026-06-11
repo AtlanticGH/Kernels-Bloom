@@ -11,9 +11,12 @@ import { categories } from "@/lib/data/categories";
 export function ProductCard({
   product,
   square = false,
+  bare = false,
 }: {
   product: Product;
   square?: boolean;
+  /** Omit parchment card background so text sits on the section surface. */
+  bare?: boolean;
 }) {
   const ingredient = ingredients.find((i) => i.slug === product.keyIngredient);
   const category = categories.find((c) => c.slug === product.category);
@@ -21,7 +24,7 @@ export function ProductCard({
   return (
     <Link
       href={`/shop/${product.category}/${product.slug}`}
-      className="group block bg-kb-parchment"
+      className={`group block ${bare ? "" : "bg-kb-parchment"}`}
     >
       <div
         className={`relative overflow-hidden bg-kb-chalk ${
