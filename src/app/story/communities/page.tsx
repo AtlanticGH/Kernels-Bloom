@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import { getAllCommunities } from "@/lib/data";
+import { getCmsBlock } from "@/lib/cms/content";
 import { SourcingMap } from "@/components/sourcing-map";
 import { PageHero, PageShell } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "Community Partners",
-  description:
-    "The twenty-plus cooperatives and gatherers we source with, shown as geography — from Northern Ghana to the Kalahari.",
-  alternates: { canonical: "/story/communities" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getCmsBlock("story.communities");
+  return {
+    title: content.metaTitle,
+    description: content.metaDescription,
+    alternates: { canonical: "/story/communities" },
+  };
+}
 
-export default function CommunitiesPage() {
-  const communities = getAllCommunities();
+export default async function CommunitiesPage() {
+  const [content, communities] = await Promise.all([
+    getCmsBlock("story.communities"),
+    getAllCommunities(),
+  ]);
 
   return (
     <PageShell>
@@ -21,9 +27,9 @@ export default function CommunitiesPage() {
           { name: "Our Story", href: "/story" },
           { name: "Community Partners", href: "/story/communities" },
         ]}
-        label="Community Partners"
-        headline="Twenty-plus communities, named."
-        intro="We buy at the cooperative, in cash, at a price the partners set. Hover a pin to read who supplies what, and from where."
+        label={content.label}
+        headline={content.headline}
+        intro={content.intro}
       />
 
       <section className="bg-kb-parchment py-kb-12">

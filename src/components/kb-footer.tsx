@@ -7,7 +7,11 @@ import { NewsletterForm } from "./newsletter-form";
 import { SocialLinks } from "./social-links";
 
 export async function KBFooter() {
-  const social = await getCmsBlock("site.social");
+  const [social, global] = await Promise.all([
+    getCmsBlock("site.social"),
+    getCmsBlock("site.global"),
+  ]);
+
   return (
     <footer className="relative overflow-hidden bg-kb-dusk text-kb-parchment">
       <GrainOverlay opacity={0.03} />
@@ -23,12 +27,13 @@ export async function KBFooter() {
         <div className="mt-kb-6 grid gap-kb-6 md:grid-cols-12">
           <div className="md:col-span-5">
             <p className="kb-accent max-w-sm text-[18px] text-kb-parchment/70">
-              {SITE.tagline} Science-backed botanicals, crafted in Ghana and
-              returned to the circle.
+              {SITE.tagline} {global.footerTagline}
             </p>
             <SocialLinks className="mt-5" links={social} />
             <div className="mt-6 max-w-sm">
-              <p className="kb-label text-[11px] text-kb-gold">The Journal, by post</p>
+              <p className="kb-label text-[11px] text-kb-gold">
+                {global.newsletterLabel}
+              </p>
               <NewsletterForm className="mt-3" />
             </div>
           </div>
@@ -54,7 +59,7 @@ export async function KBFooter() {
 
         <HairlineRule width="100%" variant="gold" className="mt-kb-6" />
         <p className="mt-4 font-body text-[11px] font-light text-kb-parchment/40">
-          © {new Date().getFullYear()} Kernels &amp; Bloom, Ghana · Made with purpose
+          © {new Date().getFullYear()} Kernels &amp; Bloom, Ghana · {global.copyright}
         </p>
       </div>
     </footer>

@@ -1,24 +1,42 @@
 "use client";
 
 import { useState } from "react";
+import type { PageQuizContent } from "@/lib/cms/types";
 import type { Product } from "@/lib/types";
-import { QUIZ_QUESTIONS, recommend } from "@/lib/quiz";
+import { recommend } from "@/lib/quiz";
 import { QuizStep } from "./quiz-step";
 import { ProductCard } from "./product-card";
 import { CornerBrackets } from "./corner-brackets";
 import { GoldCTA } from "./gold-cta";
 
-export function QuizFlow({ products }: { products: Product[] }) {
+type QuizFlowProps = {
+  products: Product[];
+  config: PageQuizContent;
+};
+
+export function QuizFlow({ products, config }: QuizFlowProps) {
+  const questions = config.questions.filter(
+    (q) => q.question.trim() && q.options.length > 0
+  );
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
   const [email, setEmail] = useState("");
   const [saved, setSaved] = useState(false);
 
-  const total = QUIZ_QUESTIONS.length;
+  const total = questions.length;
+
+  if (total === 0) {
+    return (
+      <p className="mx-auto max-w-md px-6 text-center font-body text-[15px] font-light text-kb-dusk/70">
+        No quiz questions are configured yet. Add them in the CMS under Skin
+        Ritual → Skin quiz.
+      </p>
+    );
+  }
 
   function handleSelect(value: string) {
-    const q = QUIZ_QUESTIONS[step];
+    const q = questions[step];
     const next = { ...answers, [q.id]: value };
     setAnswers(next);
     setTimeout(() => {
@@ -49,13 +67,12 @@ export function QuizFlow({ products }: { products: Product[] }) {
     return (
       <div className="mx-auto max-w-kb-max px-6">
         <div className="text-center">
-          <p className="kb-label text-kb-terracotta">Your ritual</p>
+          <p className="kb-label text-kb-terracotta">{config.resultsLabel}</p>
           <h1 className="mt-3 font-display text-[clamp(36px,5vw,52px)] font-light italic text-kb-cacao">
-            Your ritual starts here.
+            {config.resultsHeadline}
           </h1>
           <p className="mx-auto mt-4 max-w-md font-body text-[15px] font-light text-kb-dusk/80">
-            Three botanicals chosen for what you told us. Adjust with the
-            seasons — skin rarely stays still.
+            {config.resultsBody}
           </p>
         </div>
 
@@ -70,12 +87,12 @@ export function QuizFlow({ products }: { products: Product[] }) {
           <div className="relative text-center">
             {saved ? (
               <p className="kb-accent text-[18px] text-kb-cacao">
-                Saved — we&apos;ll send your ritual and tips to your inbox.
+                {config.savedMessage}
               </p>
             ) : (
               <>
                 <p className="kb-label text-[10px] text-kb-terracotta">
-                  Save your results
+                  {config.saveSectionLabel}
                 </p>
                 <form onSubmit={saveResults} className="mt-4 flex items-end gap-3">
                   <div className="flex-1">
@@ -88,7 +105,7 @@ export function QuizFlow({ products }: { products: Product[] }) {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Your email"
+                      placeholder={config.emailPlaceholder}
                       className="w-full border-0 border-b-[0.5px] border-kb-chalk bg-transparent pb-2 font-body text-[15px] font-light outline-none focus:border-kb-terracotta"
                     />
                   </div>
@@ -96,14 +113,14 @@ export function QuizFlow({ products }: { products: Product[] }) {
                     type="submit"
                     className="kb-label rounded-kb bg-kb-cacao px-5 py-2 text-[11px] text-kb-parchment hover:bg-kb-terracotta"
                   >
-                    Save
+                    {config.saveButtonLabel}
                   </button>
                 </form>
               </>
             )}
             <div className="mt-6">
-              <GoldCTA href="/skin-ritual/consultation">
-                Prefer to talk? Book a consultation →
+              <GoldCTA href={config.consultationHref}>
+                {config.consultationCta}
               </GoldCTA>
             </div>
           </div>
@@ -120,14 +137,14 @@ export function QuizFlow({ products }: { products: Product[] }) {
             }}
             className="kb-gold-cta text-kb-dusk/60"
           >
-            Retake the quiz
+            {config.retakeLabel}
           </button>
         </div>
       </div>
     );
   }
 
-  const q = QUIZ_QUESTIONS[step];
+  const q = questions[step];
   return (
     <QuizStep
       stepLabel={q.stepLabel}

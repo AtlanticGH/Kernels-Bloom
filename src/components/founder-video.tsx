@@ -3,7 +3,17 @@
 import { useRef, useState } from "react";
 import { HairlineRule } from "@/components/hairline-rule";
 
-export function FounderVideo({ className = "" }: { className?: string }) {
+type FounderVideoProps = {
+  className?: string;
+  videoSrc?: string;
+  videoPoster?: string;
+};
+
+export function FounderVideo({
+  className = "",
+  videoSrc = "/videos/founder.mp4",
+  videoPoster = "/images/founder-portrait.png",
+}: FounderVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -21,13 +31,13 @@ export function FounderVideo({ className = "" }: { className?: string }) {
           controls={playing}
           playsInline
           preload="metadata"
-          poster="/images/founder-portrait.png"
+          poster={videoPoster}
           aria-label="Founder story — Kernels & Bloom"
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
         >
-          <source src="/videos/founder.mp4" type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
         </video>
 
         {!playing && (

@@ -69,7 +69,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = headers().get("x-pathname") ?? "";
-  const isAdmin = pathname.startsWith("/admin");
+  const isChromeless = pathname.startsWith("/admin");
 
   return (
     <html
@@ -77,16 +77,16 @@ export default function RootLayout({
       className={`${cormorant.variable} ${jost.variable} ${playfair.variable} ${poppins.variable}`}
     >
       <body className="min-h-dvh bg-kb-parchment text-kb-dusk antialiased">
-        {!isAdmin && (
+        {!isChromeless && (
           <a href="#main" className="kb-skip-link">
             Skip to content
           </a>
         )}
         <OrganizationJsonLd />
         <CurrencyProvider>
-          {!isAdmin && <KBNavigation />}
+          {!isChromeless && <KBNavigation />}
           <main id="main">{children}</main>
-          {!isAdmin && <KBFooter />}
+          {!isChromeless && <KBFooter />}
         </CurrencyProvider>
         <script
           dangerouslySetInnerHTML={{

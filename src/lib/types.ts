@@ -1,5 +1,5 @@
-// Domain types mirror the Sanity schema shapes (see src/sanity/schemas).
-// The local data layer returns these; swapping to live Sanity/Shopify keeps
+// Domain types for products, ingredients, articles, and communities.
+// The local data layer returns these; swapping to live Shopify keeps
 // the same interfaces so pages never change.
 
 export type BotanicalName =
@@ -27,6 +27,8 @@ export interface ProductCategory {
   name: string;
   description: string;
   botanicalAnchor: BotanicalName;
+  /** Photo used on the shop landing category grid tile. */
+  tileImage?: string;
 }
 
 export interface Ingredient {
@@ -38,6 +40,8 @@ export interface Ingredient {
   group: "Oils" | "Butters" | "Extracts" | "Active";
   primaryBenefit: string;
   illustration: BotanicalName | null;
+  /** Photo used on the botanicals index grid tile. */
+  tileImage?: string;
   bodyText: string[];
   pullQuote: string;
   communitySlug?: string;

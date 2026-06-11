@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import { getAllIngredients } from "@/lib/data";
+import { getCmsBlock } from "@/lib/cms/content";
 import { BotanicalsGrid } from "@/components/botanicals-grid";
 import { PageHero, PageShell } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "The Botanicals",
-  description:
-    "Every ingredient has a home. The K&B botanical index — shea, baobab, moringa, hibiscus, marula and more, with their origins and uses.",
-  alternates: { canonical: "/botanicals" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getCmsBlock("page.botanicals");
+  return {
+    title: content.metaTitle,
+    description: content.metaDescription,
+    alternates: { canonical: "/botanicals" },
+  };
+}
 
-export default function BotanicalsPage() {
-  const ingredients = getAllIngredients();
+export default async function BotanicalsPage() {
+  const [content, ingredients] = await Promise.all([
+    getCmsBlock("page.botanicals"),
+    getAllIngredients(),
+  ]);
 
   return (
     <PageShell>
@@ -20,9 +26,9 @@ export default function BotanicalsPage() {
           { name: "Home", href: "/" },
           { name: "Botanicals", href: "/botanicals" },
         ]}
-        label="The Botanicals"
-        headline="Every ingredient has a home."
-        intro="Fifty-plus species, each tied to a place and a practice. This is the index — start with the plant, not the claim."
+        label={content.label}
+        headline={content.headline}
+        intro={content.intro}
       />
 
       <section className="bg-kb-parchment py-kb-12">

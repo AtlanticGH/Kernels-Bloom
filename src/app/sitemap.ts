@@ -7,7 +7,7 @@ import {
   getAllCategories,
 } from "@/lib/data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = SITE.url;
   const now = new Date();
 
@@ -34,22 +34,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 
-  const categoryRoutes = getAllCategories().map((c) => ({
+  const [categories, products, ingredients, articles] = await Promise.all([
+    getAllCategories(),
+    getAllProducts(),
+    getAllIngredients(),
+    getAllArticles(),
+  ]);
+
+  const categoryRoutes = categories.map((c) => ({
     url: `${base}/shop/${c.slug}`,
     lastModified: now,
   }));
 
-  const productRoutes = getAllProducts().map((p) => ({
+  const productRoutes = products.map((p) => ({
     url: `${base}/shop/${p.category}/${p.slug}`,
     lastModified: now,
   }));
 
-  const ingredientRoutes = getAllIngredients().map((i) => ({
+  const ingredientRoutes = ingredients.map((i) => ({
     url: `${base}/botanicals/${i.slug}`,
     lastModified: now,
   }));
 
-  const articleRoutes = getAllArticles().map((a) => ({
+  const articleRoutes = articles.map((a) => ({
     url: `${base}/journal/${a.slug}`,
     lastModified: new Date(a.publishedAt),
   }));

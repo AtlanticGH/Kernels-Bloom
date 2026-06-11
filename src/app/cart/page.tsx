@@ -1,16 +1,25 @@
 import type { Metadata } from "next";
+import { getCmsBlock } from "@/lib/cms/content";
 import { getAllProducts } from "@/lib/data";
 import { CartView } from "@/components/cart-view";
 import { PageHero, PageShell } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "Cart",
-  description: "Your Kernels & Bloom ritual.",
-  alternates: { canonical: "/cart" },
-  robots: { index: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getCmsBlock("page.cart");
+  return {
+    title: content.metaTitle,
+    description: content.metaDescription,
+    alternates: { canonical: "/cart" },
+    robots: { index: false },
+  };
+}
 
-export default function CartPage() {
+export default async function CartPage() {
+  const [content, products] = await Promise.all([
+    getCmsBlock("page.cart"),
+    getAllProducts(),
+  ]);
+
   return (
     <PageShell>
       <PageHero
@@ -18,13 +27,14 @@ export default function CartPage() {
           { name: "Home", href: "/" },
           { name: "Cart", href: "/cart" },
         ]}
-        label="Your ritual"
-        headline="Your ritual"
+        label={content.label}
+        headline={content.headline}
+        intro={content.intro || undefined}
       />
 
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
-          <CartView products={getAllProducts()} />
+          <CartView products={products} />
         </div>
       </section>
     </PageShell>

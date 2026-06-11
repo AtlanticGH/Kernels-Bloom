@@ -23,7 +23,7 @@ export async function createCheckout(
   }
 
   // Wire the Storefront API `cartCreate` mutation here once product variant
-  // GIDs are mapped from the Sanity/Shopify sync. Returning null keeps the
+  // GIDs are mapped from the Shopify catalog sync. Returning null keeps the
   // build safe until that mapping exists.
   return { checkoutUrl: null, live: true };
 }

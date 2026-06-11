@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { getCmsBlock } from "@/lib/cms/content";
 import { PageHero, PageShell } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "The Facility",
-  description:
-    "Where Africa's botanicals become formulations — small-batch, science-led, and close to source, in Ghana.",
-  alternates: { canonical: "/story/facility" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getCmsBlock("story.facility");
+  return {
+    title: content.metaTitle,
+    description: content.metaDescription,
+    alternates: { canonical: "/story/facility" },
+  };
+}
 
-export default function FacilityPage() {
+export default async function FacilityPage() {
+  const content = await getCmsBlock("story.facility");
+
   return (
     <PageShell>
       <PageHero
@@ -18,15 +23,15 @@ export default function FacilityPage() {
           { name: "Our Story", href: "/story" },
           { name: "The Facility", href: "/story/facility" },
         ]}
-        label="The Facility"
-        headline="Where the botanicals become formulations."
+        label={content.label}
+        headline={content.headline}
       />
 
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-content px-6">
           <div className="relative aspect-[16/9] overflow-hidden bg-kb-chalk">
             <Image
-              src="/images/DSC09558.jpg"
+              src={content.image}
               alt="Finished K&B body care — hand lotion, scrub, cream and barrier lotion grouped on a dark surface"
               fill
               sizes="(max-width: 900px) 100vw, 900px"
@@ -35,20 +40,9 @@ export default function FacilityPage() {
           </div>
 
           <div className="mt-kb-8 max-w-[680px] space-y-5 font-body text-[16px] font-light leading-[1.85] text-kb-dusk/85">
-            <p>
-              Our facility sits close to the communities we source from, which
-              keeps kernels and pulp fresh and keeps decisions accountable to the
-              people who grow them.
-            </p>
-            <p>
-              We work in small batches. Oils are pressed or received cold, blended
-              with care, and held to the same standards a clinical brand would
-              recognise — only with botanicals named for where they come from.
-            </p>
-            <p>
-              Every batch carries a code, so what reaches you can be traced back
-              to a season and a source.
-            </p>
+            {content.paragraphs.map((paragraph) => (
+              <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+            ))}
           </div>
         </div>
       </section>

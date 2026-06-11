@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   getAllCategories,
-  getAllProducts,
   getProductsByCategory,
   getCategory,
   getAllIngredients,
+  getAllProducts,
 } from "@/lib/data";
 import type { CategorySlug } from "@/lib/types";
 import { CollectionView } from "@/components/collection-view";
@@ -14,25 +14,34 @@ import { PageHero, PageShell } from "@/components/page-hero";
 
 type Params = { category: string };
 
-export function generateStaticParams() {
-  return [{ category: "all" }, ...getAllCategories().map((c) => ({ category: c.slug }))];
+export async function generateStaticParams() {
+  const categories = await getAllCategories();
+  return [{ category: "all" }, ...categories.map((c) => ({ category: c.slug }))];
 }
 
-function resolve(category: string) {
+async function resolve(category: string) {
   if (category === "all") {
-    return { name: "All Products", description: "The complete K&B collection.", products: getAllProducts() };
+    return {
+      name: "All Products",
+      description: "The complete K&B collection.",
+      products: await getAllProducts(),
+    };
   }
-  const cat = getCategory(category);
+  const cat = await getCategory(category);
   if (!cat) return null;
   return {
     name: cat.name,
     description: cat.description,
-    products: getProductsByCategory(category as CategorySlug),
+    products: await getProductsByCategory(category as CategorySlug),
   };
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const resolved = resolve(params.category);
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const resolved = await resolve(params.category);
   if (!resolved) return {};
   return {
     title: resolved.name,
@@ -42,12 +51,12 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   };
 }
 
-export default function CategoryPage({ params }: { params: Params }) {
-  const resolved = resolve(params.category);
+export default async function CategoryPage({ params }: { params: Params }) {
+  const resolved = await resolve(params.category);
   if (!resolved) notFound();
 
   const ingredientNames = Object.fromEntries(
-    getAllIngredients().map((i) => [i.slug, i.commonName])
+    (await getAllIngredients()).map((i) => [i.slug, i.commonName])
   );
 
   const crumbs = [
@@ -59,13 +68,7 @@ export default function CategoryPage({ params }: { params: Params }) {
   return (
     <PageShell>
       <BreadcrumbJsonLd items={crumbs} />
-      <PageHero
-        breadcrumbs={crumbs}
-        label="The Collection"
-        headline={resolved.name}
-        intro={resolved.description}
-      />
-
+      <PageHero breadcrumbs={crumbs} label="Shop" headline={resolved.name} intro={resolved.description} />
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
           <CollectionView products={resolved.products} ingredientNames={ingredientNames} />

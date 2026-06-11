@@ -12,6 +12,7 @@ const NAV = [
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const wideLayout = pathname.startsWith("/admin/content");
 
   async function logout() {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -22,7 +23,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-dvh bg-kb-linen">
       <header className="border-b-[0.5px] border-kb-chalk bg-kb-parchment">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-4">
           <div>
             <p className="kb-label text-[10px] text-kb-terracotta">CMS</p>
             <p className="font-display text-[20px] text-kb-cacao">
@@ -47,7 +48,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-6 py-8 lg:grid-cols-[200px_1fr]">
+      <div
+        className={`mx-auto grid gap-8 px-6 py-8 lg:grid-cols-[200px_minmax(0,1fr)] ${
+          wideLayout ? "max-w-[1600px]" : "max-w-7xl"
+        }`}
+      >
         <nav className="flex flex-row flex-wrap gap-2 lg:flex-col lg:gap-1">
           {NAV.map((item) => {
             const active = item.exact

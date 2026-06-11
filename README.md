@@ -10,8 +10,8 @@ design system.
 - **Next.js 14** (App Router) · **TypeScript** (strict)
 - **Tailwind CSS** + CSS custom properties (the K&B design tokens)
 - **Framer Motion** for scroll-reveals and the circular-process diagram
-- Integration adapters for **Sanity** (CMS), **Shopify** (headless cart),
-  **Supabase** (form storage), **Klaviyo** (newsletter), and **Mapbox**
+- Integration adapters for **Supabase** (CMS + form storage), **Shopify**
+  (headless cart), **Klaviyo** (newsletter), and **Mapbox**
   (sourcing map). Each falls back to local data / a static fallback until its
   keys are present, so the site runs end-to-end with zero credentials.
 
@@ -38,10 +38,9 @@ npm run lint       # next lint
 - `src/components` — the K&B component library (corner brackets, hairline
   rules, gold CTAs, botanical illustrations, product cards, quiz, nav, footer…).
 - `src/lib/data` — typed local data + the **data-access layer** (`index.ts`)
-  that pages import. Mirrors the Sanity schema exactly; swap to GROQ without
-  touching pages.
-- `src/lib/integrations` — Sanity / Shopify / Supabase / Klaviyo adapters.
-- `src/sanity` — content schema + Studio setup notes.
+  that pages import for products, ingredients, articles, and communities.
+- `src/lib/cms` — Supabase-backed marketing content blocks edited at `/admin`.
+- `src/lib/integrations` — Shopify / Supabase / Klaviyo adapters.
 - `_legacy/` — the original static HTML starter, archived for reference.
 
 ## Design system
@@ -56,10 +55,9 @@ no upright Playfair, no italic Jost, no off-palette colour.
 
 | Service  | Without keys | With keys |
 |----------|--------------|-----------|
-| Sanity   | local data layer | GROQ-backed content + `/studio` |
+| Supabase | local CMS defaults, form submissions logged | live content + form rows |
 | Shopify  | localStorage cart, placeholder checkout | real Storefront checkout |
-| Supabase | form submissions logged | rows written to tables |
 | Klaviyo  | newsletter no-ops to success | real list subscription |
 | Mapbox   | static SVG coordinate plot | interactive GL map |
 
-See `.env.example` and `src/sanity/README.md`.
+See `.env.example`. CMS dashboard: `/admin/login`.

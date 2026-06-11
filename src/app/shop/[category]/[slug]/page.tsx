@@ -20,12 +20,17 @@ import { PageHero, PageShell } from "@/components/page-hero";
 
 type Params = { category: string; slug: string };
 
-export function generateStaticParams() {
-  return getAllProducts().map((p) => ({ category: p.category, slug: p.slug }));
+export async function generateStaticParams() {
+  const products = await getAllProducts();
+  return products.map((p) => ({ category: p.category, slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const product = getProduct(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const product = await getProduct(params.slug);
   if (!product) return {};
   return {
     title: product.name,
@@ -40,13 +45,15 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   };
 }
 
-export default function ProductPage({ params }: { params: Params }) {
-  const product = getProduct(params.slug);
+export default async function ProductPage({ params }: { params: Params }) {
+  const product = await getProduct(params.slug);
   if (!product || product.category !== params.category) notFound();
 
-  const category = getCategory(product.category);
-  const keyIngredient = getIngredient(product.keyIngredient);
-  const related = resolveProducts(product.related);
+  const [category, keyIngredient, related] = await Promise.all([
+    getCategory(product.category),
+    getIngredient(product.keyIngredient),
+    resolveProducts(product.related),
+  ]);
 
   const crumbs = [
     { name: "Home", href: "/" },

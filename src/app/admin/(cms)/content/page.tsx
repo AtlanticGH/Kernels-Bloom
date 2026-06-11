@@ -8,18 +8,15 @@ export const metadata: Metadata = {
 
 export default function AdminContentPage() {
   return (
-    <div>
-      <p className="kb-label text-[11px] text-kb-terracotta">Content</p>
-      <h1 className="mt-2 font-display text-[36px] text-kb-cacao">
-        Website content
-      </h1>
-      <p className="mt-3 max-w-xl font-body text-[15px] font-light leading-relaxed text-kb-dusk/70">
-        Changes save to Supabase and appear on the live site when credentials are
-        configured.
-      </p>
-      <div className="mt-10">
-        <ContentEditor />
+    <div className="min-w-0">
+      <div className="mb-8 border-b-[0.5px] border-kb-chalk pb-6">
+        <h1 className="font-display text-[28px] text-kb-cacao">Content</h1>
+        <p className="mt-2 max-w-2xl font-body text-[14px] font-light leading-relaxed text-kb-dusk/65">
+          Browse by site area in the sidebar, edit a section, then save. Changes
+          go live on the site immediately after saving.
+        </p>
       </div>
+      <ContentEditor />
     </div>
   );
 }

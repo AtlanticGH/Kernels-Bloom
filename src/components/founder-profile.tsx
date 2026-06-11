@@ -1,9 +1,16 @@
 import Image from "next/image";
 import { BotanicalIllustration } from "@/components/botanical-illustration";
 import { HairlineRule } from "@/components/hairline-rule";
-import { SITE } from "@/lib/site";
+import type { StoryFounderContent } from "@/lib/cms/types";
 
-export function FounderProfile() {
+type FounderProfileProps = {
+  content: Pick<
+    StoryFounderContent,
+    "founderName" | "founderOrigin" | "portraitImage" | "paragraphs" | "pullQuote"
+  >;
+};
+
+export function FounderProfile({ content }: FounderProfileProps) {
   return (
     <div className="relative mx-auto max-w-kb-content">
       <BotanicalIllustration
@@ -21,8 +28,8 @@ export function FounderProfile() {
           />
           <div className="relative aspect-[4/5] overflow-hidden bg-kb-chalk lg:aspect-auto lg:h-full">
             <Image
-              src="/images/founder-portrait.png"
-              alt="Maud Lindsay-Gamrat — Founder, Kernels & Bloom"
+              src={content.portraitImage}
+              alt={`${content.founderName} — Founder, Kernels & Bloom`}
               fill
               priority
               sizes="(max-width: 1024px) 380px, 380px"
@@ -35,31 +42,22 @@ export function FounderProfile() {
           <p className="kb-label text-kb-terracotta">Founder</p>
           <HairlineRule width="48px" variant="gold" className="mt-4" />
           <h2 className="mt-4 font-display text-[clamp(28px,3.5vw,36px)] font-semibold not-italic leading-tight text-kb-cacao">
-            {SITE.founder.name}
+            {content.founderName}
           </h2>
           <p className="mt-2 font-body text-[13px] font-light text-kb-dusk/60">
-            {SITE.origin}
+            {content.founderOrigin}
           </p>
 
           <div className="mt-kb-6 max-w-[540px] space-y-5 font-body text-[16px] font-light leading-[1.85] text-kb-dusk/85">
-            <p>
-              Kernels &amp; Bloom was founded on a conviction: that the
-              botanicals of this continent are as sophisticated as any
-              luxury ingredient, and ought to be presented as such — from
-              the place they come from.
-            </p>
-            <p>
-              The brand is built to keep value close to source, to formulate
-              with rigour, and to treat sustainability as the standard rather
-              than the story.
-            </p>
+            {content.paragraphs.map((paragraph) => (
+              <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+            ))}
           </div>
 
           <figure className="mt-kb-8 max-w-[540px]">
             <HairlineRule width="40px" variant="terracotta" />
             <blockquote className="mt-4 kb-accent text-[clamp(20px,2.5vw,24px)] leading-snug text-kb-terracotta">
-              &ldquo;We are not borrowing from Africa. We are building from
-              it.&rdquo;
+              &ldquo;{content.pullQuote}&rdquo;
             </blockquote>
           </figure>
         </div>

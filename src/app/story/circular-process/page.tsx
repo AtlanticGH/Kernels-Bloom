@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 import { CircularDiagram } from "@/components/circular-diagram";
 import { Accordion } from "@/components/accordion";
+import { getCmsBlock } from "@/lib/cms/content";
 import { PageHero, PageShell } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "The Circular Process",
-  description:
-    "From botanical sourcing to upcycling, formulation and circular return — how Kernels & Bloom closes the loop.",
-  alternates: { canonical: "/story/circular-process" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getCmsBlock("story.circular");
+  return {
+    title: content.metaTitle,
+    description: content.metaDescription,
+    alternates: { canonical: "/story/circular-process" },
+  };
+}
 
-export default function CircularProcessPage() {
+export default async function CircularProcessPage() {
+  const content = await getCmsBlock("story.circular");
+
   return (
     <PageShell>
       <PageHero
@@ -19,61 +24,24 @@ export default function CircularProcessPage() {
           { name: "Our Story", href: "/story" },
           { name: "Circular Process", href: "/story/circular-process" },
         ]}
-        label="Circular Process"
-        headline="Waste, transformed into luxury."
-        intro="Circularity is not a marketing layer for us. Increasingly, it is where the formulations begin."
+        label={content.label}
+        headline={content.headline}
+        intro={content.intro}
       />
 
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
-          <CircularDiagram />
+          <CircularDiagram stages={content.diagramStages} />
         </div>
       </section>
 
       <section className="bg-kb-linen py-kb-12">
         <div className="mx-auto max-w-kb-content px-6">
           <Accordion
-            items={[
-              {
-                label: "Botanical Sourcing",
-                content: (
-                  <p>
-                    We gather wild and cooperative-grown botanicals across
-                    Ghana and the continent, designed around leaving the tree
-                    standing — fallen baobab pods rather than felled trees,
-                    cooperative shea rather than extractive supply.
-                  </p>
-                ),
-              },
-              {
-                label: "Upcycle & Refine",
-                content: (
-                  <p>
-                    The Kalahari melon seed — long discarded after harvest — is
-                    pressed into a clear, balancing oil. Upcycling turns a
-                    by-product into the heart of a luxury line.
-                  </p>
-                ),
-              },
-              {
-                label: "Formulation",
-                content: (
-                  <p>
-                    Small-batch, science-led formulation in Ghana, with batch
-                    codes for traceability and minimal, recyclable packaging.
-                  </p>
-                ),
-              },
-              {
-                label: "Circular Return",
-                content: (
-                  <p>
-                    Glass and refills return through our programme. The goal is
-                    a closed loop: nothing in the chain treated as waste.
-                  </p>
-                ),
-              },
-            ]}
+            items={content.accordion.map((item) => ({
+              label: item.label,
+              content: <p>{item.content}</p>,
+            }))}
           />
         </div>
       </section>

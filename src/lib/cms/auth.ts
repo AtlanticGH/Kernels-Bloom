@@ -4,9 +4,10 @@ import { cookies } from "next/headers";
 export const CMS_COOKIE = "kb_cms_session";
 
 function sessionSecret(): string {
+  // Keep session signing separate from Supabase keys so auth stays stable.
   return (
     process.env.CMS_SESSION_SECRET ??
-    process.env.SUPABASE_SERVICE_ROLE_KEY ??
+    process.env.CMS_ADMIN_PASSWORD ??
     "kb-cms-dev-secret"
   );
 }

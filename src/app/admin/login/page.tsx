@@ -14,8 +14,8 @@ export default async function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-kb-linen px-6 py-16">
-      <div className="w-full max-w-md">
+    <div className="flex min-h-dvh items-center justify-center px-6 py-16">
+      <div className="w-full max-w-md rounded-kb border-[0.5px] border-kb-chalk bg-kb-parchment p-8 shadow-sm">
         <p className="kb-label text-center text-[11px] text-kb-terracotta">
           Kernels &amp; Bloom CMS
         </p>
@@ -23,7 +23,11 @@ export default async function AdminLoginPage() {
           Sign in
         </h1>
         <p className="mt-3 text-center font-body text-[14px] font-light text-kb-dusk/60">
-          Manage homepage content and review form submissions.
+          Edit every page, catalog, and form submissions.
+        </p>
+        <p className="mt-2 text-center font-body text-[12px] font-light text-kb-dusk/45">
+          Password is set in <code className="text-kb-dusk/60">CMS_ADMIN_PASSWORD</code>{" "}
+          in your environment.
         </p>
         <div className="mt-10">
           <AdminLoginForm />

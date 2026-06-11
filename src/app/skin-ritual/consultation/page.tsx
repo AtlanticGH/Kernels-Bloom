@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
+import { getCmsBlock } from "@/lib/cms/content";
 import { ConsultationForm } from "@/components/consultation-form";
 import { PageHero, PageShell } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "Book a Consultation",
-  description:
-    "A private, one-to-one consultation to build a considered routine around your skin and hair.",
-  alternates: { canonical: "/skin-ritual/consultation" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getCmsBlock("page.consultation");
+  return {
+    title: content.metaTitle,
+    description: content.metaDescription,
+    alternates: { canonical: "/skin-ritual/consultation" },
+  };
+}
 
-export default function ConsultationPage() {
+export default async function ConsultationPage() {
+  const content = await getCmsBlock("page.consultation");
+
   return (
     <PageShell>
       <PageHero
@@ -18,9 +23,9 @@ export default function ConsultationPage() {
           { name: "Skin Ritual", href: "/skin-ritual" },
           { name: "Consultation", href: "/skin-ritual/consultation" },
         ]}
-        label="Consultation"
-        headline="One-to-one, with a formulator."
-        intro="Tell us a little about your skin and hair. We'll arrange a private consultation and build a routine around them."
+        label={content.label}
+        headline={content.headline}
+        intro={content.intro}
       />
 
       <section className="bg-kb-parchment py-kb-12">

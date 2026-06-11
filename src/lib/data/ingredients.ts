@@ -10,6 +10,7 @@ export const ingredients: Ingredient[] = [
     group: "Butters",
     primaryBenefit: "Deep barrier repair",
     illustration: "Shea",
+    tileImage: "/images/DSC09553.jpg",
     bodyText: [
       "Shea, Northern Ghana.",
       "The tree grows wild across the Sahel savannah, fruiting in the heat that breaks the dry season. The kernel inside the nut is cracked, roasted and stone-ground by hand — a craft held almost entirely by women.",
@@ -29,6 +30,7 @@ export const ingredients: Ingredient[] = [
     group: "Oils",
     primaryBenefit: "Lightweight nourishment",
     illustration: "Baobab",
+    tileImage: "/images/DSC09558.jpg",
     bodyText: [
       "Baobab, Upper East Ghana.",
       "The tree is impossible to mistake — a swollen trunk and bare, root-like branches that earn it the name the upside-down tree. It can live a thousand years.",
@@ -48,6 +50,7 @@ export const ingredients: Ingredient[] = [
     group: "Extracts",
     primaryBenefit: "Antioxidant defence",
     illustration: "Moringa",
+    tileImage: "/images/DSC09564.jpg",
     bodyText: [
       "Moringa, Volta Region.",
       "Often called the miracle tree for how little it asks and how much it gives. Our growers intercrop it with food, so the same land feeds families and our formulations.",
@@ -67,6 +70,7 @@ export const ingredients: Ingredient[] = [
     group: "Extracts",
     primaryBenefit: "Gentle resurfacing",
     illustration: "Hibiscus",
+    tileImage: "/images/DSC09548.jpg",
     bodyText: [
       "Hibiscus, Greater Accra.",
       "The deep red calyces are dried in the coastal sun, the same flower that steeps into the drink known here as sobolo.",
@@ -86,6 +90,7 @@ export const ingredients: Ingredient[] = [
     group: "Oils",
     primaryBenefit: "Fast-absorbing hydration",
     illustration: "Marula",
+    tileImage: "/images/DSC09530.jpg",
     bodyText: [
       "Marula, Limpopo.",
       "A fruit so loved by elephants the tree carries their name in folklore. The kernel inside is pressed within hours of cracking to keep the oil bright.",
@@ -105,6 +110,7 @@ export const ingredients: Ingredient[] = [
     group: "Oils",
     primaryBenefit: "Barrier balancing",
     illustration: "Kalahari melon",
+    tileImage: "/images/DSC09536.jpg",
     bodyText: [
       "Kalahari melon, Botswana.",
       "The ancestor of the watermelon, holding water in the driest places on the continent. For generations its seed was left in the field.",
@@ -124,6 +130,7 @@ export const ingredients: Ingredient[] = [
     group: "Oils",
     primaryBenefit: "Deep nourishment",
     illustration: "Palm",
+    tileImage: "/images/beth-macdonald-QiGt-xFWkLU-unsplash.jpg",
     bodyText: [
       "Palm, Coastal Ghana.",
       "The oil palm has shaded West African forest edges for millennia — its fruit pressed for a rich, golden oil that carries vitamins A and E deep into the skin.",
@@ -142,6 +149,7 @@ export const ingredients: Ingredient[] = [
     group: "Active",
     primaryBenefit: "Toning & circulation",
     illustration: null,
+    tileImage: "/images/DSC09548.jpg",
     bodyText: [
       "Kola, Ashanti Region.",
       "The nut offered in welcome across West Africa, carrying a long cultural weight.",
@@ -159,6 +167,7 @@ export const ingredients: Ingredient[] = [
     group: "Active",
     primaryBenefit: "Clarifying",
     illustration: null,
+    tileImage: "/images/DSC09564.jpg",
     bodyText: [
       "Neem, Northern Ghana.",
       "A clarifying leaf long used to calm troubled skin and scalp.",

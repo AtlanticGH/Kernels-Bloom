@@ -16,12 +16,17 @@ const CATEGORY_LABEL: Record<string, string> = {
   sustainability: "Sustainability",
 };
 
-export function generateStaticParams() {
-  return getAllArticles().map((a) => ({ slug: a.slug }));
+export async function generateStaticParams() {
+  const articles = await getAllArticles();
+  return articles.map((a) => ({ slug: a.slug }));
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const article = getArticle(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const article = await getArticle(params.slug);
   if (!article) return {};
   return {
     title: article.title,
@@ -36,11 +41,11 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   };
 }
 
-export default function ArticlePage({ params }: { params: Params }) {
-  const article = getArticle(params.slug);
+export default async function ArticlePage({ params }: { params: Params }) {
+  const article = await getArticle(params.slug);
   if (!article) notFound();
 
-  const related = resolveProducts(article.relatedProducts);
+  const related = await resolveProducts(article.relatedProducts);
   const crumbs = [
     { name: "Home", href: "/" },
     { name: "Journal", href: "/journal" },

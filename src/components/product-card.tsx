@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductPrice } from "@/components/product-price";
 import type { Product } from "@/lib/types";
-import { getIngredient, getCategory } from "@/lib/data";
+import { ingredients } from "@/lib/data/ingredients";
+import { categories } from "@/lib/data/categories";
 
 /** Borderless product card — Parchment, 3:4 image (or square), image-only scale on hover. */
 export function ProductCard({
@@ -14,8 +15,8 @@ export function ProductCard({
   product: Product;
   square?: boolean;
 }) {
-  const ingredient = getIngredient(product.keyIngredient);
-  const category = getCategory(product.category);
+  const ingredient = ingredients.find((i) => i.slug === product.keyIngredient);
+  const category = categories.find((c) => c.slug === product.category);
 
   return (
     <Link

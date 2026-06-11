@@ -87,6 +87,14 @@ body {
 }
 
 @layer components {
+  /* CMS admin — prevent flex/grid children from forcing horizontal scroll */
+  .admin-cms {
+    min-width: 0;
+  }
+  .admin-cms main {
+    min-width: 0;
+  }
+
   /* Skip link for keyboard / screen-reader users */
   .kb-skip-link {
     position: absolute;
