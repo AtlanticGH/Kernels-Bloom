@@ -20,11 +20,12 @@ import {
 import { BlockEditorPanel } from "@/components/admin/block-editor-panel";
 import { CmsSidebar } from "@/components/admin/cms-sidebar";
 import { ImageField } from "@/components/admin/image-field";
+import { ArticlesCatalogEditor } from "@/components/admin/articles-catalog-editor";
 import { CategoriesCatalogEditor } from "@/components/admin/categories-catalog-editor";
 import { IngredientsCatalogEditor } from "@/components/admin/ingredients-catalog-editor";
 import { ProductsCatalogEditor } from "@/components/admin/products-catalog-editor";
 import { QuizBlockEditor } from "@/components/admin/quiz-block-editor";
-import type { Ingredient, Product, ProductCategory } from "@/lib/types";
+import type { Article, Ingredient, Product, ProductCategory } from "@/lib/types";
 import type { CatalogListContent, PageQuizContent } from "@/lib/cms/types";
 
 type BlockRow = {
@@ -367,6 +368,13 @@ function BlockEditor({
     body = (
       <IngredientsCatalogEditor
         data={block.data as CatalogListContent<Ingredient>}
+        onChange={onReplaceData}
+      />
+    );
+  } else if (block.id === "catalog.articles") {
+    body = (
+      <ArticlesCatalogEditor
+        data={block.data as CatalogListContent<Article>}
         onChange={onReplaceData}
       />
     );

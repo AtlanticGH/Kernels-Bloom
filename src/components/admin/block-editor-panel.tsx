@@ -22,6 +22,10 @@ const KIND_META: Record<
     label: "Catalog data",
     className: "bg-kb-cacao/8 text-kb-cacao",
   },
+  journal: {
+    label: "Journal posts",
+    className: "bg-kb-terracotta/10 text-kb-terracotta",
+  },
 };
 
 type BlockEditorPanelProps = {

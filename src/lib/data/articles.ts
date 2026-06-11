@@ -89,4 +89,72 @@ export const articles: Article[] = [
     image: "/images/DSC09564.jpg",
     relatedProducts: ["kalahari-circular-oil"],
   },
+  {
+    slug: "marula-pressed-at-first-crack",
+    title: "Marula, pressed at first crack",
+    category: "sourcing-journey",
+    excerpt:
+      "In Limpopo the kernel is cracked by hand and pressed within hours — a rhythm that keeps the oil bright.",
+    body: [
+      "Marula fruit is so loved by elephants that folklore names the tree after them. For our partners in Limpopo, the work is quieter but no less skilled.",
+      "The kernel is cracked by hand, a rhythm passed between generations. Pressing happens within hours, before the oil dulls.",
+      "What reaches the bottle is near-scentless, fast-absorbing, and bright — the reason it anchors our lightest facial serums.",
+    ],
+    pullQuote: "Pressed within hours, to keep the oil bright.",
+    readTime: 5,
+    publishedAt: "2026-06-04",
+    image: "/images/DSC09530.jpg",
+    relatedProducts: ["marula-facial-serum", "ritual-discovery-set"],
+  },
+  {
+    slug: "moringa-between-the-rows",
+    title: "Moringa between the rows",
+    category: "ingredient-story",
+    excerpt:
+      "Intercropped with food in the Volta Region — the same land feeding families and our formulations.",
+    body: [
+      "Moringa is often called the miracle tree for how little it asks and how much it gives. Our growers in the Volta Region intercrop it with food.",
+      "The same plot feeds families and supplies our leaf and seed — a model where skincare and subsistence share ground.",
+      "On the skin, moringa helps hold composure against pollution and sun. In the field, it asks for almost nothing in return.",
+    ],
+    pullQuote: "It asks for little and gives back almost everything.",
+    readTime: 6,
+    publishedAt: "2026-06-01",
+    image: "/images/DSC09564.jpg",
+    relatedProducts: ["moringa-clarity-mask", "hibiscus-resurfacing-essence"],
+  },
+  {
+    slug: "the-long-bath",
+    title: "The long bath",
+    category: "ritual-guide",
+    excerpt:
+      "A slow body ritual — from damp skin to whipped shea, working from the feet up.",
+    body: [
+      "The long bath is not about duration alone. It is about sequence: warm water, damp skin, then oil or butter applied with intention.",
+      "We work from the feet upward — where the skin is thickest and driest — letting each pass of shea rebuild the barrier before moving on.",
+      "Three minutes is enough when the product is right and the pace is unhurried. Luxury, here, is slowness.",
+    ],
+    pullQuote: "Luxury, here, is slowness.",
+    readTime: 4,
+    publishedAt: "2026-05-28",
+    image: "/images/DSC09558.jpg",
+    relatedProducts: ["shea-body-butter", "kalahari-circular-oil"],
+  },
+  {
+    slug: "refillable-by-design",
+    title: "Refillable, by design",
+    category: "sustainability",
+    excerpt:
+      "How returnable bottles and upcycled oils turned circular from a promise into a shelf line.",
+    body: [
+      "Circularity only matters if a customer can actually close the loop. Our refillable programme accepts returned bottles and jars at stockists and through trade partners.",
+      "The circular line begins with ingredients others leave behind — Kalahari melon seed pressed from a crop long discarded in the field.",
+      "Refillable by design means the vessel is worth keeping. The oil inside has to earn that, too.",
+    ],
+    pullQuote: "The vessel is worth keeping. The oil inside has to earn that.",
+    readTime: 5,
+    publishedAt: "2026-05-22",
+    image: "/images/DSC09536.jpg",
+    relatedProducts: ["kalahari-circular-oil", "baobab-night-oil"],
+  },
 ];

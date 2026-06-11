@@ -137,8 +137,8 @@ export const CMS_BLOCK_META: Record<
     description: "Photos for each botanical on the index grid — upload and preview per ingredient.",
   },
   "catalog.articles": {
-    label: "Journal articles",
-    description: "Journal posts — titles, excerpts, body, and images.",
+    label: "Journal posts",
+    description: "Add and edit journal articles — title, body, cover image, and related products.",
   },
   "catalog.categories": {
     label: "Shop category tile images",
@@ -173,11 +173,12 @@ export const CMS_NAV_GROUP_ORDER: CmsNavGroup[] = [
   "Utility",
 ];
 
-export type CmsBlockKind = "copy" | "images" | "quiz" | "catalog";
+export type CmsBlockKind = "copy" | "images" | "quiz" | "catalog" | "journal";
 
 export function getCmsBlockKind(
   id: import("./types").CmsBlockId
 ): CmsBlockKind {
+  if (id === "catalog.articles") return "journal";
   if (id === "page.quiz") return "quiz";
   if (
     id === "catalog.products" ||

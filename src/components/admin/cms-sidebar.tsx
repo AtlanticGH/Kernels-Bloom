@@ -33,6 +33,7 @@ const KIND_DOT: Record<ReturnType<typeof getCmsBlockKind>, string> = {
   images: "bg-kb-gold",
   quiz: "bg-kb-terracotta",
   catalog: "bg-kb-cacao/40",
+  journal: "bg-kb-terracotta/70",
 };
 
 export function CmsSidebar({
@@ -137,6 +138,11 @@ export function CmsSidebar({
           <span className="inline-flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-kb-gold" />
             Tile images
+          </span>
+          <span className="mx-2">·</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-kb-terracotta/70" />
+            Journal
           </span>
           <span className="mx-2">·</span>
           <span className="inline-flex items-center gap-1.5">

@@ -100,9 +100,17 @@ export async function getCommunity(
   return communities.find((c) => c.slug === slug);
 }
 
+function mergeArticles(cmsItems: Article[]): Article[] {
+  const localBySlug = new Map(localArticles.map((a) => [a.slug, a]));
+  return cmsItems.map((item) => {
+    const base = localBySlug.get(item.slug);
+    return base ? { ...base, ...item } : item;
+  });
+}
+
 export async function getAllArticles(): Promise<Article[]> {
   const { items } = await getCmsBlock("catalog.articles");
-  const source = items.length > 0 ? items : localArticles;
+  const source = items.length > 0 ? mergeArticles(items) : localArticles;
   return [...source].sort(
     (a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt)
   );
