@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import type { CategorySlug, Product } from "@/lib/types";
 import type { CatalogListContent } from "@/lib/cms/types";
@@ -265,23 +265,15 @@ function ProductEditor({
   onChange: (product: Product) => void;
   onRemove: () => void;
 }) {
-  const preview = product.image && isImagePath(product.image);
-
   return (
     <div className="rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen/30">
       <div className="flex flex-wrap items-start justify-between gap-4 border-b-[0.5px] border-kb-chalk px-5 py-4">
         <div className="flex min-w-0 items-start gap-4">
-          {preview && (
-            <div className="relative h-16 w-12 shrink-0 overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen">
-              <Image
-                src={product.image}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="48px"
-              />
-            </div>
-          )}
+          <ProductImagePreview
+            product={product}
+            className="h-16 w-16 shrink-0 sm:h-20 sm:w-20"
+            sizes="80px"
+          />
           <div className="min-w-0">
             <p className="kb-label text-[10px] text-kb-gold">
               {CATEGORY_OPTIONS.find((c) => c.value === product.category)?.label ??
@@ -521,6 +513,120 @@ function truncateName(name: string, max = 22): string {
   return `${name.slice(0, max - 1)}…`;
 }
 
+function ProductTabsScroller({ children }: { children: React.ReactNode }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    setCanScrollLeft(el.scrollLeft > 1);
+    setCanScrollRight(el.scrollLeft < maxScroll - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    updateScrollState();
+
+    const observer = new ResizeObserver(updateScrollState);
+    observer.observe(el);
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      el.removeEventListener("scroll", updateScrollState);
+    };
+  }, [updateScrollState, children]);
+
+  function scrollByPage(direction: -1 | 1) {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction * el.clientWidth * 0.75, behavior: "smooth" });
+  }
+
+  const showArrows = canScrollLeft || canScrollRight;
+
+  const arrowClass = (enabled: boolean) =>
+    `flex h-[7.75rem] w-11 shrink-0 items-center justify-center rounded-kb border-[0.5px] bg-kb-linen font-body text-[22px] leading-none transition-all ${
+      enabled
+        ? "border-kb-cacao/40 text-kb-cacao shadow-sm hover:border-kb-cacao hover:bg-kb-cacao hover:text-kb-parchment"
+        : "pointer-events-none border-kb-chalk/80 text-kb-dusk/25"
+    }`;
+
+  return (
+    <div className="flex items-center gap-2">
+      {showArrows && (
+        <button
+          type="button"
+          onClick={() => scrollByPage(-1)}
+          aria-label="Show previous products"
+          disabled={!canScrollLeft}
+          className={arrowClass(canScrollLeft)}
+        >
+          ‹
+        </button>
+      )}
+
+      <div
+        ref={scrollerRef}
+        className="min-w-0 flex-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        <div className="flex gap-3 py-0.5" role="tablist" aria-label="Products">
+          {children}
+        </div>
+      </div>
+
+      {showArrows && (
+        <button
+          type="button"
+          onClick={() => scrollByPage(1)}
+          aria-label="Show more products"
+          disabled={!canScrollRight}
+          className={arrowClass(canScrollRight)}
+        >
+          ›
+        </button>
+      )}
+    </div>
+  );
+}
+
+function ProductImagePreview({
+  product,
+  className = "",
+  sizes = "80px",
+}: {
+  product: Product;
+  className?: string;
+  sizes?: string;
+}) {
+  const src = product.image ?? "";
+
+  return (
+    <div
+      className={`relative aspect-square overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen ${className}`}
+    >
+      {src && isImagePath(src) ? (
+        <Image
+          src={src}
+          alt={product.name}
+          fill
+          className="object-cover"
+          sizes={sizes}
+        />
+      ) : (
+        <div className="flex h-full items-center justify-center px-2 text-center font-body text-[10px] font-light text-kb-dusk/40">
+          No image
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ProductsCatalogEditor({
   data,
   onChange,
@@ -605,11 +711,7 @@ export function ProductsCatalogEditor({
         </p>
       ) : (
         <>
-          <div
-            className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1"
-            role="tablist"
-            aria-label="Products"
-          >
+          <ProductTabsScroller>
             {sorted.map((product) => {
               const active = product.slug === activeSlug;
               return (
@@ -618,18 +720,26 @@ export function ProductsCatalogEditor({
                   type="button"
                   role="tab"
                   aria-selected={active}
+                  aria-label={product.name || product.slug}
                   onClick={() => setActiveSlug(product.slug)}
-                  className={`shrink-0 rounded-kb border-[0.5px] px-3 py-2 font-body text-[12px] font-light transition-colors ${
+                  className={`flex w-24 shrink-0 flex-col rounded-kb border-[0.5px] p-1.5 text-left transition-colors ${
                     active
-                      ? "border-kb-cacao bg-kb-cacao text-kb-parchment"
-                      : "border-kb-chalk bg-kb-parchment text-kb-dusk/70 hover:border-kb-gold hover:text-kb-cacao"
+                      ? "border-kb-cacao bg-kb-linen/60"
+                      : "border-transparent hover:border-kb-chalk hover:bg-kb-linen/30"
                   }`}
                 >
-                  {truncateName(product.name || product.slug)}
+                  <ProductImagePreview product={product} className="w-full" sizes="96px" />
+                  <p
+                    className={`mt-2 min-h-[2.5rem] line-clamp-2 font-body text-[11px] font-light leading-snug ${
+                      active ? "text-kb-cacao" : "text-kb-dusk/70"
+                    }`}
+                  >
+                    {truncateName(product.name || product.slug, 28)}
+                  </p>
                 </button>
               );
             })}
-          </div>
+          </ProductTabsScroller>
 
           {activeProduct && (
             <ProductEditor
