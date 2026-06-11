@@ -3,13 +3,20 @@ import { cookies } from "next/headers";
 
 export const CMS_COOKIE = "kb_cms_session";
 
+/** Used when CMS_ADMIN_PASSWORD is not set in the environment. */
+export const CMS_DEFAULT_PASSWORD = "password1234";
+
+const DEFAULT_SESSION_SECRET = "kernels-bloom-cms-session";
+
 function sessionSecret(): string {
-  // Keep session signing separate from Supabase keys so auth stays stable.
-  return (
-    process.env.CMS_SESSION_SECRET ??
-    process.env.CMS_ADMIN_PASSWORD ??
-    "kb-cms-dev-secret"
-  );
+  const fromEnv =
+    process.env.CMS_SESSION_SECRET?.trim() ||
+    process.env.CMS_ADMIN_PASSWORD?.trim();
+  return fromEnv || DEFAULT_SESSION_SECRET;
+}
+
+export function adminPassword(): string {
+  return process.env.CMS_ADMIN_PASSWORD?.trim() || CMS_DEFAULT_PASSWORD;
 }
 
 export function createSessionToken(): string {
@@ -32,8 +39,7 @@ export function verifySessionToken(token: string | undefined): boolean {
 
 export function verifyAdminPassword(password: string): boolean {
   const input = password.trim();
-  const expected = process.env.CMS_ADMIN_PASSWORD?.trim();
-  if (!expected) return input === "kernels-bloom";
+  const expected = adminPassword();
   try {
     const a = Buffer.from(input);
     const b = Buffer.from(expected);
