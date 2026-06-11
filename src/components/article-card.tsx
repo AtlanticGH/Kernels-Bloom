@@ -21,13 +21,18 @@ const RATIO: Record<Variant, string> = {
 export function ArticleCard({
   article,
   variant = "medium",
+  imageAspect,
 }: {
   article: Article;
   variant?: Variant;
+  /** Override the default aspect ratio for this variant (e.g. journal lead). */
+  imageAspect?: string;
 }) {
+  const aspect = imageAspect ?? RATIO[variant];
+
   return (
     <Link href={`/journal/${article.slug}`} className="group block">
-      <div className={`relative ${RATIO[variant]} overflow-hidden bg-kb-chalk`}>
+      <div className={`relative ${aspect} overflow-hidden bg-kb-chalk`}>
         <Image
           src={article.image}
           alt={article.title}

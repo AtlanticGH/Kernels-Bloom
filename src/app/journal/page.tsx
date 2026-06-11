@@ -35,7 +35,11 @@ export default async function JournalPage() {
         <div className="mx-auto max-w-kb-max px-6">
           {lead && (
             <div className="grid grid-cols-1 items-center gap-kb-12 md:grid-cols-2">
-              <ArticleCard article={lead} variant="featured" />
+              <ArticleCard
+                article={lead}
+                variant="featured"
+                imageAspect="aspect-[4/3]"
+              />
               <div>
                 <p className="kb-label text-[10px] text-kb-terracotta">
                   {content.weeklyLabel}
