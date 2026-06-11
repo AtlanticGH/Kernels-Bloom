@@ -129,8 +129,8 @@ export const ingredients: Ingredient[] = [
     region: "Tropical lowland",
     group: "Oils",
     primaryBenefit: "Deep nourishment",
-    illustration: "Palm",
-    tileImage: "/images/beth-macdonald-QiGt-xFWkLU-unsplash.jpg",
+    illustration: null,
+    tileImage: "/images/DSC09558.jpg",
     bodyText: [
       "Palm, Coastal Ghana.",
       "The oil palm has shaded West African forest edges for millennia — its fruit pressed for a rich, golden oil that carries vitamins A and E deep into the skin.",

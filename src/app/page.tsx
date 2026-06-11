@@ -45,11 +45,6 @@ export default async function HomePage() {
   ]);
   const articlePreview = articles.slice(0, 3);
 
-  const spotlightBotanical = parseBotanicalName(
-    spotlight.illustrationBotanical,
-    "Palm"
-  );
-
   return (
     <>
       <section className="relative flex min-h-screen items-center overflow-hidden bg-kb-kola">
@@ -121,13 +116,6 @@ export default async function HomePage() {
             <GrainOverlay opacity={0.06} />
           </div>
           <div className="relative flex flex-col justify-center bg-kb-gold px-6 py-kb-12 md:pl-kb-12 md:pr-[max(1.5rem,calc(50vw_-_744px))]">
-            <BotanicalIllustration
-              name={spotlightBotanical}
-              size={280}
-              opacity={0.4}
-              color="var(--kb-cacao)"
-              className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2"
-            />
             <div className="relative">
               <p className="kb-label text-[12px] text-kb-dusk/60">
                 {spotlight.sectionLabel}

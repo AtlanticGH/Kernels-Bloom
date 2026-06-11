@@ -51,7 +51,7 @@ export const CMS_BLOCK_DEFAULTS: CmsBlockMap = {
     body:
       "The oil palm has shaded West African forest edges for millennia — its fruit pressed for a rich, golden oil that carries vitamins A and E deep into the skin. Our partners harvest at peak ripeness and cold-press within hours, keeping the oil bright and the forest standing.",
     pullQuote: "Pressed at peak ripeness, to keep the oil bright.",
-    image: "/images/beth-macdonald-QiGt-xFWkLU-unsplash.jpg",
+    image: "/images/DSC09558.jpg",
     illustrationBotanical: "Palm",
     ctaLabel: "Read the full palm story →",
     ctaHref: "/botanicals/palm",
