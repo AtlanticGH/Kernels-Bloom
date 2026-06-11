@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   CMS_BLOCK_META,
   CMS_NAV_GROUP_ORDER,
@@ -43,10 +44,53 @@ export function CmsSidebar({
   filter,
   onFilterChange,
 }: CmsSidebarProps) {
+  const scrollerRef = useRef<HTMLElement>(null);
+  const [canScrollUp, setCanScrollUp] = useState(false);
+  const [canScrollDown, setCanScrollDown] = useState(false);
+
   const grouped = CMS_NAV_GROUP_ORDER.map((group) => ({
     group,
     pages: pages.filter((page) => page.group === group),
   })).filter((entry) => entry.pages.length > 0);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    setCanScrollUp(scrollTop > 2);
+    setCanScrollDown(scrollTop + clientHeight < scrollHeight - 2);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    updateScrollState();
+
+    const observer = new ResizeObserver(updateScrollState);
+    observer.observe(el);
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      el.removeEventListener("scroll", updateScrollState);
+    };
+  }, [updateScrollState, pages]);
+
+  function scrollByPage(direction: -1 | 1) {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ top: direction * el.clientHeight * 0.75, behavior: "smooth" });
+  }
+
+  const showArrows = canScrollUp || canScrollDown;
+
+  const arrowClass = (enabled: boolean) =>
+    `flex h-8 w-full shrink-0 items-center justify-center rounded-kb border-[0.5px] bg-kb-linen font-body text-[18px] leading-none transition-all ${
+      enabled
+        ? "border-kb-cacao/40 text-kb-cacao shadow-sm hover:border-kb-cacao hover:bg-kb-cacao hover:text-kb-parchment"
+        : "pointer-events-none border-kb-chalk/80 text-kb-dusk/25"
+    }`;
 
   return (
     <aside className="flex min-h-0 flex-col lg:sticky lg:top-6 lg:max-h-[calc(100dvh-3rem)]">
@@ -62,10 +106,26 @@ export function CmsSidebar({
         </label>
       </div>
 
-      <nav
-        className="mt-4 min-h-0 flex-1 space-y-6 overflow-y-auto pr-1"
-        aria-label="Content sections"
-      >
+      <div className="mt-4 flex min-h-0 flex-1 flex-col gap-1">
+        {showArrows && (
+          <button
+            type="button"
+            onClick={() => scrollByPage(-1)}
+            aria-label="Scroll up"
+            disabled={!canScrollUp}
+            className={arrowClass(canScrollUp)}
+          >
+            <span className="-rotate-90" aria-hidden="true">
+              ‹
+            </span>
+          </button>
+        )}
+
+        <nav
+          ref={scrollerRef}
+          className="min-h-0 flex-1 space-y-6 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label="Content sections"
+        >
         {grouped.map(({ group, pages: groupPages }) => (
           <div key={group}>
             <p className="kb-label px-2 text-[9px] text-kb-gold">{group}</p>
@@ -125,7 +185,22 @@ export function CmsSidebar({
             </ul>
           </div>
         ))}
-      </nav>
+        </nav>
+
+        {showArrows && (
+          <button
+            type="button"
+            onClick={() => scrollByPage(1)}
+            aria-label="Scroll down"
+            disabled={!canScrollDown}
+            className={arrowClass(canScrollDown)}
+          >
+            <span className="rotate-90" aria-hidden="true">
+              ›
+            </span>
+          </button>
+        )}
+      </div>
 
       {pages.length === 0 && (
         <p className="mt-6 px-2 font-body text-[13px] font-light text-kb-dusk/50">
