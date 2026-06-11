@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: { params: Params }) {
 
       <section className="bg-kb-parchment py-kb-12">
         <div className="mx-auto max-w-kb-max px-6">
-          <div className="grid grid-cols-1 gap-kb-12 lg:grid-cols-[55fr_45fr]">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[52fr_48fr] lg:gap-8">
             <div>
               <ProductImageGallery
                 images={getProductImages(product)}
@@ -100,7 +100,7 @@ export default async function ProductPage({ params }: { params: Params }) {
               )}
             </div>
 
-            <div className="lg:sticky lg:top-32 lg:self-start lg:py-4">
+            <div className="lg:sticky lg:top-32 lg:self-start">
               <p className="kb-label text-[10px] text-kb-terracotta">
                 {category?.name}
               </p>
@@ -192,7 +192,7 @@ export default async function ProductPage({ params }: { params: Params }) {
               </h2>
               <div className="mt-kb-8 grid grid-cols-1 gap-x-6 gap-y-kb-8 sm:grid-cols-2 lg:grid-cols-4">
                 {related.map((p) => (
-                  <ProductCard key={p.slug} product={p} />
+                  <ProductCard key={p.slug} product={p} square />
                 ))}
               </div>
             </div>

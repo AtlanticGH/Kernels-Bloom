@@ -15,17 +15,36 @@ export function ProductImageGallery({ images, alt }: ProductImageGalleryProps) {
 
   if (!current) {
     return (
-      <div className="flex aspect-[4/5] items-center justify-center bg-kb-linen font-body text-[14px] font-light text-kb-dusk/40">
+      <div className="flex aspect-[5/6] items-center justify-center bg-kb-linen font-body text-[14px] font-light text-kb-dusk/40">
         No image
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:gap-4">
+    <div className="mx-auto flex w-full max-w-[min(100%,26rem)] flex-col gap-3 sm:max-w-[min(100%,28rem)] lg:mx-0 lg:max-w-[88%]">
+      <div className="relative min-w-0 overflow-hidden bg-kb-linen">
+        <div className="relative aspect-[5/6] w-full">
+          <Image
+            key={current}
+            src={current}
+            alt={alt}
+            fill
+            priority={active === 0}
+            sizes="(max-width: 1024px) 100vw, 55vw"
+            className="object-cover"
+          />
+        </div>
+        {slides.length > 1 && (
+          <p className="absolute bottom-3 right-3 rounded-kb bg-kb-cacao/75 px-2.5 py-1 font-body text-[11px] font-light text-kb-parchment">
+            {active + 1} / {slides.length}
+          </p>
+        )}
+      </div>
+
       {slides.length > 1 && (
         <div
-          className="order-2 flex gap-2 overflow-x-auto pb-1 lg:order-1 lg:max-h-[min(640px,70vh)] lg:w-[72px] lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden lg:pb-0"
+          className="flex gap-3 overflow-x-auto pb-1"
           role="tablist"
           aria-label="Product images"
         >
@@ -39,7 +58,9 @@ export function ProductImageGallery({ images, alt }: ProductImageGalleryProps) {
                 aria-selected={selected}
                 aria-label={`Image ${index + 1} of ${slides.length}`}
                 onClick={() => setActive(index)}
-                className={`relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-kb border-[0.5px] bg-kb-linen transition-colors ${
+                onMouseEnter={() => setActive(index)}
+                onFocus={() => setActive(index)}
+                className={`relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-kb border-[0.5px] bg-kb-linen transition-colors sm:h-[72px] sm:w-[72px] ${
                   selected
                     ? "border-kb-cacao ring-1 ring-kb-cacao"
                     : "border-kb-chalk hover:border-kb-gold/60"
@@ -57,25 +78,6 @@ export function ProductImageGallery({ images, alt }: ProductImageGalleryProps) {
           })}
         </div>
       )}
-
-      <div className="relative order-1 min-w-0 flex-1 overflow-hidden bg-kb-linen lg:order-2">
-        <div className="relative aspect-[4/5] w-full">
-          <Image
-            key={current}
-            src={current}
-            alt={alt}
-            fill
-            priority={active === 0}
-            sizes="(max-width: 1024px) 100vw, 55vw"
-            className="object-cover"
-          />
-        </div>
-        {slides.length > 1 && (
-          <p className="absolute bottom-3 right-3 rounded-kb bg-kb-cacao/75 px-2.5 py-1 font-body text-[11px] font-light text-kb-parchment">
-            {active + 1} / {slides.length}
-          </p>
-        )}
-      </div>
     </div>
   );
 }
