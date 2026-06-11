@@ -130,9 +130,9 @@ export const CMS_BLOCK_META: Record<
     description: "Not-found page copy and CTAs.",
   },
   "catalog.products": {
-    label: "Product images",
+    label: "Shop products",
     description:
-      "Tile image and detail-page gallery for each product — upload, reorder, or remove photos.",
+      "Add and edit products — copy, pricing, images, ingredients, and shop placement.",
   },
   "catalog.ingredients": {
     label: "Botanical tile images",
@@ -182,11 +182,8 @@ export function getCmsBlockKind(
 ): CmsBlockKind {
   if (id === "catalog.articles") return "journal";
   if (id === "page.quiz") return "quiz";
-  if (
-    id === "catalog.products" ||
-    id === "catalog.categories" ||
-    id === "catalog.ingredients"
-  ) {
+  if (id === "catalog.products") return "catalog";
+  if (id === "catalog.categories" || id === "catalog.ingredients") {
     return "images";
   }
   if (id.startsWith("catalog.")) return "catalog";

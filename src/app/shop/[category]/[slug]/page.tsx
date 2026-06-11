@@ -26,6 +26,9 @@ import { getProductImages } from "@/lib/product-images";
 
 type Params = { category: string; slug: string };
 
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const products = await getAllProducts();
   return products.map((p) => ({ category: p.category, slug: p.slug }));

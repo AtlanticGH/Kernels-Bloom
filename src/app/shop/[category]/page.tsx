@@ -14,6 +14,8 @@ import { PageHero, PageShell } from "@/components/page-hero";
 
 type Params = { category: string };
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   const categories = await getAllCategories();
   return [{ category: "all" }, ...categories.map((c) => ({ category: c.slug }))];

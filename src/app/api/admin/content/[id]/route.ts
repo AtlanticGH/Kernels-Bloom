@@ -8,20 +8,30 @@ import {
 import { getCmsBlock, upsertCmsBlock } from "@/lib/cms/content";
 import type { Product } from "@/lib/types";
 
-function slimProductCatalogForSave(
+function normalizeProductForSave(product: Product): Product {
+  const images = (
+    product.images ?? (product.image ? [product.image] : [])
+  ).filter(Boolean);
+
+  return {
+    ...product,
+    slug: product.slug.trim(),
+    name: product.name.trim(),
+    image: images[0] ?? product.image,
+    images,
+    price: Math.max(0, Number(product.price) || 0),
+    description: product.description.map((p) => p.trim()).filter(Boolean),
+    ingredients: product.ingredients.map((s) => s.trim()).filter(Boolean),
+    skinTypes: product.skinTypes.map((s) => s.trim()).filter(Boolean),
+    related: product.related.map((s) => s.trim()).filter(Boolean),
+  };
+}
+
+function productCatalogForSave(
   data: CmsBlockMap["catalog.products"]
 ): CmsBlockMap["catalog.products"] {
   return {
-    items: data.items.map((product) => {
-      const images = (
-        product.images ?? (product.image ? [product.image] : [])
-      ).filter(Boolean);
-      return {
-        slug: product.slug,
-        image: images[0] ?? product.image,
-        images,
-      } as Product;
-    }),
+    items: data.items.map(normalizeProductForSave),
   };
 }
 
@@ -57,7 +67,7 @@ export async function PUT(request: Request, { params }: RouteContext) {
     const body = await request.json();
     const payload =
       params.id === "catalog.products"
-        ? slimProductCatalogForSave(body as CmsBlockMap["catalog.products"])
+        ? productCatalogForSave(body as CmsBlockMap["catalog.products"])
         : { ...CMS_BLOCK_DEFAULTS[params.id], ...body };
 
     const result = await upsertCmsBlock(params.id, payload);
