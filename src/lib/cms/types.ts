@@ -37,7 +37,10 @@ export type HomeHeroContent = {
   headlineLine1: string;
   headlineLine2: string;
   subcopy: string;
+  /** Poster and fallback when no background video is set. */
   backgroundImage: string;
+  /** Optional looping hero background (MP4/WebM). */
+  backgroundVideo: string;
   ctaPrimary: string;
   ctaPrimaryHref: string;
   ctaSecondary: string;

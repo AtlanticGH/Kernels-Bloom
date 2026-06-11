@@ -11,6 +11,7 @@ import { BotanicalIllustration } from "@/components/botanical-illustration";
 import { KBButton } from "@/components/kb-button";
 import { Reveal } from "@/components/reveal";
 import { CurrencyToggle } from "@/components/currency-toggle";
+import { HeroBackground } from "@/components/hero-background";
 import { HeroHeadline } from "@/components/hero-headline";
 import { BrandMarquee } from "@/components/brand-marquee";
 import { parseBotanicalName } from "@/lib/cms/botanical";
@@ -48,13 +49,9 @@ export default async function HomePage() {
   return (
     <>
       <section className="relative flex min-h-screen items-center overflow-hidden bg-kb-kola">
-        <Image
-          src={hero.backgroundImage}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+        <HeroBackground
+          image={hero.backgroundImage}
+          video={hero.backgroundVideo}
         />
         <div aria-hidden="true" className="absolute inset-0 bg-kb-kola/95" />
         <GrainOverlay opacity={0.08} className="z-[1]" />

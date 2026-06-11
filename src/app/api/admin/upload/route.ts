@@ -3,15 +3,18 @@ import { isAdminAuthenticated } from "@/lib/cms/auth";
 import { createServiceClient } from "@/lib/integrations/supabase-server";
 
 const BUCKET = "cms";
-const MAX_BYTES = 8 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
+const MAX_VIDEO_BYTES = 50 * 1024 * 1024;
 
-const ALLOWED_TYPES = new Set([
+const IMAGE_TYPES = new Set([
   "image/jpeg",
   "image/png",
   "image/webp",
   "image/gif",
   "image/avif",
 ]);
+
+const VIDEO_TYPES = new Set(["video/mp4", "video/webm"]);
 
 function safeName(name: string): string {
   return name
@@ -42,23 +45,33 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    if (!ALLOWED_TYPES.has(file.type)) {
+    const isImage = IMAGE_TYPES.has(file.type);
+    const isVideo = VIDEO_TYPES.has(file.type);
+
+    if (!isImage && !isVideo) {
       return NextResponse.json(
-        { error: "Use JPEG, PNG, WebP, GIF, or AVIF." },
+        { error: "Use JPEG, PNG, WebP, GIF, AVIF, MP4, or WebM." },
         { status: 400 }
       );
     }
 
-    if (file.size > MAX_BYTES) {
+    const maxBytes = isVideo ? MAX_VIDEO_BYTES : MAX_IMAGE_BYTES;
+    if (file.size > maxBytes) {
       return NextResponse.json(
-        { error: "Image must be 8 MB or smaller." },
+        {
+          error: isVideo
+            ? "Video must be 50 MB or smaller."
+            : "Image must be 8 MB or smaller.",
+        },
         { status: 400 }
       );
     }
 
     const ext = file.name.includes(".")
       ? file.name.slice(file.name.lastIndexOf("."))
-      : ".jpg";
+      : isVideo
+        ? ".mp4"
+        : ".jpg";
     const path = `${Date.now()}-${safeName(file.name.replace(ext, ""))}${ext}`;
 
     const buffer = Buffer.from(await file.arrayBuffer());

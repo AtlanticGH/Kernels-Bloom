@@ -22,7 +22,8 @@ export const CMS_BLOCK_META: Record<
   },
   "home.hero": {
     label: "Homepage hero",
-    description: "Headline, eyebrow, subcopy, background image, and CTAs.",
+    description:
+      "Headline, eyebrow, subcopy, background image, optional looping video, and CTAs.",
   },
   "home.stats": {
     label: "Homepage statistics",
@@ -323,3 +324,5 @@ export const CMS_IMAGE_FIELDS = new Set([
   "portraitImage",
   "videoPoster",
 ]);
+
+export const CMS_VIDEO_FIELDS = new Set(["backgroundVideo", "videoSrc"]);

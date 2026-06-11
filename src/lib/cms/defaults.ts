@@ -31,6 +31,7 @@ export const CMS_BLOCK_DEFAULTS: CmsBlockMap = {
     subcopy:
       "Science-backed formulations rooted in Africa's richest botanicals. Crafted in Ghana, for skin that remembers where it comes from.",
     backgroundImage: "/images/beth-macdonald-QiGt-xFWkLU-unsplash.jpg",
+    backgroundVideo: "",
     ctaPrimary: "Explore the collection →",
     ctaPrimaryHref: "/shop/all",
     ctaSecondary: "Discover our botanicals",

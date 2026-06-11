@@ -11,6 +11,7 @@ import {
   CMS_BLOCK_META,
   CMS_IMAGE_FIELDS,
   CMS_JSON_FIELDS,
+  CMS_VIDEO_FIELDS,
   CMS_PAGE_NAV,
   getCmsBlockKind,
   type CmsBlockId,
@@ -20,6 +21,7 @@ import {
 import { BlockEditorPanel } from "@/components/admin/block-editor-panel";
 import { CmsSidebar } from "@/components/admin/cms-sidebar";
 import { ImageField } from "@/components/admin/image-field";
+import { VideoField } from "@/components/admin/video-field";
 import { ArticlesCatalogEditor } from "@/components/admin/articles-catalog-editor";
 import { CategoriesCatalogEditor } from "@/components/admin/categories-catalog-editor";
 import { IngredientsCatalogEditor } from "@/components/admin/ingredients-catalog-editor";
@@ -49,7 +51,8 @@ const FIELD_LABELS: Record<string, string> = {
   headlineLine1: "Headline line 1",
   headlineLine2: "Headline line 2",
   subcopy: "Subcopy",
-  backgroundImage: "Background image",
+  backgroundImage: "Background image (poster / fallback)",
+  backgroundVideo: "Background video",
   ctaPrimary: "Primary CTA label",
   ctaPrimaryHref: "Primary CTA link",
   ctaSecondary: "Secondary CTA label",
@@ -180,6 +183,7 @@ const EDITOR_FIELD_GROUPS: { label: string; keys: string[] }[] = [
     label: "Images & media",
     keys: [
       "backgroundImage",
+      "backgroundVideo",
       "image",
       "portraitImage",
       "videoPoster",
@@ -289,12 +293,26 @@ function FieldInput({
   const stringValue = String(value ?? "");
   const isLong = isLongField(fieldKey, stringValue);
   const spanFull =
-    CMS_IMAGE_FIELDS.has(fieldKey) || isLongField(fieldKey, stringValue);
+    CMS_IMAGE_FIELDS.has(fieldKey) ||
+    CMS_VIDEO_FIELDS.has(fieldKey) ||
+    isLongField(fieldKey, stringValue);
 
   if (CMS_IMAGE_FIELDS.has(fieldKey)) {
     return (
       <div className={spanFull ? "sm:col-span-2" : ""}>
         <ImageField
+          label={label}
+          value={stringValue}
+          onChange={(next) => onChange(next)}
+        />
+      </div>
+    );
+  }
+
+  if (CMS_VIDEO_FIELDS.has(fieldKey)) {
+    return (
+      <div className={spanFull ? "sm:col-span-2" : ""}>
+        <VideoField
           label={label}
           value={stringValue}
           onChange={(next) => onChange(next)}
