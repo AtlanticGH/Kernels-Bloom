@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { SubmissionRow, SubmissionType } from "@/lib/cms/submissions";
 
 const TYPE_LABELS: Record<SubmissionType, string> = {
@@ -9,62 +9,81 @@ const TYPE_LABELS: Record<SubmissionType, string> = {
   quiz: "Quiz",
 };
 
-export function SubmissionsTable() {
-  const [rows, setRows] = useState<SubmissionRow[]>([]);
-  const [loading, setLoading] = useState(true);
+export function SubmissionsTable({
+  initialSubmissions,
+}: {
+  initialSubmissions: SubmissionRow[];
+}) {
+  const [rows, setRows] = useState(initialSubmissions);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
   const [filter, setFilter] = useState<SubmissionType | "all">("all");
   const [openId, setOpenId] = useState<string | null>(null);
 
-  useEffect(() => {
-    void (async () => {
-      try {
-        const res = await fetch("/api/admin/submissions");
-        if (!res.ok) throw new Error("Failed to load submissions");
-        const json = await res.json();
-        setRows(json.submissions);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load");
-      } finally {
-        setLoading(false);
+  async function refresh() {
+    setRefreshing(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/admin/submissions", {
+        credentials: "same-origin",
+        cache: "no-store",
+      });
+
+      if (res.status === 401) {
+        throw new Error("Session expired — please sign in again.");
       }
-    })();
-  }, []);
+
+      if (!res.ok) {
+        const json = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(json.error ?? "Failed to load submissions");
+      }
+
+      const json = (await res.json()) as { submissions?: SubmissionRow[] };
+      setRows(Array.isArray(json.submissions) ? json.submissions : []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load");
+    } finally {
+      setRefreshing(false);
+    }
+  }
 
   const filtered =
     filter === "all" ? rows : rows.filter((row) => row.type === filter);
 
   const selected = rows.find((row) => row.id === openId) ?? null;
 
-  if (loading) {
-    return (
-      <p className="font-body text-[14px] font-light text-kb-dusk/60">
-        Loading submissions…
-      </p>
-    );
-  }
-
   return (
     <div>
-      <div className="flex flex-wrap gap-2">
-        {(["all", "trade", "consultation", "quiz"] as const).map((type) => (
-          <button
-            key={type}
-            type="button"
-            onClick={() => setFilter(type)}
-            className={`rounded-kb px-3 py-1.5 font-body text-[12px] font-light transition-colors ${
-              filter === type
-                ? "bg-kb-cacao text-kb-parchment"
-                : "bg-kb-chalk text-kb-dusk/70 hover:text-kb-cacao"
-            }`}
-          >
-            {type === "all" ? "All" : TYPE_LABELS[type]}
-          </button>
-        ))}
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap gap-2">
+          {(["all", "trade", "consultation", "quiz"] as const).map((type) => (
+            <button
+              key={type}
+              type="button"
+              onClick={() => setFilter(type)}
+              className={`rounded-kb px-3 py-1.5 font-body text-[12px] font-light transition-colors ${
+                filter === type
+                  ? "bg-kb-cacao text-kb-parchment"
+                  : "bg-kb-chalk text-kb-dusk/70 hover:text-kb-cacao"
+              }`}
+            >
+              {type === "all" ? "All" : TYPE_LABELS[type]}
+            </button>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => void refresh()}
+          disabled={refreshing}
+          className="kb-label text-[11px] text-kb-terracotta transition-colors hover:text-kb-cacao disabled:opacity-50"
+        >
+          {refreshing ? "Refreshing…" : "Refresh"}
+        </button>
       </div>
 
       {error && (
-        <p className="mt-4 font-body text-[13px] font-light text-kb-terracotta">
+        <p className="mt-4 rounded-kb border-[0.5px] border-kb-terracotta/40 bg-kb-parchment px-4 py-3 font-body text-[13px] font-light text-kb-terracotta">
           {error}
         </p>
       )}

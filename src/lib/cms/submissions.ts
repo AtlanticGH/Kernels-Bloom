@@ -32,6 +32,12 @@ export async function listSubmissions(limit = 50): Promise<SubmissionRow[]> {
       .limit(limit),
   ]);
 
+  if (trade.error) console.error("trade_applications:", trade.error.message);
+  if (consultations.error) {
+    console.error("consultations:", consultations.error.message);
+  }
+  if (quiz.error) console.error("quiz_results:", quiz.error.message);
+
   const rows: SubmissionRow[] = [];
 
   for (const row of trade.data ?? []) {
