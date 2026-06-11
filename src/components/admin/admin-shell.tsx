@@ -9,10 +9,11 @@ const NAV = [
   { href: "/admin/submissions", label: "Submissions" },
 ];
 
+const CMS_MAX = "max-w-7xl";
+
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const wideLayout = pathname.startsWith("/admin/content");
 
   async function logout() {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -24,9 +25,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-dvh bg-kb-linen">
       <header className="border-b-[0.5px] border-kb-chalk bg-kb-parchment">
         <div
-          className={`mx-auto flex flex-wrap items-center justify-between gap-4 px-6 py-4 ${
-            wideLayout ? "max-w-[1600px]" : "max-w-7xl"
-          }`}
+          className={`mx-auto flex flex-wrap items-center justify-between gap-4 px-6 py-4 ${CMS_MAX}`}
         >
           <div>
             <p className="kb-label text-[10px] text-kb-terracotta">CMS</p>
@@ -52,9 +51,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
 
         <nav
-          className={`mx-auto flex gap-1 overflow-x-auto px-6 ${
-            wideLayout ? "max-w-[1600px]" : "max-w-7xl"
-          }`}
+          className={`mx-auto grid grid-cols-3 px-6 ${CMS_MAX}`}
           aria-label="CMS sections"
         >
           {NAV.map((item) => {
@@ -65,7 +62,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`shrink-0 border-b-2 px-4 py-3 font-body text-[13px] font-light transition-colors ${
+                className={`border-b-2 py-3 text-center font-body text-[13px] font-light transition-colors ${
                   active
                     ? "border-kb-cacao text-kb-cacao"
                     : "border-transparent text-kb-dusk/60 hover:border-kb-chalk hover:text-kb-cacao"
@@ -78,13 +75,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </nav>
       </header>
 
-      <main
-        className={`mx-auto px-6 py-8 ${
-          wideLayout ? "max-w-[1600px]" : "max-w-7xl"
-        }`}
-      >
-        {children}
-      </main>
+      <main className={`mx-auto px-6 py-8 ${CMS_MAX}`}>{children}</main>
     </div>
   );
 }
