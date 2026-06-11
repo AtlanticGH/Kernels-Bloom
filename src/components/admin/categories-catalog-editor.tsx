@@ -18,7 +18,7 @@ function TilePreview({ category }: { category: ProductCategory }) {
   const src = category.tileImage ?? "";
 
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen">
+    <div className="relative aspect-[4/3] w-full max-w-[100px] overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen">
       {src && isImagePath(src) ? (
         <Image
           src={src}
@@ -33,7 +33,7 @@ function TilePreview({ category }: { category: ProductCategory }) {
         </div>
       )}
       <span className="absolute inset-0 bg-gradient-to-t from-kb-cacao/70 via-transparent to-transparent" />
-      <p className="absolute bottom-2 left-2 right-2 font-display text-[14px] italic text-kb-parchment">
+      <p className="absolute bottom-1.5 left-1.5 right-1.5 font-display text-[11px] italic leading-tight text-kb-parchment">
         {category.name}
       </p>
     </div>
@@ -49,7 +49,7 @@ function CategoryTileCard({
 }) {
   return (
     <article className="rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen/40 p-4">
-      <div className="grid gap-4 sm:grid-cols-[140px_minmax(0,1fr)]">
+      <div className="grid gap-4 sm:grid-cols-[100px_minmax(0,1fr)]">
         <TilePreview category={category} />
         <div className="min-w-0 space-y-3">
           <div>

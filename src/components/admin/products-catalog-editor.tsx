@@ -37,14 +37,14 @@ function TilePreview({ product }: { product: Product }) {
   const src = product.image ?? "";
 
   return (
-    <div className="relative aspect-[3/4] overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen">
+    <div className="relative aspect-[3/4] w-full max-w-[100px] overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen">
       {src && isImagePath(src) ? (
         <Image
           src={src}
           alt={product.name}
           fill
           className="object-cover"
-          sizes="160px"
+          sizes="100px"
         />
       ) : (
         <div className="flex h-full items-center justify-center px-3 text-center font-body text-[12px] font-light text-kb-dusk/40">
@@ -63,7 +63,7 @@ function GalleryThumbnails({ images }: { images: string[] }) {
       {images.map((src, index) => (
         <div
           key={`${src}-${index}`}
-          className="relative h-11 w-11 shrink-0 overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen"
+          className="relative h-8 w-8 shrink-0 overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen"
         >
           {isImagePath(src) ? (
             <Image
@@ -136,7 +136,7 @@ function ProductGalleryEditor({
         {images.map((src, index) => (
           <div
             key={`${product.slug}-gallery-${index}`}
-            className="rounded-kb border-[0.5px] border-kb-chalk bg-kb-parchment/50 p-4"
+            className="rounded-kb border-[0.5px] border-kb-chalk bg-kb-parchment/50 p-3"
           >
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <span className="kb-label text-[10px] text-kb-gold">
@@ -176,6 +176,7 @@ function ProductGalleryEditor({
               label=""
               value={src}
               onChange={(url) => updateImage(index, url)}
+              compact
             />
           </div>
         ))}
@@ -203,7 +204,7 @@ function ProductTileCard({
 
   return (
     <article className="rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen/40 p-4">
-      <div className="grid gap-6 lg:grid-cols-[140px_minmax(0,1fr)]">
+      <div className="grid gap-4 lg:grid-cols-[100px_minmax(0,1fr)]">
         <div>
           <TilePreview product={product} />
           <GalleryThumbnails images={gallery} />
