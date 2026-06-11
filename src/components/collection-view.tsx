@@ -93,26 +93,52 @@ export function CollectionView({
     <div className="grid grid-cols-1 gap-kb-8 lg:grid-cols-[220px_1fr]">
       {/* filters */}
       <aside className="lg:sticky lg:top-[100px] lg:self-start">
-        <FilterGroup
-          title="Skin Type"
-          options={skinTypes}
-          selected={skinType}
-          onSelect={(v) => setSkinType((c) => (c === v ? null : v))}
-        />
-        <FilterGroup
-          title="Key Ingredient"
-          options={ingredients}
-          labels={ingredientNames}
-          selected={ingredient}
-          onSelect={(v) => setIngredient((c) => (c === v ? null : v))}
-        />
-        <FilterGroup
-          title="Price"
-          options={priceBands.map((b) => b.key)}
-          labels={Object.fromEntries(priceBands.map((b) => [b.key, b.label]))}
-          selected={band}
-          onSelect={(v) => setBand((c) => (c === v ? null : v))}
-        />
+        <div className="grid grid-cols-1 gap-3 lg:hidden">
+          <FilterSelect
+            label="Skin type"
+            value={skinType ?? ""}
+            onChange={setSkinType}
+            options={skinTypes.map((opt) => ({ value: opt, label: opt }))}
+          />
+          <FilterSelect
+            label="Key ingredient"
+            value={ingredient ?? ""}
+            onChange={setIngredient}
+            options={ingredients.map((opt) => ({
+              value: opt,
+              label: ingredientNames[opt] ?? opt,
+            }))}
+          />
+          <FilterSelect
+            label="Price"
+            value={band ?? ""}
+            onChange={setBand}
+            options={priceBands.map((b) => ({ value: b.key, label: b.label }))}
+          />
+        </div>
+
+        <div className="hidden lg:block">
+          <FilterGroup
+            title="Skin Type"
+            options={skinTypes}
+            selected={skinType}
+            onSelect={(v) => setSkinType((c) => (c === v ? null : v))}
+          />
+          <FilterGroup
+            title="Key Ingredient"
+            options={ingredients}
+            labels={ingredientNames}
+            selected={ingredient}
+            onSelect={(v) => setIngredient((c) => (c === v ? null : v))}
+          />
+          <FilterGroup
+            title="Price"
+            options={priceBands.map((b) => b.key)}
+            labels={Object.fromEntries(priceBands.map((b) => [b.key, b.label]))}
+            selected={band}
+            onSelect={(v) => setBand((c) => (c === v ? null : v))}
+          />
+        </div>
       </aside>
 
       {/* grid */}
@@ -168,6 +194,36 @@ export function CollectionView({
         )}
       </div>
     </div>
+  );
+}
+
+function FilterSelect({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string | null) => void;
+  options: { value: string; label: string }[];
+}) {
+  return (
+    <label className="block min-w-0">
+      <span className="kb-label text-[10px] text-kb-cacao">{label}</span>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value || null)}
+        className="mt-2 w-full rounded-kb border-[0.5px] border-kb-chalk bg-kb-parchment px-3 py-2.5 font-body text-[14px] font-light text-kb-dusk outline-none focus:border-kb-terracotta"
+      >
+        <option value="">All</option>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
 
