@@ -18,7 +18,7 @@ function TilePreview({ category }: { category: ProductCategory }) {
   const src = category.tileImage ?? "";
 
   return (
-    <div className="relative aspect-[4/3] w-full max-w-[100px] overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen">
+    <div className="relative aspect-square w-full max-w-[100px] overflow-hidden rounded-kb border-[0.5px] border-kb-chalk bg-kb-linen">
       {src && isImagePath(src) ? (
         <Image
           src={src}

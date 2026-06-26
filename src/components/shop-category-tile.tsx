@@ -10,7 +10,7 @@ export function ShopCategoryTile({ category }: { category: ProductCategory }) {
   return (
     <Link
       href={`/shop/${category.slug}`}
-      className="group relative flex min-h-[260px] flex-col justify-end overflow-hidden bg-kb-linen p-8 ring-[0.5px] ring-kb-chalk transition-transform duration-300 hover:-translate-y-1"
+      className="group relative flex aspect-square flex-col justify-end overflow-hidden bg-kb-linen p-8 ring-[0.5px] ring-kb-chalk transition-transform duration-300 hover:-translate-y-1"
     >
       {hasPhoto ? (
         <>
