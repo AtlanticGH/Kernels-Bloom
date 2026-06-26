@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { useCurrency } from "@/components/currency-provider";
 import { CurrencyToggle } from "@/components/currency-toggle";
-import { formatPriceBand } from "@/lib/currency";
 import type { Product } from "@/lib/types";
 import { ProductCard } from "./product-card";
 
@@ -17,15 +16,15 @@ const PRICE_BANDS = [
 
 function priceBandLabel(
   band: (typeof PRICE_BANDS)[number],
-  currency: "USD" | "GHS"
+  formatBand: (usd: number) => string
 ): string {
   if (band.max === Infinity) {
-    return `${formatPriceBand(band.min, currency)}+`;
+    return `${formatBand(band.min)}+`;
   }
   if (band.min === 0) {
-    return `Under ${formatPriceBand(band.max, currency)}`;
+    return `Under ${formatBand(band.max)}`;
   }
-  return `${formatPriceBand(band.min, currency)}–${formatPriceBand(band.max, currency)}`;
+  return `${formatBand(band.min)}–${formatBand(band.max)}`;
 }
 
 export function CollectionView({
@@ -39,15 +38,15 @@ export function CollectionView({
   const [ingredient, setIngredient] = useState<string | null>(null);
   const [band, setBand] = useState<string | null>(null);
   const [sort, setSort] = useState<SortKey>("featured");
-  const { currency } = useCurrency();
+  const { formatBand } = useCurrency();
 
   const priceBands = useMemo(
     () =>
       PRICE_BANDS.map((band) => ({
         ...band,
-        label: priceBandLabel(band, currency),
+        label: priceBandLabel(band, formatBand),
       })),
-    [currency]
+    [formatBand]
   );
 
   const skinTypes = useMemo(

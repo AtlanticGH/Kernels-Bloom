@@ -12,8 +12,10 @@ export function ProductPrice({
   className?: string;
   volume?: string;
 }) {
-  const { formatAmount, ready, currency } = useCurrency();
-  const display = ready ? formatAmount(amount) : formatPrice(amount, currency);
+  const { formatAmount, ready, currency, usdToGhs } = useCurrency();
+  const display = ready
+    ? formatAmount(amount)
+    : formatPrice(amount, currency, usdToGhs);
 
   return (
     <span className={className} suppressHydrationWarning>

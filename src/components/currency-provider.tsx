@@ -8,21 +8,29 @@ import {
   useMemo,
   useState,
 } from "react";
-import { type Currency, formatPrice } from "@/lib/currency";
+import {
+  DEFAULT_USD_TO_GHS,
+  type Currency,
+  formatPrice,
+  formatPriceBand,
+} from "@/lib/currency";
 
 const STORAGE_KEY = "kb-currency";
 
 type CurrencyContextValue = {
   currency: Currency;
   ready: boolean;
+  usdToGhs: number;
   setCurrency: (currency: Currency) => void;
   formatAmount: (usd: number) => string;
+  formatBand: (usd: number) => string;
 };
 
 const CurrencyContext = createContext<CurrencyContextValue | null>(null);
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const [currency, setCurrencyState] = useState<Currency>("GHS");
+  const [usdToGhs, setUsdToGhs] = useState(DEFAULT_USD_TO_GHS);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -37,6 +45,25 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     setReady(true);
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch("/api/exchange-rate")
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data: { usdToGhs?: number }) => {
+        if (!cancelled && typeof data.usdToGhs === "number" && Number.isFinite(data.usdToGhs)) {
+          setUsdToGhs(data.usdToGhs);
+        }
+      })
+      .catch(() => {
+        // Keep DEFAULT_USD_TO_GHS fallback
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const setCurrency = useCallback((next: Currency) => {
     setCurrencyState(next);
     try {
@@ -47,13 +74,18 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const formatAmount = useCallback(
-    (usd: number) => formatPrice(usd, currency),
-    [currency]
+    (usd: number) => formatPrice(usd, currency, usdToGhs),
+    [currency, usdToGhs]
+  );
+
+  const formatBand = useCallback(
+    (usd: number) => formatPriceBand(usd, currency, usdToGhs),
+    [currency, usdToGhs]
   );
 
   const value = useMemo(
-    () => ({ currency, ready, setCurrency, formatAmount }),
-    [currency, ready, setCurrency, formatAmount]
+    () => ({ currency, ready, usdToGhs, setCurrency, formatAmount, formatBand }),
+    [currency, ready, usdToGhs, setCurrency, formatAmount, formatBand]
   );
 
   return (
