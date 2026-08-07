@@ -69,12 +69,17 @@ function sortIngredients(items: Ingredient[]): Ingredient[] {
   );
 }
 
+function mergeOneIngredient(base: Ingredient, cms: Ingredient): Ingredient {
+  const tileImage = cms.tileImage?.trim() ? cms.tileImage : base.tileImage;
+  return { ...base, ...cms, tileImage };
+}
+
 function mergeIngredients(cmsItems: Ingredient[]): Ingredient[] {
   const localBySlug = new Map(localIngredients.map((i) => [i.slug, i]));
   return sortIngredients(
     cmsItems.map((item) => {
       const base = localBySlug.get(item.slug);
-      return base ? { ...base, ...item } : item;
+      return base ? mergeOneIngredient(base, item) : item;
     })
   );
 }
