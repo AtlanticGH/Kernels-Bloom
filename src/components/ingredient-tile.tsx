@@ -40,21 +40,21 @@ export function IngredientTile({
         </div>
       )}
       <span className="absolute inset-0 bg-kb-cacao/0 transition-colors duration-300 group-hover:bg-kb-cacao/5" />
-      <div className="absolute inset-0 flex flex-col justify-end p-6 transition-transform duration-300 group-hover:-translate-y-1 sm:p-7">
+      <div className="absolute inset-0 flex flex-col justify-end gap-0.5 p-6 transition-transform duration-300 group-hover:-translate-y-1 sm:p-7">
         <p
-          className={`kb-label text-[10px] ${hasPhoto ? "text-kb-gold" : "text-kb-terracotta"}`}
+          className={`kb-label text-[12px] leading-none ${hasPhoto ? "text-kb-gold" : "text-kb-terracotta"}`}
         >
           {ingredient.origin}
         </p>
         <h3
-          className={`mt-1 font-display text-[clamp(22px,2.5vw,26px)] font-normal italic leading-tight ${
+          className={`font-display text-[clamp(26px,3.2vw,34px)] font-normal italic leading-none ${
             hasPhoto ? "text-kb-parchment" : "text-kb-cacao"
           }`}
         >
           {ingredient.commonName}
         </h3>
         <p
-          className={`kb-accent text-[11px] ${
+          className={`kb-accent text-[13px] leading-none ${
             hasPhoto ? "text-kb-parchment/70" : "text-kb-dusk/60"
           }`}
         >
