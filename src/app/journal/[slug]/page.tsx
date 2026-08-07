@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getAllArticles, getArticle, resolveProducts } from "@/lib/data";
 import { HairlineRule } from "@/components/hairline-rule";
-import { ProductCard } from "@/components/product-card";
+import { JournalStoryProducts } from "@/components/journal-story-products";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 import { PageHero, PageShell } from "@/components/page-hero";
 
@@ -93,20 +93,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
         </div>
       </article>
 
-      {related.length > 0 && (
-        <section className="bg-kb-linen py-kb-12">
-          <div className="mx-auto max-w-kb-max px-6">
-            <h2 className="font-display text-[28px] font-light italic text-kb-cacao">
-              From this story
-            </h2>
-            <div className="mt-kb-8 grid grid-cols-1 gap-x-6 gap-y-kb-8 sm:grid-cols-2 lg:grid-cols-4">
-              {related.map((p) => (
-                <ProductCard key={p.slug} product={p} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <JournalStoryProducts products={related} />
     </PageShell>
   );
 }
