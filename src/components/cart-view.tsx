@@ -11,11 +11,16 @@ import {
   setQuantity,
   type CartItem,
 } from "@/lib/cart";
+import { cartLineKey, getProductVariant } from "@/lib/product-variants";
 import { useCurrency } from "@/components/currency-provider";
 import { CurrencyToggle } from "@/components/currency-toggle";
 import { ProductPrice } from "@/components/product-price";
 import { KBButton } from "./kb-button";
 import { HairlineRule } from "./hairline-rule";
+
+function lineKey(item: CartItem): string {
+  return cartLineKey(item.slug, item.variantId);
+}
 
 export function CartView({ products }: { products: Product[] }) {
   const { formatAmount } = useCurrency();
@@ -32,11 +37,16 @@ export function CartView({ products }: { products: Product[] }) {
   if (items === null) return null;
 
   const lines = items
-    .map((i) => ({ item: i, product: bySlug[i.slug] }))
-    .filter((l) => l.product);
+    .map((item) => {
+      const product = bySlug[item.slug];
+      if (!product) return null;
+      const variant = getProductVariant(product, item.variantId);
+      return { item, product, variant };
+    })
+    .filter((line): line is NonNullable<typeof line> => Boolean(line));
 
   const subtotal = lines.reduce(
-    (sum, l) => sum + l.product.price * l.item.quantity,
+    (sum, line) => sum + line.variant.price * line.item.quantity,
     0
   );
 
@@ -65,8 +75,8 @@ export function CartView({ products }: { products: Product[] }) {
         <CurrencyToggle />
       </div>
       <ul className="divide-y-[0.5px] divide-kb-chalk border-y-[0.5px] border-kb-chalk">
-        {lines.map(({ item, product }) => (
-          <li key={product.slug} className="flex gap-6 py-6">
+        {lines.map(({ item, product, variant }) => (
+          <li key={lineKey(item)} className="flex gap-6 py-6">
             <div className="relative h-28 w-24 shrink-0 overflow-hidden bg-kb-chalk">
               <Image
                 src={product.image}
@@ -84,14 +94,20 @@ export function CartView({ products }: { products: Product[] }) {
                 {product.name}
               </Link>
               <p className="mt-1 font-body text-[13px] font-light text-kb-dusk/60">
-                <ProductPrice amount={product.price} volume={product.volume} />
+                <ProductPrice amount={variant.price} volume={variant.volume} />
               </p>
               <div className="mt-auto flex items-center gap-4 pt-3">
                 <div className="flex items-center gap-3 border-[0.5px] border-kb-chalk px-3 py-1">
                   <button
                     type="button"
                     aria-label="Decrease quantity"
-                    onClick={() => setQuantity(product.slug, item.quantity - 1)}
+                    onClick={() =>
+                      setQuantity(
+                        product.slug,
+                        item.quantity - 1,
+                        item.variantId
+                      )
+                    }
                     className="text-kb-cacao"
                   >
                     −
@@ -102,7 +118,13 @@ export function CartView({ products }: { products: Product[] }) {
                   <button
                     type="button"
                     aria-label="Increase quantity"
-                    onClick={() => setQuantity(product.slug, item.quantity + 1)}
+                    onClick={() =>
+                      setQuantity(
+                        product.slug,
+                        item.quantity + 1,
+                        item.variantId
+                      )
+                    }
                     className="text-kb-cacao"
                   >
                     +
@@ -110,7 +132,7 @@ export function CartView({ products }: { products: Product[] }) {
                 </div>
                 <button
                   type="button"
-                  onClick={() => removeFromCart(product.slug)}
+                  onClick={() => removeFromCart(product.slug, item.variantId)}
                   className="kb-label text-[10px] text-kb-dusk/50 hover:text-kb-terracotta"
                 >
                   Remove
@@ -118,7 +140,7 @@ export function CartView({ products }: { products: Product[] }) {
               </div>
             </div>
             <p className="font-body text-[15px] font-light text-kb-dusk">
-              {formatAmount(product.price * item.quantity)}
+              {formatAmount(variant.price * item.quantity)}
             </p>
           </li>
         ))}

@@ -11,8 +11,7 @@ import {
 import { HairlineRule } from "@/components/hairline-rule";
 import { CornerBrackets } from "@/components/corner-brackets";
 import { Accordion } from "@/components/accordion";
-import { AddToCart } from "@/components/add-to-cart";
-import { ProductPriceSection } from "@/components/product-price-section";
+import { ProductPurchasePanel } from "@/components/product-purchase-panel";
 import {
   ProductDetailsPanel,
   ProductSourcingStory,
@@ -113,11 +112,11 @@ export default async function ProductPage({ params }: { params: Params }) {
                   <span className="text-kb-dusk/50"> · {keyIngredient.origin}</span>
                 </p>
               )}
-              <ProductPriceSection price={product.price} volume={product.volume} />
 
               <HairlineRule width="100%" variant="chalk" className="my-6" />
 
-              <AddToCart slug={product.slug} inStock={product.inStock} />
+              <ProductPurchasePanel product={product} />
+
               <div className="mt-4">
                 <GoldCTA href="/skin-ritual/quiz">
                   Not sure? Take the ritual quiz →

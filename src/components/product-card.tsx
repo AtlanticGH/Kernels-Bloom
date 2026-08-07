@@ -6,6 +6,10 @@ import { ProductPrice } from "@/components/product-price";
 import type { Product } from "@/lib/types";
 import { ingredients } from "@/lib/data/ingredients";
 import { categories } from "@/lib/data/categories";
+import {
+  getProductListingOffer,
+  hasProductVariants,
+} from "@/lib/product-variants";
 
 /** Borderless product card — Parchment, 3:4 image (or square), image-only scale on hover. */
 export function ProductCard({
@@ -20,6 +24,8 @@ export function ProductCard({
 }) {
   const ingredient = ingredients.find((i) => i.slug === product.keyIngredient);
   const category = categories.find((c) => c.slug === product.category);
+  const listing = getProductListingOffer(product);
+  const fromPrice = hasProductVariants(product);
 
   return (
     <Link
@@ -33,7 +39,7 @@ export function ProductCard({
       >
         <Image
           src={product.image}
-          alt={`${product.name} — ${product.volume}, ${ingredient?.commonName ?? "botanical"} on a warm stone surface`}
+          alt={`${product.name} — ${listing.volume}, ${ingredient?.commonName ?? "botanical"} on a warm stone surface`}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.02]"
@@ -56,7 +62,12 @@ export function ProductCard({
         </p>
       )}
       <p className="mt-2 font-body text-[13px] font-light text-kb-dusk/60">
-        <ProductPrice amount={product.price} volume={product.volume} />
+        {fromPrice && (
+          <span className="mr-1 font-body text-[11px] uppercase tracking-[0.08em] text-kb-dusk/45">
+            From
+          </span>
+        )}
+        <ProductPrice amount={listing.price} volume={listing.volume} />
       </p>
     </Link>
   );

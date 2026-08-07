@@ -56,6 +56,8 @@ function mergeOne(base: Product, cms: Product): Product {
     ...cms,
     image: images.image,
     images: images.images,
+    variants:
+      cms.variants && cms.variants.length > 0 ? cms.variants : base.variants,
   };
 }
 

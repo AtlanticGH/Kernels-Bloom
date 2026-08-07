@@ -24,6 +24,13 @@ function normalizeProductForSave(product: Product): Product {
     ingredients: product.ingredients.map((s) => s.trim()).filter(Boolean),
     skinTypes: product.skinTypes.map((s) => s.trim()).filter(Boolean),
     related: product.related.map((s) => s.trim()).filter(Boolean),
+    variants: product.variants?.map((variant) => ({
+      ...variant,
+      id: variant.id.trim(),
+      label: variant.label.trim(),
+      volume: variant.volume.trim(),
+      price: Math.max(0, Number(variant.price) || 0),
+    })),
   };
 }
 

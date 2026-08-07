@@ -48,6 +48,14 @@ export interface Ingredient {
   coordinates: { lat: number; lng: number };
 }
 
+export interface ProductVariant {
+  id: string;
+  label: string;
+  volume: string;
+  price: number; // USD
+  inStock?: boolean;
+}
+
 export interface Product {
   slug: string;
   name: string;
@@ -59,8 +67,10 @@ export interface Product {
   usage: string;
   sustainability: string;
   inci: string;
-  price: number; // USD
+  price: number; // USD — base / default variant price
   volume: string;
+  /** Size or format options when more than one is available. */
+  variants?: ProductVariant[];
   image: string;
   /** Additional product photos for the detail page gallery (first should match `image`). */
   images?: string[];
