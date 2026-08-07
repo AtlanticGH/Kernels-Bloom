@@ -167,7 +167,7 @@ export default async function ProductPage({ params }: { params: Params }) {
                       content: <p>{product.inci}</p>,
                     },
                     {
-                      label: "Sustainability",
+                      label: "Caution",
                       content: <p>{product.sustainability}</p>,
                     },
                     {

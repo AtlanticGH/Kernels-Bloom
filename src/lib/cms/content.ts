@@ -18,11 +18,9 @@ function resolveBlockData<K extends CmsBlockId>(
 
   if (id === "catalog.products") {
     const block = merged as CmsBlockMap["catalog.products"];
-    if (block.items?.length) {
-      return {
-        items: mergeProductCatalogItems(block.items as Product[]),
-      } as CmsBlockMap[K];
-    }
+    return {
+      items: mergeProductCatalogItems((block.items ?? []) as Product[]),
+    } as CmsBlockMap[K];
   }
 
   return merged;

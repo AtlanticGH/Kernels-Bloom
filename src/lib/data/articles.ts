@@ -19,7 +19,7 @@ export const articles: Article[] = [
     readTime: 6,
     publishedAt: "2026-05-18",
     image: IMG_A,
-    relatedProducts: ["shea-body-butter", "shea-baby-balm"],
+    relatedProducts: ["raw-shea-body-butter", "shea-infused-body-butter"],
   },
   {
     slug: "why-we-never-fell-the-baobab",
@@ -36,7 +36,7 @@ export const articles: Article[] = [
     readTime: 5,
     publishedAt: "2026-04-29",
     image: IMG_B,
-    relatedProducts: ["baobab-night-oil", "baobab-scalp-tonic"],
+    relatedProducts: ["botanical-infused-body-oil", "hydration-boost-gentle-hair-shampoo"],
   },
   {
     slug: "reading-the-skin-an-oil-primer",
@@ -53,7 +53,7 @@ export const articles: Article[] = [
     readTime: 7,
     publishedAt: "2026-04-10",
     image: IMG_A,
-    relatedProducts: ["marula-facial-serum", "kalahari-circular-oil"],
+    relatedProducts: ["nourishing-face-cream", "botanical-infused-body-oil"],
   },
   {
     slug: "hibiscus-the-quiet-acid",
@@ -70,7 +70,7 @@ export const articles: Article[] = [
     readTime: 4,
     publishedAt: "2026-03-22",
     image: IMG_B,
-    relatedProducts: ["hibiscus-resurfacing-essence", "hibiscus-lip-tint"],
+    relatedProducts: ["resurfacing-fade-milk", "long-wear-moisturising-lip-balm"],
   },
   {
     slug: "the-seed-left-in-the-field",
@@ -87,7 +87,7 @@ export const articles: Article[] = [
     readTime: 5,
     publishedAt: "2026-03-05",
     image: "/images/DSC09564.jpg",
-    relatedProducts: ["kalahari-circular-oil"],
+    relatedProducts: ["eco-claim-dishwashing-soap"],
   },
   {
     slug: "marula-pressed-at-first-crack",
@@ -104,7 +104,7 @@ export const articles: Article[] = [
     readTime: 5,
     publishedAt: "2026-06-04",
     image: "/images/DSC09530.jpg",
-    relatedProducts: ["marula-facial-serum", "ritual-discovery-set"],
+    relatedProducts: ["nourishing-face-cream", "scented-candle"],
   },
   {
     slug: "moringa-between-the-rows",
@@ -121,7 +121,7 @@ export const articles: Article[] = [
     readTime: 6,
     publishedAt: "2026-06-01",
     image: "/images/DSC09564.jpg",
-    relatedProducts: ["moringa-clarity-mask", "hibiscus-resurfacing-essence"],
+    relatedProducts: ["be-you-anti-aging-retinol-serum", "resurfacing-face-cleansing-gel"],
   },
   {
     slug: "the-long-bath",
@@ -138,7 +138,7 @@ export const articles: Article[] = [
     readTime: 4,
     publishedAt: "2026-05-28",
     image: "/images/DSC09558.jpg",
-    relatedProducts: ["shea-body-butter", "kalahari-circular-oil"],
+    relatedProducts: ["raw-shea-body-butter", "botanical-infused-body-oil"],
   },
   {
     slug: "refillable-by-design",
@@ -155,6 +155,6 @@ export const articles: Article[] = [
     readTime: 5,
     publishedAt: "2026-05-22",
     image: "/images/DSC09536.jpg",
-    relatedProducts: ["kalahari-circular-oil", "baobab-night-oil"],
+    relatedProducts: ["eco-claim-dishwashing-soap", "botanical-infused-body-oil"],
   },
 ];

@@ -29,7 +29,6 @@ function mergeCategories(cmsItems: ProductCategory[]): ProductCategory[] {
 
 export async function getAllProducts(): Promise<Product[]> {
   const { items } = await getCmsBlock("catalog.products");
-  if (items.length === 0) return localProducts;
   return mergeProductCatalogItems(items);
 }
 
