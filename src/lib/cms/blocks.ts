@@ -135,8 +135,9 @@ export const CMS_BLOCK_META: Record<
       "Add and edit products — copy, pricing, images, ingredients, and shop placement.",
   },
   "catalog.ingredients": {
-    label: "Botanical tile images",
-    description: "Photos for each botanical on the index grid — upload and preview per ingredient.",
+    label: "Botanical photos",
+    description:
+      "Photos for each botanical on the index grid and beside the ingredient story write-up.",
   },
   "catalog.articles": {
     label: "Journal posts",

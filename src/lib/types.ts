@@ -40,7 +40,7 @@ export interface Ingredient {
   group: "Oils" | "Butters" | "Extracts" | "Active";
   primaryBenefit: string;
   illustration: BotanicalName | null;
-  /** Photo used on the botanicals index grid tile. */
+  /** Photo used on the botanicals index grid and detail story page. */
   tileImage?: string;
   bodyText: string[];
   pullQuote: string;

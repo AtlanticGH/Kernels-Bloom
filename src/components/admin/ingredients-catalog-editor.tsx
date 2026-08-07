@@ -62,7 +62,7 @@ function IngredientTileCard({
             </p>
           </div>
           <ImageField
-            label="Tile image"
+            label="Botanical photo"
             value={ingredient.tileImage ?? ""}
             onChange={(tileImage) => onChange({ ...ingredient, tileImage })}
           />
@@ -85,9 +85,9 @@ export function IngredientsCatalogEditor({
   return (
     <div className="space-y-6">
       <p className="font-body text-[13px] font-light leading-relaxed text-kb-dusk/60">
-        Upload a photo for each botanical tile on the{" "}
-        <span className="text-kb-cacao">/botanicals</span> index. Ingredient
-        copy and detail pages are unchanged — only the grid image is edited here.
+        Upload a photo for each botanical — it appears on the{" "}
+        <span className="text-kb-cacao">/botanicals</span> index grid and on
+        the ingredient story page beside the write-up.
       </p>
 
       <div className="grid gap-4">
