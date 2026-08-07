@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import type { CategorySlug, Product } from "@/lib/types";
+import type { CategorySlug, Product, ProductVariant } from "@/lib/types";
 import type { CatalogListContent } from "@/lib/cms/types";
 import { categories } from "@/lib/data/categories";
 import { ingredients } from "@/lib/data/ingredients";
@@ -68,6 +68,195 @@ function emptyProduct(): Product {
     skinTypes: [],
     related: [],
   };
+}
+
+function variantIdFromLabel(label: string, index: number): string {
+  const base = slugify(label);
+  return base || `size-${index + 1}`;
+}
+
+function normalizeVariants(variants: ProductVariant[]): ProductVariant[] {
+  return variants.map((variant, index) => {
+    const label = variant.label.trim();
+    const volume = variant.volume.trim() || label;
+    return {
+      id: variant.id.trim() || variantIdFromLabel(label, index),
+      label,
+      volume,
+      price: Math.max(0, Number(variant.price) || 0),
+      inStock: variant.inStock ?? true,
+    };
+  });
+}
+
+function syncProductVariants(product: Product, variants: ProductVariant[]): Product {
+  const cleaned = normalizeVariants(variants).filter((variant) => variant.label);
+  if (cleaned.length === 0) {
+    return { ...product, variants: undefined };
+  }
+
+  return {
+    ...product,
+    variants: cleaned,
+    price: cleaned[0].price,
+    volume: cleaned.map((variant) => variant.label).join(", "),
+  };
+}
+
+function emptyVariant(product: Product, index: number): ProductVariant {
+  return {
+    id: `size-${index + 1}`,
+    label: "",
+    volume: "",
+    price: product.price,
+    inStock: product.inStock,
+  };
+}
+
+function ProductVariantsEditor({
+  product,
+  onChange,
+}: {
+  product: Product;
+  onChange: (product: Product) => void;
+}) {
+  const variants = product.variants ?? [];
+  const hasVariants = variants.length > 0;
+
+  function updateVariants(next: ProductVariant[]) {
+    onChange(syncProductVariants(product, next));
+  }
+
+  function updateVariant(index: number, patch: Partial<ProductVariant>) {
+    const next = variants.map((variant, i) =>
+      i === index ? { ...variant, ...patch } : variant
+    );
+    updateVariants(next);
+  }
+
+  function addVariant() {
+    updateVariants([...variants, emptyVariant(product, variants.length)]);
+  }
+
+  function removeVariant(index: number) {
+    updateVariants(variants.filter((_, i) => i !== index));
+  }
+
+  function enableVariants() {
+    if (hasVariants) return;
+    updateVariants([
+      {
+        id: variantIdFromLabel(product.volume, 0),
+        label: product.volume || "Default size",
+        volume: product.volume || "Default size",
+        price: product.price,
+        inStock: product.inStock,
+      },
+    ]);
+  }
+
+  return (
+    <div className="space-y-4 sm:col-span-2">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="kb-label text-[10px] text-kb-terracotta">Size variations</p>
+          <p className="mt-1 font-body text-[12px] font-light leading-relaxed text-kb-dusk/50">
+            Add multiple sizes when shoppers should choose before adding to cart.
+            The first size sets the default listing price.
+          </p>
+        </div>
+        {!hasVariants && (
+          <button
+            type="button"
+            onClick={enableVariants}
+            className="shrink-0 rounded-kb border-[0.5px] border-kb-chalk px-3 py-1.5 font-body text-[12px] font-light text-kb-dusk/70 hover:border-kb-gold hover:text-kb-cacao"
+          >
+            + Enable size options
+          </button>
+        )}
+      </div>
+
+      {hasVariants ? (
+        <div className="space-y-3">
+          {variants.map((variant, index) => (
+            <div
+              key={`${product.slug}-variant-${index}`}
+              className="rounded-kb border-[0.5px] border-kb-chalk bg-kb-parchment/50 p-4"
+            >
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <span className="kb-label text-[10px] text-kb-gold">
+                  Size {index + 1}
+                  {index === 0 ? " · default listing" : ""}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeVariant(index)}
+                  className="rounded-kb px-2 py-1 font-body text-[12px] font-light text-kb-terracotta hover:bg-kb-linen"
+                >
+                  Remove
+                </button>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <TextField
+                  label="Size label"
+                  value={variant.label}
+                  onChange={(label) => {
+                    const id = variantIdFromLabel(label, index);
+                    updateVariant(index, {
+                      label,
+                      volume: variant.volume || label,
+                      id,
+                    });
+                  }}
+                  hint='Shown on the shop, e.g. "250ml / 9 oz"'
+                />
+                <TextField
+                  label="Price (USD)"
+                  type="number"
+                  value={String(variant.price)}
+                  onChange={(value) =>
+                    updateVariant(index, {
+                      price: Math.max(0, Number(value) || 0),
+                    })
+                  }
+                />
+                <TextField
+                  label="Variant ID"
+                  value={variant.id}
+                  onChange={(id) => updateVariant(index, { id: slugify(id) })}
+                  hint="Internal key for cart lines — auto-generated from label"
+                />
+                <label className="flex items-center gap-2 self-end pb-2 font-body text-[14px] font-light text-kb-dusk">
+                  <input
+                    type="checkbox"
+                    checked={variant.inStock ?? product.inStock}
+                    onChange={(e) =>
+                      updateVariant(index, { inStock: e.target.checked })
+                    }
+                    className="rounded border-kb-chalk"
+                  />
+                  In stock
+                </label>
+              </div>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={addVariant}
+            className="rounded-kb border-[0.5px] border-dashed border-kb-chalk px-4 py-2 font-body text-[13px] font-light text-kb-dusk/70 hover:border-kb-gold hover:text-kb-cacao"
+          >
+            + Add size
+          </button>
+        </div>
+      ) : (
+        <p className="rounded-kb border-[0.5px] border-dashed border-kb-chalk px-4 py-3 font-body text-[13px] font-light text-kb-dusk/55">
+          Single size only — use volume and price below.
+        </p>
+      )}
+    </div>
+  );
 }
 
 function TextField({
@@ -342,18 +531,41 @@ function ProductEditor({
               </select>
             </label>
             <TextField
-              label="Volume"
+              label={product.variants?.length ? "Volume summary" : "Volume"}
               value={product.volume}
               onChange={(volume) => onChange({ ...product, volume })}
-            />
-            <TextField
-              label="Price (USD)"
-              type="number"
-              value={String(product.price)}
-              onChange={(value) =>
-                onChange({ ...product, price: Math.max(0, Number(value) || 0) })
+              hint={
+                product.variants?.length
+                  ? "Auto-filled from size labels when variations are enabled"
+                  : undefined
               }
             />
+            <TextField
+              label={product.variants?.length ? "Default price (USD)" : "Price (USD)"}
+              type="number"
+              value={String(product.price)}
+              onChange={(value) => {
+                const price = Math.max(0, Number(value) || 0);
+                if (product.variants?.length) {
+                  onChange(
+                    syncProductVariants(
+                      product,
+                      product.variants.map((variant, index) =>
+                        index === 0 ? { ...variant, price } : variant
+                      )
+                    )
+                  );
+                  return;
+                }
+                onChange({ ...product, price });
+              }}
+              hint={
+                product.variants?.length
+                  ? "Updates the first size option"
+                  : undefined
+              }
+            />
+            <ProductVariantsEditor product={product} onChange={onChange} />
             <TextField
               label="Skin types"
               value={product.skinTypes.join(", ")}
@@ -693,8 +905,8 @@ export function ProductsCatalogEditor({
     <div className="space-y-5">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <p className="max-w-2xl font-body text-[13px] font-light leading-relaxed text-kb-dusk/60">
-          Add products or select a tab to edit copy, pricing, images, and shop
-          placement. Save changes to publish to the live shop.
+          Add products or select a tab to edit copy, pricing, size variations,
+          images, and shop placement. Save changes to publish to the live shop.
         </p>
         <button
           type="button"
