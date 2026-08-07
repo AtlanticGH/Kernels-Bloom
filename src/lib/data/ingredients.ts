@@ -2,6 +2,25 @@ import type { Ingredient } from "@/lib/types";
 
 export const ingredients: Ingredient[] = [
   {
+    slug: "palm",
+    commonName: "Palm",
+    latinName: "Elaeis guineensis",
+    origin: "Coastal Ghana",
+    region: "Tropical lowland",
+    group: "Oils",
+    primaryBenefit: "Deep nourishment",
+    illustration: "Palm",
+    tileImage: "/images/DSC09558.jpg",
+    bodyText: [
+      "Palm, Coastal Ghana.",
+      "The oil palm has shaded West African forest edges for millennia — its fruit pressed for a rich, golden oil that carries vitamins A and E deep into the skin.",
+      "Our partners harvest at peak ripeness and cold-press within hours, keeping the oil bright and the forest standing.",
+      "On the skin, palm oil softens without heaviness — a nourishment that reads as luxury because it is earned slowly, from the grove.",
+    ],
+    pullQuote: "Pressed at peak ripeness, to keep the oil bright.",
+    coordinates: { lat: 5.6037, lng: -0.187 },
+  },
+  {
     slug: "shea",
     commonName: "Shea",
     latinName: "Vitellaria paradoxa",
@@ -120,25 +139,6 @@ export const ingredients: Ingredient[] = [
     pullQuote: "Waste is mostly a failure of imagination.",
     communitySlug: "kalahari-melon",
     coordinates: { lat: -21.6995, lng: 21.6452 },
-  },
-  {
-    slug: "palm",
-    commonName: "Palm",
-    latinName: "Elaeis guineensis",
-    origin: "Coastal Ghana",
-    region: "Tropical lowland",
-    group: "Oils",
-    primaryBenefit: "Deep nourishment",
-    illustration: null,
-    tileImage: "/images/DSC09558.jpg",
-    bodyText: [
-      "Palm, Coastal Ghana.",
-      "The oil palm has shaded West African forest edges for millennia — its fruit pressed for a rich, golden oil that carries vitamins A and E deep into the skin.",
-      "Our partners harvest at peak ripeness and cold-press within hours, keeping the oil bright and the forest standing.",
-      "On the skin, palm oil softens without heaviness — a nourishment that reads as luxury because it is earned slowly, from the grove.",
-    ],
-    pullQuote: "Pressed at peak ripeness, to keep the oil bright.",
-    coordinates: { lat: 5.6037, lng: -0.187 },
   },
   {
     slug: "kola",

@@ -57,12 +57,26 @@ export async function getProductsByIngredient(
   return products.filter((p) => p.ingredients.includes(ingredientSlug));
 }
 
+const ingredientSlugOrder = new Map(
+  localIngredients.map((ingredient, index) => [ingredient.slug, index])
+);
+
+function sortIngredients(items: Ingredient[]): Ingredient[] {
+  return [...items].sort(
+    (a, b) =>
+      (ingredientSlugOrder.get(a.slug) ?? 999) -
+      (ingredientSlugOrder.get(b.slug) ?? 999)
+  );
+}
+
 function mergeIngredients(cmsItems: Ingredient[]): Ingredient[] {
   const localBySlug = new Map(localIngredients.map((i) => [i.slug, i]));
-  return cmsItems.map((item) => {
-    const base = localBySlug.get(item.slug);
-    return base ? { ...base, ...item } : item;
-  });
+  return sortIngredients(
+    cmsItems.map((item) => {
+      const base = localBySlug.get(item.slug);
+      return base ? { ...base, ...item } : item;
+    })
+  );
 }
 
 export async function getAllIngredients(): Promise<Ingredient[]> {
