@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Ingredient } from "@/lib/types";
+import { cmsImageUnoptimized } from "@/lib/cms-image";
 import { BotanicalIllustration } from "./botanical-illustration";
 
 /** Botanical grid tile — photo or illustration backdrop with name overlay + hover lift. */
@@ -24,6 +25,7 @@ export function IngredientTile({
             src={ingredient.tileImage!}
             alt={ingredient.commonName}
             fill
+            unoptimized={cmsImageUnoptimized(ingredient.tileImage)}
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />

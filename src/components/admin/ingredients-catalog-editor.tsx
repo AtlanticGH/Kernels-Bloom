@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { Ingredient } from "@/lib/types";
 import type { CatalogListContent } from "@/lib/cms/types";
+import { cmsImageUnoptimized } from "@/lib/cms-image";
 import { ImageField } from "@/components/admin/image-field";
 
 type IngredientsCatalogEditorProps = {
@@ -26,6 +27,7 @@ function TilePreview({ ingredient }: { ingredient: Ingredient }) {
           fill
           className="object-cover"
           sizes="160px"
+          unoptimized={cmsImageUnoptimized(src)}
         />
       ) : (
         <div className="flex h-full items-center justify-center px-3 text-center font-body text-[12px] font-light text-kb-dusk/40">

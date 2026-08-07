@@ -7,6 +7,7 @@ import {
   getProductsByIngredient,
   getCommunity,
 } from "@/lib/data";
+import { cmsImageUnoptimized } from "@/lib/cms-image";
 import { HairlineRule } from "@/components/hairline-rule";
 import { BotanicalIllustration } from "@/components/botanical-illustration";
 import { GrainOverlay } from "@/components/grain-overlay";
@@ -97,6 +98,7 @@ export default async function IngredientPage({ params }: { params: Params }) {
                         alt={`${ingredient.commonName} — ${ingredient.origin}`}
                         fill
                         priority
+                        unoptimized={cmsImageUnoptimized(ingredient.tileImage)}
                         sizes="(max-width: 1024px) 100vw, 45vw"
                         className="object-cover"
                       />

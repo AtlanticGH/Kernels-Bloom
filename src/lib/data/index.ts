@@ -78,13 +78,22 @@ function mergeOneIngredient(base: Ingredient, cms: Ingredient): Ingredient {
 }
 
 function mergeIngredients(cmsItems: Ingredient[]): Ingredient[] {
-  const localBySlug = new Map(localIngredients.map((i) => [i.slug, i]));
-  return sortIngredients(
-    cmsItems.map((item) => {
-      const base = localBySlug.get(item.slug);
-      return base ? mergeOneIngredient(base, item) : item;
-    })
+  const cmsBySlug = new Map(
+    cmsItems.map((item) => [item.slug, item] as const)
   );
+
+  const merged = localIngredients.map((base) => {
+    const cms = cmsBySlug.get(base.slug);
+    return cms ? mergeOneIngredient(base, cms) : base;
+  });
+
+  const cmsOnly = cmsItems.filter(
+    (item) =>
+      !localIngredients.some((base) => base.slug === item.slug) &&
+      item.tileImage?.trim()
+  );
+
+  return sortIngredients([...merged, ...cmsOnly]);
 }
 
 export async function getAllIngredients(): Promise<Ingredient[]> {

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { cmsImageUnoptimized } from "@/lib/cms-image";
 
 type ImageFieldProps = {
   label: string;
@@ -75,7 +76,7 @@ export function ImageField({
         fill
         className="object-cover"
         sizes={compact ? "64px" : "180px"}
-        unoptimized={value.startsWith("http")}
+        unoptimized={cmsImageUnoptimized(value)}
       />
     </div>
   ) : null;
