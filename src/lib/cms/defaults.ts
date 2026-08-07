@@ -2,6 +2,7 @@ import { articles } from "@/lib/data/articles";
 import { categories } from "@/lib/data/categories";
 import { communities } from "@/lib/data/communities";
 import { ingredients } from "@/lib/data/ingredients";
+import { partnerBrands } from "@/lib/data/partner-brands";
 import { products } from "@/lib/data/products";
 import { QUIZ_QUESTIONS } from "@/lib/quiz";
 import { SITE } from "@/lib/site";
@@ -506,4 +507,8 @@ export const CMS_BLOCK_DEFAULTS: CmsBlockMap = {
   "catalog.articles": { items: articles },
   "catalog.categories": { items: categories },
   "catalog.communities": { items: communities },
+  "catalog.partner-brands": {
+    sectionLabel: "Brands worked with",
+    items: partnerBrands,
+  },
 };

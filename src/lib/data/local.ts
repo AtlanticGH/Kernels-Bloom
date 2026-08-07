@@ -3,3 +3,4 @@ export { ingredients } from "./ingredients";
 export { communities } from "./communities";
 export { articles } from "./articles";
 export { categories } from "./categories";
+export { partnerBrands } from "./partner-brands";

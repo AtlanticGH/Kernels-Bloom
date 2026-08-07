@@ -4,6 +4,7 @@ import {
   categories as localCategories,
   communities as localCommunities,
   ingredients as localIngredients,
+  partnerBrands as localPartnerBrands,
   products as localProducts,
 } from "./local";
 import type {
@@ -11,9 +12,11 @@ import type {
   CategorySlug,
   Community,
   Ingredient,
+  PartnerBrand,
   Product,
   ProductCategory,
 } from "@/lib/types";
+import type { PartnerBrandsContent } from "@/lib/cms/types";
 
 import { mergeProductCatalogItems } from "./merge-product-catalog";
 
@@ -146,6 +149,47 @@ export async function getCategory(
 ): Promise<ProductCategory | undefined> {
   const categories = await getAllCategories();
   return categories.find((c) => c.slug === slug);
+}
+
+function mergePartnerBrandsContent(cms: PartnerBrandsContent): PartnerBrandsContent {
+  const localById = new Map(localPartnerBrands.map((brand) => [brand.id, brand]));
+
+  const items = cms.items
+    .map((item) => {
+      const base = localById.get(item.id);
+      const logo = item.logo?.trim() || base?.logo || "";
+      const name = item.name?.trim() || base?.name || "";
+      return { id: item.id, name, logo };
+    })
+    .filter((item) => item.logo && item.name);
+
+  if (items.length === 0) {
+    return {
+      sectionLabel: cms.sectionLabel?.trim() || "Brands worked with",
+      items: localPartnerBrands,
+    };
+  }
+
+  return {
+    sectionLabel: cms.sectionLabel?.trim() || "Brands worked with",
+    items,
+  };
+}
+
+export async function getPartnerBrandsContent(): Promise<PartnerBrandsContent> {
+  const cms = await getCmsBlock("catalog.partner-brands");
+  if (cms.items.length === 0) {
+    return {
+      sectionLabel: cms.sectionLabel?.trim() || "Brands worked with",
+      items: localPartnerBrands,
+    };
+  }
+  return mergePartnerBrandsContent(cms);
+}
+
+export async function getPartnerBrands(): Promise<PartnerBrand[]> {
+  const { items } = await getPartnerBrandsContent();
+  return items;
 }
 
 export async function resolveProducts(slugs: string[]): Promise<Product[]> {

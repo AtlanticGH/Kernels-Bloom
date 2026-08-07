@@ -151,6 +151,11 @@ export const CMS_BLOCK_META: Record<
     label: "Community partners",
     description: "Sourcing communities for the map and ingredient pages.",
   },
+  "catalog.partner-brands": {
+    label: "Brands worked with",
+    description:
+      "Partner and stockist logos for the homepage marquee — upload PNG or SVG logos.",
+  },
 };
 
 export type CmsNavGroup =
@@ -184,7 +189,7 @@ export function getCmsBlockKind(
   if (id === "catalog.articles") return "journal";
   if (id === "page.quiz") return "quiz";
   if (id === "catalog.products") return "catalog";
-  if (id === "catalog.categories" || id === "catalog.ingredients") {
+  if (id === "catalog.categories" || id === "catalog.ingredients" || id === "catalog.partner-brands") {
     return "images";
   }
   if (id.startsWith("catalog.")) return "catalog";
@@ -217,6 +222,7 @@ export const CMS_PAGE_NAV: {
       "home.ritual-cta",
       "home.journal",
       "home.trade-banner",
+      "catalog.partner-brands",
     ],
   },
   {

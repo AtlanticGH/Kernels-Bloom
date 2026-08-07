@@ -1,58 +1,45 @@
-export type PartnerBrand = {
-  name: string;
-  src: string;
-  width: number;
-  height: number;
-};
+import type { PartnerBrand } from "@/lib/types";
 
-/** Hospitality, spa and retail partners — swap SVGs in /public/images/brands/ as needed. */
+/** Default partner logos — overridden by CMS uploads in catalog.partner-brands. */
 export const partnerBrands: PartnerBrand[] = [
   {
+    id: "kempinski",
     name: "Kempinski Hotel Gold Coast",
-    src: "/images/brands/kempinski.svg",
-    width: 140,
-    height: 32,
+    logo: "/images/brands/kempinski.svg",
   },
   {
+    id: "movenpick",
     name: "Mövenpick Ambassador Hotel",
-    src: "/images/brands/movenpick.svg",
-    width: 148,
-    height: 32,
+    logo: "/images/brands/movenpick.svg",
   },
   {
+    id: "labadi-beach",
     name: "Labadi Beach Hotel",
-    src: "/images/brands/labadi-beach.svg",
-    width: 132,
-    height: 32,
+    logo: "/images/brands/labadi-beach.svg",
   },
   {
+    id: "villa-monticello",
     name: "Villa Monticello",
-    src: "/images/brands/villa-monticello.svg",
-    width: 156,
-    height: 32,
+    logo: "/images/brands/villa-monticello.svg",
   },
   {
+    id: "alisa-hotel",
     name: "Alisa Hotel",
-    src: "/images/brands/alisa-hotel.svg",
-    width: 108,
-    height: 32,
+    logo: "/images/brands/alisa-hotel.svg",
   },
   {
+    id: "oxford-street",
     name: "Number One Oxford Street",
-    src: "/images/brands/oxford-street.svg",
-    width: 168,
-    height: 32,
+    logo: "/images/brands/oxford-street.svg",
   },
   {
+    id: "spa-collective",
     name: "The Spa Collective",
-    src: "/images/brands/spa-collective.svg",
-    width: 144,
-    height: 32,
+    logo: "/images/brands/spa-collective.svg",
   },
   {
+    id: "bloom-field",
     name: "Bloom & Field",
-    src: "/images/brands/bloom-field.svg",
-    width: 128,
-    height: 32,
+    logo: "/images/brands/bloom-field.svg",
   },
 ];

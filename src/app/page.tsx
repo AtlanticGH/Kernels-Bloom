@@ -16,7 +16,7 @@ import { HeroHeadline } from "@/components/hero-headline";
 import { BrandMarquee } from "@/components/brand-marquee";
 import { parseBotanicalName } from "@/lib/cms/botanical";
 import { getCmsBlock } from "@/lib/cms/content";
-import { getFeaturedProducts, getAllArticles } from "@/lib/data";
+import { getFeaturedProducts, getAllArticles, getPartnerBrandsContent } from "@/lib/data";
 
 export default async function HomePage() {
   const [
@@ -31,6 +31,7 @@ export default async function HomePage() {
     ritual,
     journal,
     tradeBanner,
+    partnerBrands,
   ] = await Promise.all([
     getFeaturedProducts(4),
     getAllArticles(),
@@ -43,6 +44,7 @@ export default async function HomePage() {
     getCmsBlock("home.ritual-cta"),
     getCmsBlock("home.journal"),
     getCmsBlock("home.trade-banner"),
+    getPartnerBrandsContent(),
   ]);
   const articlePreview = articles.slice(0, 3);
 
@@ -139,7 +141,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <BrandMarquee />
+      <BrandMarquee
+        brands={partnerBrands.items}
+        sectionLabel={partnerBrands.sectionLabel}
+      />
 
       <section className="bg-kb-parchment pt-kb-16 pb-kb-16">
         <div className="mx-auto max-w-kb-max px-6">

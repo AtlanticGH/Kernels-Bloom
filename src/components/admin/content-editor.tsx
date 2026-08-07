@@ -25,10 +25,15 @@ import { VideoField } from "@/components/admin/video-field";
 import { ArticlesCatalogEditor } from "@/components/admin/articles-catalog-editor";
 import { CategoriesCatalogEditor } from "@/components/admin/categories-catalog-editor";
 import { IngredientsCatalogEditor } from "@/components/admin/ingredients-catalog-editor";
+import { PartnerBrandsCatalogEditor } from "@/components/admin/partner-brands-catalog-editor";
 import { ProductsCatalogEditor } from "@/components/admin/products-catalog-editor";
 import { QuizBlockEditor } from "@/components/admin/quiz-block-editor";
 import type { Article, Ingredient, Product, ProductCategory } from "@/lib/types";
-import type { CatalogListContent, PageQuizContent } from "@/lib/cms/types";
+import type {
+  CatalogListContent,
+  PageQuizContent,
+  PartnerBrandsContent,
+} from "@/lib/cms/types";
 
 type BlockRow = {
   id: CmsBlockId;
@@ -386,6 +391,13 @@ function BlockEditor({
     body = (
       <IngredientsCatalogEditor
         data={block.data as CatalogListContent<Ingredient>}
+        onChange={onReplaceData}
+      />
+    );
+  } else if (block.id === "catalog.partner-brands") {
+    body = (
+      <PartnerBrandsCatalogEditor
+        data={block.data as PartnerBrandsContent}
         onChange={onReplaceData}
       />
     );

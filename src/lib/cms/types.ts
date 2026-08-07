@@ -236,6 +236,11 @@ export type PageNotFoundContent = PageHeroFields & {
 
 export type CatalogListContent<T> = { items: T[] };
 
+export type PartnerBrandsContent = {
+  sectionLabel: string;
+  items: import("@/lib/types").PartnerBrand[];
+};
+
 export type CmsBlockId =
   | "site.social"
   | "site.global"
@@ -270,7 +275,8 @@ export type CmsBlockId =
   | "catalog.ingredients"
   | "catalog.articles"
   | "catalog.categories"
-  | "catalog.communities";
+  | "catalog.communities"
+  | "catalog.partner-brands";
 
 export type CmsBlockMap = {
   "site.social": SiteSocialContent;
@@ -307,4 +313,5 @@ export type CmsBlockMap = {
   "catalog.articles": CatalogListContent<import("@/lib/types").Article>;
   "catalog.categories": CatalogListContent<import("@/lib/types").ProductCategory>;
   "catalog.communities": CatalogListContent<import("@/lib/types").Community>;
+  "catalog.partner-brands": PartnerBrandsContent;
 };

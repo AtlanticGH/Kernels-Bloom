@@ -31,6 +31,13 @@ export interface ProductCategory {
   tileImage?: string;
 }
 
+/** Hospitality, spa and retail logos for the homepage marquee. */
+export interface PartnerBrand {
+  id: string;
+  name: string;
+  logo: string;
+}
+
 export interface Ingredient {
   slug: string;
   commonName: string;
